@@ -1,4 +1,5 @@
 const User = require('./user')
+const Recipe = require('./recipe')
 
 const Channel = require('./channel')
 
@@ -19,6 +20,6 @@ const Channel = require('./channel')
 Channel.belogsToMany(User)
 module.exports = {
   User,
-
+  Recipe,
   Channel
 }
