@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Recipe} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -10,6 +10,29 @@ async function seed() {
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
+  ])
+
+  const recipes = await Promise.all([
+    Recipe.create({
+      name: 'Pesto Pasta',
+      ingredients: ['pesto sauce', 'pasta', 'tomatoes'],
+      measurement: ['1 bottle', '1 pack', '3'],
+      instructions:
+        '1.Buy pesto sauce 2.Buy pasta 3.Mix sauce with pasta, 4.add tomatoes for decoration',
+      imageUrl:
+        'https://joyfoodsunshine.com/wp-content/uploads/2019/07/pesto-pasta-recipe-3-500x375.jpg',
+      likes: 10
+    }),
+    Recipe.create({
+      name: 'Spaghetti Meatballs',
+      ingredients: ['meat balls', 'pasta', 'tomatoes sauce'],
+      measurement: ['3 lbs', '1 pack', '1 bottle'],
+      instructions:
+        '1.Buy tomato sauce 2.Buy pasta 3.Buy meatballs 3.Mix sauce, meatballs with pasta',
+      imageUrl:
+        'https://feelgoodfoodie.net/wp-content/uploads/2017/03/Spaghetti-and-Meatballs-7.jpg',
+      likes: 15
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
