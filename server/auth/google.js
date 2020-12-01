@@ -2,7 +2,6 @@ const passport = require('passport')
 const router = require('express').Router()
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const {User} = require('../db/models')
-module.exports = router
 
 /**
  * For OAuth keys and other secrets, your Node process will search
@@ -24,27 +23,41 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   const googleConfig = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
+    callbackURL: '/auth/google/callback'
   }
 
-  const strategy = new GoogleStrategy(
-    googleConfig,
-    (token, refreshToken, profile, done) => {
+  const strategy = new GoogleStrategy(googleConfig, async function(
+    token,
+    refreshToken,
+    profile,
+    done
+  ) {
+    try {
       const googleId = profile.id
       const email = profile.emails[0].value
-      const imgUrl = profile.photos[0].value
+      const imageUrl = profile.photos[0].value
       const firstName = profile.name.givenName
       const lastName = profile.name.familyName
       const fullName = profile.displayName
-
-      User.findOrCreate({
-        where: {googleId},
-        defaults: {email, imgUrl, firstName, lastName, fullName}
+      const userName = profile.displayName
+      const [user] = await User.findOrCreate({
+        where: {
+          googleId
+        },
+        defaults: {
+          imageUrl,
+          email,
+          firstName,
+          lastName,
+          fullName,
+          userName
+        }
       })
-        .then(([user]) => done(null, user))
-        .catch(done)
+      done(null, user)
+    } catch (error) {
+      done(error)
     }
-  )
+  })
 
   passport.use(strategy)
 
@@ -61,3 +74,4 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     })
   )
 }
+module.exports = router

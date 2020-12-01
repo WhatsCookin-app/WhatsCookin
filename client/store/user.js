@@ -8,15 +8,17 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
- * INITIAL STATE
- */
-const defaultUser = {}
-
-/**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+
+/**
+ * INITIAL STATE
+ */
+const defaultUser = {
+  name: 'Not logged in'
+}
 
 /**
  * THUNK CREATORS
@@ -30,10 +32,10 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (fullName, email, password, method) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, {email, password, fullName})
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
