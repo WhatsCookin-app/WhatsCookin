@@ -17,10 +17,19 @@ const Channel = require('./channel')
  * instead of: const User = require('../db/models/user')
  */
 
-// Channel.belongsToMany(User)
+// User.hasMany(Recipe)
+Recipe.belongsTo(User, {as: 'owner'})
+
+Recipe.belongsToMany(Channel, {
+  through: 'channelRecipe'
+})
+Channel.belongsToMany(Recipe, {
+  through: 'channelRecipe'
+})
+
 module.exports = {
   User,
   Recipe,
   Channel,
-  Event,
+  Event
 }
