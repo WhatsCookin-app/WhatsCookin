@@ -18,6 +18,13 @@ const channelUser = require('./channelUser')
  * instead of: const User = require('../db/models/user')
  */
 
+// Event.belongsToMany(User, {as: 'Guest'})
+// User.belongsToMany(Event, {as: 'Organizer'})
+//Mikyla suggestion below 
+//Might also want to define as a string the through table for lines 22 and 26/23 so that both associations belong to the same table
+// Event.belongsToMany(User, {as: 'Organizer', through: 'EventParticipants'}) //example 
+
+
 
 // User.hasMany(Recipe)
 Recipe.belongsTo(User, {as: 'owner'})
@@ -32,6 +39,7 @@ Channel.belongsTo(User)
 User.belongsToMany(Channel, {through: channelUser})
 Channel.belongsToMany(User, {through: channelUser})
 channelUser.belongsTo(Channel)
+
 
 module.exports = {
   User,
