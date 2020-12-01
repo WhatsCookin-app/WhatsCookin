@@ -19,3 +19,26 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#all-recipes {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#single-recipe {
+  padding: 20px;
+}
+
+#img {
+  border-radius: 13px;
+  border-color: rgb(222, 255, 253);
+  border-style: solid;
+}
+
+#recipe-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
