@@ -1,7 +1,7 @@
 'use strict'
 
 const {db} = require('../server/db')
-const {User, Recipe, Channel, channelUser} = require('../server/db/models')
+const {User, Recipe, Channel, channelUser, Event} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -23,13 +23,20 @@ async function seed() {
       password: 'ilovegh'
     })
   ])
-
+  
+  const events = await Promise.all([
+    Event.create({
+      organizer: '1',
+      guest: '2',
+      eventDate: 2020 - 11 - 30
+    })
+  ])
+  
   const seedChannels = [
     {
       name: 'Breakfast',
       imageUrl:
         'https://www.jessicagavin.com/wp-content/uploads/2020/07/avocado-toast-20.jpg',
-
       description:
         "The first meal taken after rising from a night's sleep, most often eaten in the early morning before undertaking the day's work.",
       isPrivate: false,
@@ -89,6 +96,7 @@ async function seed() {
       userId: 1,
     },
   ]
+  
   const channels = await Channel.bulkCreate(seedChannels)
 
   const seedChannelUsers = [
