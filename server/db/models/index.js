@@ -2,6 +2,7 @@ const User = require('./user')
 const Recipe = require('./recipe')
 const Event = require('./event')
 const Channel = require('./channel')
+const channelUser = require('./channelUser')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -17,13 +18,33 @@ const Channel = require('./channel')
  * instead of: const User = require('../db/models/user')
  */
 
-// Channel.belongsToMany(User)
 // Event.belongsToMany(User, {as: 'Guest'})
 // User.belongsToMany(Event, {as: 'Organizer'})
+//Mikyla suggestion below 
+//Might also want to define as a string the through table for lines 22 and 26/23 so that both associations belong to the same table
+// Event.belongsToMany(User, {as: 'Organizer', through: 'EventParticipants'}) //example 
+
+
+
+// User.hasMany(Recipe)
+Recipe.belongsTo(User, {as: 'owner'})
+Recipe.belongsToMany(Channel, {
+  through: 'channelRecipe'
+})
+Channel.belongsToMany(Recipe, {
+  through: 'channelRecipe'
+})
+// Channel.belongsTo(User, {as: 'owner'})
+Channel.belongsTo(User)
+User.belongsToMany(Channel, {through: channelUser})
+Channel.belongsToMany(User, {through: channelUser})
+channelUser.belongsTo(Channel)
+
 
 module.exports = {
   User,
   Recipe,
   Channel,
-  Event
+  Event,
+  channelUser,
 }
