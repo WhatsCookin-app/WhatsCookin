@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('../server/db')
+const {db} = require('../server/db')
 const {User, Recipe} = require('../server/db/models')
 const {Channel} = require('../server/db/models')
 
@@ -23,7 +23,6 @@ async function seed() {
       email: 'cody@hotmail.com',
       password: 'ilovegh',
     }),
-
   ])
 
   const recipes = await Promise.all([

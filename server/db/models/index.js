@@ -1,6 +1,6 @@
 const User = require('./user')
 const Recipe = require('./recipe')
-
+const Event = require('./event')
 const Channel = require('./channel')
 
 /**
@@ -17,9 +17,10 @@ const Channel = require('./channel')
  * instead of: const User = require('../db/models/user')
  */
 
-Channel.belogsToMany(User)
+// Channel.belongsToMany(User)
 module.exports = {
   User,
   Recipe,
-  Channel
+  Channel,
+  Event,
 }
