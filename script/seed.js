@@ -13,38 +13,15 @@ async function seed() {
       lastName: 'Obama',
       userName: '1president',
       email: 'bobama@hotmail.com',
-      password: 'michelle',
+      password: 'michelle'
     }),
     User.create({
       firstName: 'Cody',
       lastName: 'Hopper',
       userName: 'cody',
       email: 'cody@hotmail.com',
-      password: 'ilovegh',
-    }),
-  ])
-
-  const recipes = await Promise.all([
-    Recipe.create({
-      name: 'Pesto Pasta',
-      ingredients: ['pesto sauce', 'pasta', 'tomatoes'],
-      measurement: ['1 bottle', '1 pack', '3'],
-      instructions:
-        '1.Buy pesto sauce 2.Buy pasta 3.Mix sauce with pasta, 4.add tomatoes for decoration',
-      imageUrl:
-        'https://joyfoodsunshine.com/wp-content/uploads/2019/07/pesto-pasta-recipe-3-500x375.jpg',
-      likes: 10,
-    }),
-    Recipe.create({
-      name: 'Spaghetti Meatballs',
-      ingredients: ['meat balls', 'pasta', 'tomatoes sauce'],
-      measurement: ['3 lbs', '1 pack', '1 bottle'],
-      instructions:
-        '1.Buy tomato sauce 2.Buy pasta 3.Buy meatballs 3.Mix sauce, meatballs with pasta',
-      imageUrl:
-        'https://feelgoodfoodie.net/wp-content/uploads/2017/03/Spaghetti-and-Meatballs-7.jpg',
-      likes: 15,
-    }),
+      password: 'ilovegh'
+    })
   ])
 
   const seedChannels = [
@@ -52,6 +29,7 @@ async function seed() {
       name: 'Breakfast',
       imageUrl:
         'https://www.jessicagavin.com/wp-content/uploads/2020/07/avocado-toast-20.jpg',
+
       description:
         "The first meal taken after rising from a night's sleep, most often eaten in the early morning before undertaking the day's work.",
       isPrivate: false,
@@ -161,6 +139,29 @@ async function seed() {
   ]
 
   const newChannelUsers = await channelUser.bulkCreate(seedChannelUsers)
+
+  const recipes1 = await Recipe.create({
+    name: 'Pesto Pasta',
+    ingredients: 'pesto sauce - 1 bottle \npasta - 1 pack \ntomatoes - 3',
+    instructions:
+      '1.Buy pesto sauce 2.Buy pasta 3.Mix sauce with pasta, 4.add tomatoes for decoration',
+    imageUrl:
+      'https://joyfoodsunshine.com/wp-content/uploads/2019/07/pesto-pasta-recipe-3-500x375.jpg',
+    likes: 10
+  })
+  await recipes1.setChannels([1, 4])
+
+  const recipes2 = await Recipe.create({
+    name: 'Spaghetti Meatballs',
+    ingredients: 'meat balls - 3 lbs\npasta - 1 pack\ntomatoe sauce - 1 bottle',
+    instructions:
+      '1.Buy tomato sauce 2.Buy pasta 3.Buy meatballs 3.Mix sauce, meatballs with pasta',
+    imageUrl:
+      'https://feelgoodfoodie.net/wp-content/uploads/2017/03/Spaghetti-and-Meatballs-7.jpg',
+    likes: 15
+  })
+
+  await recipes2.setChannels([3, 4])
 
   console.log(
     `seeded ${users.length} users, ${channels.length} channels, and ${newChannelUsers.length} channel users`
