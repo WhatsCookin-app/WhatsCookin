@@ -18,9 +18,12 @@ const Channel = require('./channel')
  */
 
 // Channel.belongsToMany(User)
+// Event.belongsToMany(User, {as: 'Guest'})
+// User.belongsToMany(Event, {as: 'Organizer'})
+
 module.exports = {
   User,
   Recipe,
   Channel,
-  Event,
+  Event
 }
