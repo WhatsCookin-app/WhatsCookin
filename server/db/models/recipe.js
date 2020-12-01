@@ -11,15 +11,19 @@ const Recipe = db.define('recipe', {
   },
 
   ingredients: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
-  },
-
-  measurement: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
 
   instructions: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
 
   imageUrl: {
@@ -30,9 +34,7 @@ const Recipe = db.define('recipe', {
 
   likes: {
     type: Sequelize.INTEGER,
-    validate: {
-      min: 0
-    }
+    defaultValue: 0
   }
 })
 
