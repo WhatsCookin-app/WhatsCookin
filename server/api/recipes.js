@@ -38,14 +38,14 @@ router.get('/:channelId/:recipeId', async (req, res, next) => {
 })
 
 // create a recipe (channel ids will be an array in req.body)
-router.post('/:userId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const {name, ingredients, instructions, channels} = req.body
     const newRecipe = await Recipe.create({
       name,
       ingredients,
       instructions,
-      ownerId: req.params.userId
+      ownerId: req.user.id
     })
     await newRecipe.addChannels(channels)
     res.json(newRecipe)
@@ -55,10 +55,10 @@ router.post('/:userId', async (req, res, next) => {
 })
 
 // edit a recipe
-router.put('/:recipeId/:userId', async (req, res, next) => {
+router.put('/:recipeId', async (req, res, next) => {
   try {
     const recipe = await Recipe.findByPk(req.params.recipeId)
-    if (Number(recipe.dataValues.ownerId) === Number(req.params.userId)) {
+    if (Number(recipe.dataValues.ownerId) === Number(req.user.id)) {
       await recipe.update(req.body)
       const updated = Recipe.findByPk(req.params.recipeId)
       res.json(recipe)
@@ -73,10 +73,10 @@ router.put('/:recipeId/:userId', async (req, res, next) => {
 })
 
 // delete a recipe
-router.delete('/:recipeId/:userId', async (req, res, next) => {
+router.delete('/:recipeId', async (req, res, next) => {
   try {
     const recipe = await Recipe.findByPk(req.params.recipeId)
-    if (Number(recipe.dataValues.ownerId) === Number(req.params.userId)) {
+    if (Number(recipe.dataValues.ownerId) === Number(req.user.id)) {
       await recipe.destroy()
       res.json('recipe deleted')
     } else {
