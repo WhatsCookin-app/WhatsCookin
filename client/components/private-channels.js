@@ -2,10 +2,10 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const PrivateChannels = ({channels}) => {
-  const privateChannel = channels.filter((channel) => channel.channel.isPrivate)
+  const privateChannel = channels.filter(channel => channel.channel.isPrivate)
   return (
     <>
-      {privateChannel.map((currChannel) => (
+      {privateChannel.map(currChannel => (
         <div key={currChannel.channel.id}>
           <Link to={`/home/channels/${currChannel.channelId}`}>
             <img src={currChannel.channel.imageUrl} />
