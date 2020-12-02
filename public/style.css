@@ -34,6 +34,8 @@ form div {
   border-radius: 13px;
   border-color: rgb(222, 255, 253);
   border-style: solid;
+  height: 270px;
+  width: 300px;
 }
 
 #recipe-info {
