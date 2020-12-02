@@ -680,8 +680,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         style: {
-          width: "370px",
-          height: "300px"
+          width: '370px',
+          height: '300px'
         },
         name: "ingredients",
         value: this.state.ingredients,
@@ -702,8 +702,8 @@ function (_Component) {
         type: "text",
         name: "instructions",
         style: {
-          width: "370px",
-          height: "500px"
+          width: '370px',
+          height: '500px'
         },
         value: this.state.instructions,
         onChange: function onChange(event) {
@@ -47174,7 +47174,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
