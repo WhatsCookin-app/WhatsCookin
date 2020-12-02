@@ -111,6 +111,216 @@ var App = function App() {
 
 /***/ }),
 
+/***/ "./client/components/CreateUser.js":
+/*!*****************************************!*\
+  !*** ./client/components/CreateUser.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./client/store/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var CreateUser =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(CreateUser, _Component);
+
+  function CreateUser() {
+    var _this;
+
+    _classCallCheck(this, CreateUser);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateUser).call(this));
+    _this.state = {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      password: ''
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(CreateUser, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function () {
+      var _handleSubmit = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(evt) {
+        var newUserObj;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                evt.preventDefault();
+                newUserObj = {
+                  firstName: this.state.firstName,
+                  lastName: this.state.lastName,
+                  userName: this.state.userName,
+                  email: this.state.email,
+                  password: this.state.password
+                };
+                _context.next = 5;
+                return this.props.sendUserToPost(newUserObj);
+
+              case 5:
+                _context.next = 7;
+                return this.props.auth(this.state.email, this.state.password, 'signup');
+
+              case 7:
+                // this.props.auth(newUserObj.email, newUserObj.password, 'signup')
+                this.setState({
+                  firstName: '',
+                  lastName: '',
+                  userName: '',
+                  email: '',
+                  password: ''
+                }); // redirect to My Account view
+                // this.history.push(`/myaccount`)
+
+                _context.next = 13;
+                break;
+
+              case 10:
+                _context.prev = 10;
+                _context.t0 = _context["catch"](0);
+                console.error(_context.t0);
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 10]]);
+      }));
+
+      function handleSubmit(_x) {
+        return _handleSubmit.apply(this, arguments);
+      }
+
+      return handleSubmit;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          name = _this$props.name,
+          error = _this$props.error;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sign-up"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onChange: this.handleChange,
+        onSubmit: this.handleSubmit,
+        name: name
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "email"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Email")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "email",
+        type: "text"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "firstName"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "First Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "firstName",
+        type: "text"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "lastName"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Last Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "lastName",
+        type: "text"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "password"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "password",
+        type: "password"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "profilePicture"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Profile Picture")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "profilePicture",
+        type: "text"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "userName"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "User Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "userName",
+        type: "text"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit"
+      }, "Sign Up")), error && error.response && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ", error.response.data, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "/auth/google"
+      }, "Sign Up with Google"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Already have an account? ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "/login"
+      }, "Login here!")));
+    }
+  }]);
+
+  return CreateUser;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var mapSignup = function mapSignup(state) {
+  return {
+    name: 'signup',
+    displayName: 'Sign Up',
+    id: state.user.id,
+    error: state.user.error
+  };
+};
+
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    sendUserToPost: function sendUserToPost(userObj) {
+      return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_2__["postUser"])(userObj));
+    },
+    auth: function auth(email, password, formName) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])(email, password, formName));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapSignup, mapDispatch)(CreateUser));
+
+/***/ }),
+
 /***/ "./client/components/auth-form.js":
 /*!****************************************!*\
   !*** ./client/components/auth-form.js ***!
@@ -304,6 +514,9 @@ var mapDispatch = function mapDispatch(dispatch) {
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
+
+/*! exports provided: Navbar, UserHome, Recipes, SingleRecipe, Login, Signup */
+
 /*! exports provided: Navbar, UserHome, Recipes, SingleRecipe, Login, Signup, Channels */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -318,6 +531,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recipes */ "./client/components/recipes.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Recipes", function() { return _recipes__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
+
+/* harmony import */ var _CreateUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateUser */ "./client/components/CreateUser.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Signup", function() { return _CreateUser__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
 /* harmony import */ var _singleRecipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./singleRecipe */ "./client/components/singleRecipe.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleRecipe", function() { return _singleRecipe__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
@@ -325,6 +542,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Login", function() { return _auth_form__WEBPACK_IMPORTED_MODULE_4__["Login"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Signup", function() { return _auth_form__WEBPACK_IMPORTED_MODULE_4__["Signup"]; });
+
+
 /* harmony import */ var _channels__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./channels */ "./client/components/channels.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Channels", function() { return _channels__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
@@ -1027,6 +1246,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/home/channels/:channelId/:recipeId",
+
         component: _components__WEBPACK_IMPORTED_MODULE_4__["SingleRecipe"],
         path: "/channels/",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Channels"]
@@ -1186,7 +1406,7 @@ var fetchChannels = function fetchChannels() {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, logout */
+/*! exports provided: default, postUser, me, auth, logout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1199,7 +1419,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user */ "./client/store/user.js");
 /* harmony import */ var _recipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./recipe */ "./client/store/recipe.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "postUser", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["postUser"]; });
+
 /* harmony import */ var _singleRecipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./singleRecipe */ "./client/store/singleRecipe.js");
+
 /* harmony import */ var _channel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./channel */ "./client/store/channel.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "me", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["me"]; });
 
@@ -1533,17 +1756,26 @@ var updateSingleRecipe = function updateSingleRecipe(recipeId, recipe) {
 /*!******************************!*\
   !*** ./client/store/user.js ***!
   \******************************/
-/*! exports provided: me, auth, logout, default */
+/*! exports provided: postUser, me, auth, logout, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postUser", function() { return postUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "me", function() { return me; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return auth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../history */ "./client/history.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1556,6 +1788,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var GET_USER = 'GET_USER';
 var REMOVE_USER = 'REMOVE_USER';
+var POST_USER = 'POST_USER';
 /**
  * ACTION CREATORS
  */
@@ -1572,51 +1805,54 @@ var removeUser = function removeUser() {
     type: REMOVE_USER
   };
 };
+
+var gotUserFromServer = function gotUserFromServer(user) {
+  return {
+    type: POST_USER,
+    user: user
+  };
+};
 /**
- * INITIAL STATE
+ * THUNK CREATORS
  */
 
 
-var defaultUser = {
-  name: 'Not logged in'
-  /**
-   * THUNK CREATORS
-   */
-
-};
-var me = function me() {
+var postUser = function postUser(userObj) {
   return (
     /*#__PURE__*/
     function () {
       var _ref = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(dispatch) {
-        var res;
+        var _ref2, data;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/auth/me');
+                console.log('in the thunk', userObj);
+                _context.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/signup', userObj);
 
-              case 3:
-                res = _context.sent;
-                dispatch(getUser(res.data || defaultUser));
-                _context.next = 10;
+              case 4:
+                _ref2 = _context.sent;
+                data = _ref2.data;
+                dispatch(gotUserFromServer(data));
+                _context.next = 12;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 10:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[0, 9]]);
       }));
 
       return function (_x) {
@@ -1625,11 +1861,11 @@ var me = function me() {
     }()
   );
 };
-var auth = function auth(email, password, method) {
+var me = function me() {
   return (
     /*#__PURE__*/
     function () {
-      var _ref2 = _asyncToGenerator(
+      var _ref3 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee2(dispatch) {
         var res;
@@ -1639,21 +1875,65 @@ var auth = function auth(email, password, method) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/auth/me');
+
+              case 3:
+                res = _context2.sent;
+                dispatch(getUser(res.data || defaultUser));
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
+                console.error(_context2.t0);
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 7]]);
+      }));
+
+      return function (_x2) {
+        return _ref3.apply(this, arguments);
+      };
+    }()
+  );
+};
+var auth = function auth(firstName, lastName, userName, email, password, method) {
+  return (
+    /*#__PURE__*/
+    function () {
+      var _ref4 = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee3(dispatch) {
+        var res;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(method), {
+                  firstName: firstName,
+                  lastName: lastName,
+                  userName: userName,
                   email: email,
                   password: password
                 });
 
               case 3:
-                res = _context2.sent;
-                _context2.next = 9;
+                res = _context3.sent;
+                _context3.next = 9;
                 break;
 
               case 6:
-                _context2.prev = 6;
-                _context2.t0 = _context2["catch"](0);
-                return _context2.abrupt("return", dispatch(getUser({
-                  error: _context2.t0
+                _context3.prev = 6;
+                _context3.t0 = _context3["catch"](0);
+                return _context3.abrupt("return", dispatch(getUser({
+                  error: _context3.t0
                 })));
 
               case 9:
@@ -1666,14 +1946,14 @@ var auth = function auth(email, password, method) {
 
               case 10:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, null, [[0, 6]]);
+        }, _callee3, null, [[0, 6]]);
       }));
 
-      return function (_x2) {
-        return _ref2.apply(this, arguments);
+      return function (_x3) {
+        return _ref4.apply(this, arguments);
       };
     }()
   );
@@ -1682,42 +1962,47 @@ var logout = function logout() {
   return (
     /*#__PURE__*/
     function () {
-      var _ref3 = _asyncToGenerator(
+      var _ref5 = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3(dispatch) {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      regeneratorRuntime.mark(function _callee4(dispatch) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
+                _context4.prev = 0;
+                _context4.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/logout');
 
               case 3:
                 dispatch(removeUser());
                 _history__WEBPACK_IMPORTED_MODULE_1__["default"].push('/login');
-                _context3.next = 10;
+                _context4.next = 10;
                 break;
 
               case 7:
-                _context3.prev = 7;
-                _context3.t0 = _context3["catch"](0);
-                console.error(_context3.t0);
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](0);
+                console.error(_context4.t0);
 
               case 10:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, null, [[0, 7]]);
+        }, _callee4, null, [[0, 7]]);
       }));
 
-      return function (_x3) {
-        return _ref3.apply(this, arguments);
+      return function (_x4) {
+        return _ref5.apply(this, arguments);
       };
     }()
   );
 };
+/**
+ * INITIAL STATE
+ */
+
+var defaultUser = [];
 /**
  * REDUCER
  */
@@ -1732,6 +2017,9 @@ var logout = function logout() {
 
     case REMOVE_USER:
       return defaultUser;
+
+    case POST_USER:
+      return [].concat(_toConsumableArray(state), [action.user]);
 
     default:
       return state;
