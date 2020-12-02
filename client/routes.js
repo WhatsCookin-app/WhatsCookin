@@ -2,7 +2,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Recipes, SingleRecipe} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  Recipes,
+  SingleRecipe,
+  Channels
+} from './components'
 import {me} from './store'
 
 /**
@@ -38,6 +45,7 @@ class Routes extends Component {
               path="/home/channels/:channelId/:recipeId"
               component={SingleRecipe}
             />
+            <Route exact path="/channels/" component={Channels} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
