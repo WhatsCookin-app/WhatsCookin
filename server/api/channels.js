@@ -1,11 +1,10 @@
 const router = require('express').Router()
 const {channelUser, Channel} = require('../db/models')
-const isUserMiddleware = require('./isUserMiddleware')
 module.exports = router
 
 //Get all of a User's Channels with the Channel eager loaded
 //likely dont need the isUserMiddleware
-router.get('/', isUserMiddleware, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const user = req.user.id
     const channels = await channelUser.findAll({
@@ -21,7 +20,7 @@ router.get('/', isUserMiddleware, async (req, res, next) => {
 })
 
 //Get a single a User's Channels with the Channel eager loaded
-router.get('/:channelId', isUserMiddleware, async (req, res, next) => {
+router.get('/:channelId', async (req, res, next) => {
   try {
     const user = req.user.id
     const channel = await channelUser.findOne({
@@ -48,12 +47,12 @@ router.post('/:channelId', async (req, res, next) => {
       imageUrl,
       isPrivate,
       //will be req.user.id when not using postman
-      userId: req.params.userId,
+      userId: req.user.id,
     })
 
     await channelUser.create({
       //will be req.user.id when not using postman
-      userId: req.params.userId,
+      userId: req.user.id,
       channelId: newChannel.dataValues.id,
     })
 
@@ -66,14 +65,14 @@ router.post('/:channelId', async (req, res, next) => {
 //Update a channel make sure
 //switch to :channelId once rendering on the front end
 //likely wont need the model method either
-router.put('/:userId', async (req, res, next) => {
+router.put('/:channelId', async (req, res, next) => {
   try {
-    let result = await Channel.isOwner(req.params.userId, req.body.id)
+    let result = await Channel.isOwner(req.user.id, req.params.channelId)
 
     if (result) {
       let updatedChannel = await Channel.update(req.body, {
         where: {
-          id: req.body.id,
+          id: req.params.channelId,
         },
         returning: true,
       })
