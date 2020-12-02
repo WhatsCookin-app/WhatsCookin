@@ -31,6 +31,9 @@ export const postUser = userObj => {
   }
 }
 
+/**
+ * THUNK CREATORS
+ */
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
