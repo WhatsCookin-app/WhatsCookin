@@ -330,8 +330,13 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var UserHome = function UserHome(props) {
+<<<<<<< HEAD
   var fullName = props.fullName;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", fullName));
+=======
+  var firstName = props.firstName;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome, ", firstName));
+>>>>>>> e63882201a16d2a278610361439db4277bf26f17
 };
 /**
  * CONTAINER
@@ -339,7 +344,11 @@ var UserHome = function UserHome(props) {
 
 var mapState = function mapState(state) {
   return {
+<<<<<<< HEAD
     fullName: state.user.fullName
+=======
+    firstName: state.user.firstName
+>>>>>>> e63882201a16d2a278610361439db4277bf26f17
   };
 };
 
@@ -774,7 +783,11 @@ var me = function me() {
     }()
   );
 };
+<<<<<<< HEAD
 var auth = function auth(fullName, email, password, method) {
+=======
+var auth = function auth(firstName, email, password, method) {
+>>>>>>> e63882201a16d2a278610361439db4277bf26f17
   return (
     /*#__PURE__*/
     function () {
@@ -791,7 +804,11 @@ var auth = function auth(fullName, email, password, method) {
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(method), {
                   email: email,
                   password: password,
+<<<<<<< HEAD
                   fullName: fullName
+=======
+                  firstName: firstName
+>>>>>>> e63882201a16d2a278610361439db4277bf26f17
                 });
 
               case 3:
@@ -44398,7 +44415,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
