@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-
+const User = require('./user')
 const Channel = db.define('channel', {
   name: {
     type: Sequelize.STRING,
@@ -20,5 +20,15 @@ const Channel = db.define('channel', {
     default: true,
   },
 })
+
+Channel.isOwner = function (userId, id) {
+  return Channel.findOne({
+    where: {
+      userId,
+      id,
+    },
+    include: User,
+  })
+}
 
 module.exports = Channel
