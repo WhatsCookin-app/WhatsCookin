@@ -24,12 +24,12 @@ class Channels extends React.Component {
   }
 }
 
-const mapState = (state) => ({
-  channels: state.channels,
+const mapState = state => ({
+  channels: state.channels
 })
 
-const mapDispatch = (dispatch) => ({
-  getChannels: () => dispatch(fetchChannels()),
+const mapDispatch = dispatch => ({
+  getChannels: () => dispatch(fetchChannels())
 })
 
 export default connect(mapState, mapDispatch)(Channels)

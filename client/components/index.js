@@ -6,5 +6,6 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {default as Recipes} from './recipes'
+export {default as SingleRecipe} from './singleRecipe'
 export {Login, Signup} from './auth-form'
 export {default as Channels} from './channels'
