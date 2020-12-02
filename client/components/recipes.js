@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom'
 
 class Recipes extends React.Component {
   componentDidMount() {
-    this.props.getRecipes(this.props.match.params.channelId)
+    this.props.getAllRecipes(this.props.match.params.channelId)
   }
 
   render() {
-    const recipes = this.props.recipes || []
+    const recipes = this.props.recipes
     return (
       <div id="all-recipes">
         {recipes &&
@@ -19,9 +19,9 @@ class Recipes extends React.Component {
                 <img src={element.imageUrl} id="img" />
                 <div id="recipe-info">
                   <Link
-                    to={`/home/all-channels/${
-                      this.props.match.params.channelId
-                    }/recipes/${this.props.match.params.recipeId}`}
+                    to={`/home/channels/${this.props.match.params.channelId}/${
+                      this.props.match.params.recipeId
+                    }`}
                   >
                     {element.name}
                   </Link>
@@ -42,7 +42,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getRecipes: () => dispatch(fetchRecipes())
+    getAllRecipes: channelId => dispatch(fetchRecipes(channelId))
   }
 }
 
