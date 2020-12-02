@@ -9,9 +9,9 @@ router.get('/', async (req, res, next) => {
     const user = req.user.id
     const channels = await channelUser.findAll({
       where: {
-        userId: user,
+        userId: user
       },
-      include: Channel,
+      include: Channel
     })
     res.json(channels)
   } catch (err) {
@@ -20,21 +20,21 @@ router.get('/', async (req, res, next) => {
 })
 
 //Get a single a User's Channels with the Channel eager loaded
-router.get('/:channelId', async (req, res, next) => {
-  try {
-    const user = req.user.id
-    const channel = await channelUser.findOne({
-      where: {
-        userId: user,
-        channelId: req.params.channelId,
-      },
-      include: Channel,
-    })
-    res.json(channel)
-  } catch (err) {
-    next(err)
-  }
-})
+// router.get('/:channelId', async (req, res, next) => {
+//   try {
+//     const user = req.user.id
+//     const channel = await channelUser.findOne({
+//       where: {
+//         userId: user,
+//         channelId: req.params.channelId,
+//       },
+//       include: Channel,
+//     })
+//     res.json(channel)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
@@ -47,13 +47,13 @@ router.post('/', async (req, res, next) => {
       imageUrl,
       isPrivate,
       //will be req.user.id when not using postman
-      userId: req.user.id,
+      userId: req.user.id
     })
 
     await channelUser.create({
       //will be req.user.id when not using postman
       userId: req.user.id,
-      channelId: newChannel.dataValues.id,
+      channelId: newChannel.dataValues.id
     })
 
     res.send(newChannel)
@@ -72,9 +72,9 @@ router.put('/:channelId', async (req, res, next) => {
     if (result) {
       let updatedChannel = await Channel.update(req.body, {
         where: {
-          id: req.params.channelId,
+          id: req.params.channelId
         },
-        returning: true,
+        returning: true
       })
 
       return res.send(updatedChannel[1][0])

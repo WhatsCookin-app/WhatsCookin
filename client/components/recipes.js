@@ -20,7 +20,7 @@ class Recipes extends React.Component {
                 <div id="recipe-info">
                   <Link
                     to={`/home/channels/${this.props.match.params.channelId}/${
-                      this.props.match.params.recipeId
+                      element.id
                     }`}
                   >
                     {element.name}

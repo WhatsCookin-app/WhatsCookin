@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Recipe, Channel} = require('../db/models')
+const {Recipe, Channel, User} = require('../db/models')
 module.exports = router
 
 // get all recipes of a channel
@@ -25,9 +25,13 @@ router.get('/:channelId', async (req, res, next) => {
 // get a single recipe
 router.get('/:channelId/:recipeId', async (req, res, next) => {
   try {
-    const recipes = await Recipe.findAll({
+    const recipes = await Recipe.findOne({
       where: {
         id: req.params.recipeId
+      },
+      include: {
+        model: User,
+        as: 'owner'
       }
     })
     console.log(recipes)
@@ -60,8 +64,16 @@ router.put('/:recipeId', async (req, res, next) => {
     const recipe = await Recipe.findByPk(req.params.recipeId)
     if (Number(recipe.dataValues.ownerId) === Number(req.user.id)) {
       await recipe.update(req.body)
-      const updated = Recipe.findByPk(req.params.recipeId)
-      res.json(recipe)
+      const updated = await Recipe.findOne({
+        where: {
+          id: req.params.recipeId
+        },
+        include: {
+          model: User,
+          as: 'owner'
+        }
+      })
+      res.json(updated)
     } else {
       const err = new Error('Only recipe owner can edit this recipe')
       err.status = 401
