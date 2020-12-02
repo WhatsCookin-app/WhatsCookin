@@ -37,7 +37,7 @@ router.get('/:channelId', async (req, res, next) => {
 })
 
 //Create a new channel and new channelUser associated with this channel
-router.post('/:channelId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const {name, description, imageUrl, isPrivate} = req.body
 
