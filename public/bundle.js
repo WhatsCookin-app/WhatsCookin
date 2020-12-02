@@ -430,11 +430,11 @@ var PrivateChannels = function PrivateChannels(_ref) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: currChannel.channel.id
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/channels/".concat(currChannel.channelId)
+      to: "/home/channels/".concat(currChannel.channelId)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: currChannel.channel.imageUrl
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/channels/".concat(currChannel.channelId)
+      to: "/home/channels/".concat(currChannel.channelId)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, currChannel.channel.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, currChannel.channel.description));
   }));
 };
@@ -467,11 +467,11 @@ var PublicChannels = function PublicChannels(_ref) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: currChannel.channel.id
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/channels/".concat(currChannel.channelId)
+      to: "/home/channels/".concat(currChannel.channelId)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: currChannel.channel.imageUrl
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/channels/".concat(currChannel.channelId)
+      to: "/home/channels/".concat(currChannel.channelId)
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, currChannel.channel.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, currChannel.channel.description));
   }));
 };
@@ -44771,7 +44771,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
