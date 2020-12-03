@@ -9,9 +9,9 @@ router.get('/', async (req, res, next) => {
     const user = req.user.id
     const channels = await channelUser.findAll({
       where: {
-        userId: user,
+        userId: user
       },
-      include: Channel,
+      include: Channel
     })
     res.json(channels)
   } catch (err) {
@@ -26,9 +26,9 @@ router.get('/:channelId', async (req, res, next) => {
     const channel = await channelUser.findOne({
       where: {
         userId: user,
-        channelId: req.params.channelId,
+        channelId: req.params.channelId
       },
-      include: Channel,
+      include: Channel
     })
     res.json(channel)
   } catch (err) {
@@ -47,13 +47,13 @@ router.post('/', async (req, res, next) => {
       imageUrl,
       isPrivate,
       //will be req.user.id when not using postman
-      userId: req.user.id,
+      userId: req.user.id
     })
 
     await channelUser.create({
       //will be req.user.id when not using postman
       userId: req.user.id,
-      channelId: newChannel.dataValues.id,
+      channelId: newChannel.dataValues.id
     })
 
     res.send(newChannel)
@@ -69,12 +69,12 @@ router.put('/:channelId', async (req, res, next) => {
   try {
     let result = await Channel.isOwner(req.user.id, req.params.channelId)
 
-    if (result) {
-      let updatedChannel = await Channel.update(req.body, {
+    if (result.dataValues.id) {
+      let updatedChannel = await Channel.update(req.body.channel, {
         where: {
-          id: req.params.channelId,
+          id: req.params.channelId
         },
-        returning: true,
+        returning: true
       })
 
       return res.send(updatedChannel[1][0])
