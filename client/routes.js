@@ -20,7 +20,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signup" component={CreateUser} />
         <Route exact path="/home/channels/:channelId" component={Recipes} />
         {isLoggedIn && (
           <Switch>
@@ -35,6 +35,7 @@ class Routes extends Component {
     )
   }
 }
+//changed Line 23 from Signup to CreateUser
 
 /**
  * CONTAINER
