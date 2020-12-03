@@ -20,21 +20,23 @@ router.get('/', async (req, res, next) => {
 })
 
 //Get a single a User's Channels with the Channel eager loaded
-// router.get('/:channelId', async (req, res, next) => {
-//   try {
-//     const user = req.user.id
-//     const channel = await channelUser.findOne({
-//       where: {
-//         userId: user,
-//         channelId: req.params.channelId,
-//       },
-//       include: Channel,
-//     })
-//     res.json(channel)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+
+router.get('/:channelId', async (req, res, next) => {
+  try {
+    const user = req.user.id
+    const channel = await channelUser.findOne({
+      where: {
+        userId: user,
+        channelId: req.params.channelId
+      },
+      include: Channel
+    })
+    res.json(channel)
+  } catch (err) {
+    next(err)
+  }
+})
+
 
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
@@ -69,8 +71,8 @@ router.put('/:channelId', async (req, res, next) => {
   try {
     let result = await Channel.isOwner(req.user.id, req.params.channelId)
 
-    if (result) {
-      let updatedChannel = await Channel.update(req.body, {
+    if (result.dataValues.id) {
+      let updatedChannel = await Channel.update(req.body.channel, {
         where: {
           id: req.params.channelId
         },
