@@ -127,6 +127,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./client/store/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -200,16 +204,15 @@ function (_Component) {
                   lastName: this.state.lastName,
                   userName: this.state.userName,
                   email: this.state.email,
-                  password: this.state.password
+                  password: this.state.password //await this.props.sendUserToPost(newUserObj)
+
                 };
                 _context.next = 5;
-                return this.props.sendUserToPost(newUserObj);
+                return this.props.auth(_objectSpread({}, newUserObj, {
+                  method: 'signup'
+                }));
 
               case 5:
-                _context.next = 7;
-                return this.props.auth(this.state.email, this.state.password, 'signup');
-
-              case 7:
                 // this.props.auth(newUserObj.email, newUserObj.password, 'signup')
                 this.setState({
                   firstName: '',
@@ -220,20 +223,20 @@ function (_Component) {
                 }); // redirect to My Account view
                 // this.history.push(`/myaccount`)
 
-                _context.next = 13;
+                _context.next = 11;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 13:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 10]]);
+        }, _callee, this, [[0, 8]]);
       }));
 
       function handleSubmit(_x) {
@@ -277,8 +280,9 @@ function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "profilePicture"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "Profile Picture")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        name: "profilePicture",
-        type: "text"
+        type: "file",
+        id: "myFile",
+        name: "filename"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "userName"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, "User Name")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -311,8 +315,8 @@ var mapDispatch = function mapDispatch(dispatch) {
     sendUserToPost: function sendUserToPost(userObj) {
       return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_2__["postUser"])(userObj));
     },
-    auth: function auth(email, password, formName) {
-      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])(email, password, formName));
+    auth: function auth(userObj) {
+      return dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])(userObj, method));
     }
   };
 };
@@ -396,10 +400,14 @@ var mapDispatch = function mapDispatch(dispatch) {
   return {
     handleSubmit: function handleSubmit(evt) {
       evt.preventDefault();
-      var formName = evt.target.name;
+      var method = evt.target.name;
       var email = evt.target.email.value;
       var password = evt.target.password.value;
-      dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])(email, password, formName));
+      dispatch(Object(_store__WEBPACK_IMPORTED_MODULE_3__["auth"])({
+        email: email,
+        password: password,
+        method: method
+      }));
     }
   };
 };
@@ -472,6 +480,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store */ "./client/store/index.js");
+/* harmony import */ var _CreateUser__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CreateUser */ "./client/components/CreateUser.js");
+
 
 
 
@@ -1025,6 +1035,12 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1080,28 +1096,27 @@ var postUser = function postUser(userObj) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                console.log('in the thunk', userObj);
-                _context.next = 4;
+                _context.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/signup', userObj);
 
-              case 4:
+              case 3:
                 _ref2 = _context.sent;
                 data = _ref2.data;
                 dispatch(gotUserFromServer(data));
-                _context.next = 12;
+                _context.next = 11;
                 break;
 
-              case 9:
-                _context.prev = 9;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](0);
                 console.error(_context.t0);
 
-              case 12:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 9]]);
+        }, _callee, null, [[0, 8]]);
       }));
 
       return function (_x) {
@@ -1151,7 +1166,7 @@ var me = function me() {
     }()
   );
 };
-var auth = function auth(firstName, lastName, userName, email, password, method) {
+var auth = function auth(userObj) {
   return (
     /*#__PURE__*/
     function () {
@@ -1164,28 +1179,47 @@ var auth = function auth(firstName, lastName, userName, email, password, method)
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(method), {
-                  firstName: firstName,
-                  lastName: lastName,
-                  userName: userName,
-                  email: email,
-                  password: password
-                });
+                console.log('BEFORE Sign up', userObj);
 
-              case 3:
+                if (!(userObj.method === 'signup')) {
+                  _context3.next = 9;
+                  break;
+                }
+
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(userObj.method), _objectSpread({}, userObj));
+
+              case 5:
                 res = _context3.sent;
-                _context3.next = 9;
+                console.log('SIGNUP', res);
+                _context3.next = 14;
                 break;
 
-              case 6:
-                _context3.prev = 6;
+              case 9:
+                if (!(userObj.method === 'login')) {
+                  _context3.next = 14;
+                  break;
+                }
+
+                _context3.next = 12;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(userObj.method), _objectSpread({}, userObj));
+
+              case 12:
+                res = _context3.sent;
+                console.log('LOGIN RES', res);
+
+              case 14:
+                _context3.next = 19;
+                break;
+
+              case 16:
+                _context3.prev = 16;
                 _context3.t0 = _context3["catch"](0);
                 return _context3.abrupt("return", dispatch(getUser({
                   error: _context3.t0
                 })));
 
-              case 9:
+              case 19:
                 try {
                   dispatch(getUser(res.data));
                   _history__WEBPACK_IMPORTED_MODULE_1__["default"].push('/home');
@@ -1193,12 +1227,12 @@ var auth = function auth(firstName, lastName, userName, email, password, method)
                   console.error(dispatchOrHistoryErr);
                 }
 
-              case 10:
+              case 20:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 6]]);
+        }, _callee3, null, [[0, 16]]);
       }));
 
       return function (_x3) {
@@ -1206,7 +1240,8 @@ var auth = function auth(firstName, lastName, userName, email, password, method)
       };
     }()
   );
-};
+}; //change Line 65 from /home to /channels when ready
+
 var logout = function logout() {
   return (
     /*#__PURE__*/
@@ -44785,7 +44820,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
