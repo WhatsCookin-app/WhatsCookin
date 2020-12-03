@@ -20,6 +20,7 @@ router.get('/', async (req, res, next) => {
 })
 
 //Get a single a User's Channels with the Channel eager loaded
+
 router.get('/:channelId', async (req, res, next) => {
   try {
     const user = req.user.id
@@ -35,6 +36,7 @@ router.get('/:channelId', async (req, res, next) => {
     next(err)
   }
 })
+
 
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
