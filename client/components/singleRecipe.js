@@ -95,13 +95,13 @@ class SingleRecipe extends Component {
   render() {
     console.log('recipe: ', this.props.singleRecipe)
     const {loading} = this.props
-    if (loading) {
-      return (
-        <div>
-          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-        </div>
-      )
-    }
+    // if (loading) {
+    //   return (
+    //     <div>
+    //       <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+    //     </div>
+    //   )
+    // }
     if (!this.props.singleRecipe.id) {
       return <NotFound />
     }
