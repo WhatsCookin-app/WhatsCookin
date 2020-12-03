@@ -22,7 +22,6 @@ const gotUserFromServer = user => ({type: POST_USER, user})
 export const postUser = userObj => {
   return async dispatch => {
     try {
-      console.log('in the thunk', userObj)
       const {data} = await axios.post('/auth/signup', userObj)
       dispatch(gotUserFromServer(data))
     } catch (err) {
@@ -43,23 +42,21 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (
-  firstName,
-  lastName,
-  userName,
-  email,
-  password,
-  method
-) => async dispatch => {
+export const auth = userObj => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {
-      firstName,
-      lastName,
-      userName,
-      email,
-      password
-    })
+    console.log('BEFORE Sign up', userObj)
+    if (userObj.method === 'signup') {
+      res = await axios.post(`/auth/${userObj.method}`, {
+        ...userObj
+      })
+      console.log('SIGNUP', res)
+    } else if (userObj.method === 'login') {
+      res = await axios.post(`/auth/${userObj.method}`, {
+        ...userObj
+      })
+      console.log('LOGIN RES', res)
+    }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
@@ -70,6 +67,7 @@ export const auth = (
     console.error(dispatchOrHistoryErr)
   }
 }
+//change Line 65 from /home to /channels when ready
 
 export const logout = () => async dispatch => {
   try {

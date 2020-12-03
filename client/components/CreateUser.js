@@ -30,8 +30,8 @@ class CreateUser extends Component {
         email: this.state.email,
         password: this.state.password
       }
-      await this.props.sendUserToPost(newUserObj)
-      await this.props.auth(this.state.email, this.state.password, 'signup')
+      //await this.props.sendUserToPost(newUserObj)
+      await this.props.auth({...newUserObj, method: 'signup'})
       // this.props.auth(newUserObj.email, newUserObj.password, 'signup')
       this.setState({
         firstName: '',
@@ -84,7 +84,7 @@ class CreateUser extends Component {
             <label htmlFor="profilePicture">
               <small>Profile Picture</small>
             </label>
-            <input name="profilePicture" type="text" />
+            <input type="file" id="myFile" name="filename" />
           </div>
           <div>
             <label htmlFor="userName">
@@ -117,8 +117,7 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     sendUserToPost: userObj => dispatch(postUser(userObj)),
-    auth: (email, password, formName) =>
-      dispatch(auth(email, password, formName))
+    auth: userObj => dispatch(auth(userObj, method))
   }
 }
 
