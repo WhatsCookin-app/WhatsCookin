@@ -6,9 +6,14 @@ import {connect} from 'react-redux'
 import {
   fetchOneRecipe,
   loadingRecipe,
-  updateSingleRecipe
+  updateSingleRecipe,
+  deleteRecipe
 } from '../store/singleRecipe.js'
 import Loader from 'react-loader-spinner'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faEdit} from '@fortawesome/free-solid-svg-icons'
+import {Button, Form} from 'react-bootstrap'
+import NotFound from './notFound'
 
 class SingleRecipe extends Component {
   constructor(props) {
@@ -19,16 +24,31 @@ class SingleRecipe extends Component {
       instructionEdit: false,
       name: '',
       ingredients: '',
-      instructions: ''
+      instructions: '',
+      likes: 0
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleSubmitName = this.handleSubmitName.bind(this)
     this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this)
     this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+  }
+
+  async handleClick() {
+    const newLikes = this.state.likes + 1
+    this.setState({likes: newLikes})
+    await this.props.updateRecipe(this.props.match.params.recipeId, {
+      likes: newLikes
+    })
+  }
+
+  handleDelete() {
+    this.props.removeRecipe(this.props.match.params.recipeId)
   }
 
   async handleSubmitName(event) {
@@ -63,7 +83,8 @@ class SingleRecipe extends Component {
     this.setState({
       name: this.props.singleRecipe.name,
       ingredients: this.props.singleRecipe.ingredients,
-      instructions: this.props.singleRecipe.instructions
+      instructions: this.props.singleRecipe.instructions,
+      likes: this.props.singleRecipe.likes
     })
   }
 
@@ -72,29 +93,36 @@ class SingleRecipe extends Component {
   }
 
   render() {
+    console.log('recipe: ', this.props.singleRecipe)
     const {loading} = this.props
-    if (loading) {
-      return (
-        <div>
-          <Loader type="Rings" color="#00BFFF" height={80} width={80} />
-        </div>
-      )
+    // if (loading) {
+    //   return (
+    //     <div>
+    //       <Loader type="Rings" color="#00BFFF" height={80} width={80} />
+    //     </div>
+    //   )
+    // }
+    if (!this.props.singleRecipe.id) {
+      return <NotFound />
     }
     return (
-      <div>
+      <div className="m-3">
         <img src={this.props.singleRecipe.imageUrl} />
 
         {!this.state.nameEdit ? (
           <div>
             <h5>Recipe Name: {this.props.singleRecipe.name}</h5>
-
-            <button
-              onClick={() => {
-                this.setState({nameEdit: true})
-              }}
-            >
-              Edit
-            </button>
+            {this.props.user.id &&
+            this.props.user.id === this.props.singleRecipe.ownerId ? (
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={() => {
+                  this.setState({nameEdit: true})
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
+            )}
           </div>
         ) : (
           <form onSubmit={this.handleSubmitName}>
@@ -104,61 +132,95 @@ class SingleRecipe extends Component {
               value={this.state.name}
               onChange={event => this.handleChange(event)}
             />
-            <button type="submit">Save</button>
+            <Button variant="primary" type="submit" size="sm">
+              Save
+            </Button>
           </form>
         )}
         <div>
           {!this.state.ingredientEdit ? (
             <div>
-              <h5>Ingredients: {this.props.singleRecipe.ingredients}</h5>
-              <button
-                onClick={() => {
-                  this.setState({ingredientEdit: true})
-                }}
-              >
-                Edit
-              </button>
+              <h5>Ingredients:</h5>
+              <h5>
+                {this.props.singleRecipe.ingredients
+                  .split('\n')
+                  .map((elm, index) => {
+                    return <li key={index}>{elm}</li>
+                  })}
+              </h5>
+              {this.props.user.id &&
+              this.props.user.id === this.props.singleRecipe.ownerId ? (
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  onClick={() => {
+                    this.setState({ingredientEdit: true})
+                  }}
+                />
+              ) : (
+                <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
+              )}
             </div>
           ) : (
             <form onSubmit={this.handleSubmitIngredients}>
-              <input
-                type="text"
+              <textarea
                 style={{width: '370px', height: '300px'}}
                 name="ingredients"
                 value={this.state.ingredients}
                 onChange={event => this.handleChange(event)}
               />
-              <button type="submit">Save</button>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
             </form>
           )}
         </div>
-
         {!this.state.instructionEdit ? (
           <div>
-            <h5>Instructions: {this.props.singleRecipe.instructions}</h5>
-            <button
-              onClick={() => {
-                this.setState({instructionEdit: true})
-              }}
-            >
-              Edit
-            </button>
+            <h5>Instructions:</h5>
+            <h5>
+              {' '}
+              {this.props.singleRecipe.instructions
+                .split('\n')
+                .map((elm, index) => {
+                  return <li key={index}>{elm}</li>
+                })}
+            </h5>
+            {this.props.user.id &&
+            this.props.user.id === this.props.singleRecipe.ownerId ? (
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={() => {
+                  this.setState({instructionEdit: true})
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
+            )}
           </div>
         ) : (
           <form onSubmit={this.handleSubmitInstructions}>
-            <input
-              type="text"
+            <textarea
               name="instructions"
               style={{width: '370px', height: '500px'}}
               value={this.state.instructions}
               onChange={event => this.handleChange(event)}
             />
-            <button type="submit">Save</button>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
           </form>
         )}
 
-        <h5>Likes: {this.props.singleRecipe.likes}</h5>
+        <h5>likes: {this.state.likes}</h5>
+        <i
+          className="fas fa-heart"
+          style={{color: 'red'}}
+          onClick={this.handleClick}
+        />
         <h5>Recipe created by: {this.props.singleRecipe.owner.userName}</h5>
+        <Button variant="primary" type="submit" onClick={this.handleDelete}>
+          Delete recipe
+        </Button>
       </div>
     )
   }
@@ -167,7 +229,8 @@ class SingleRecipe extends Component {
 const mapState = state => {
   return {
     singleRecipe: state.singleRecipe.recipe,
-    loading: state.singleRecipe.loading
+    loading: state.singleRecipe.loading,
+    user: state.user
   }
 }
 
@@ -177,7 +240,8 @@ const mapDispatch = dispatch => {
       dispatch(fetchOneRecipe(channelId, recipeId)),
     changeLoadingState: () => dispatch(loadingRecipe()),
     updateRecipe: (recipeId, recipe) =>
-      dispatch(updateSingleRecipe(recipeId, recipe))
+      dispatch(updateSingleRecipe(recipeId, recipe)),
+    removeRecipe: recipeId => dispatch(deleteRecipe(recipeId))
   }
 }
 

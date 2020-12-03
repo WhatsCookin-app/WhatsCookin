@@ -156,9 +156,9 @@ async function seed() {
 
   const recipes1 = await Recipe.create({
     name: 'Pesto Pasta',
-    ingredients: 'pesto sauce - 1 bottle \npasta - 1 pack \ntomatoes - 3',
+    ingredients: 'pesto sauce - 1 bottle\npasta - 1 pack\ntomatoes - 3',
     instructions:
-      '1.Buy pesto sauce 2.Buy pasta 3.Mix sauce with pasta, 4.add tomatoes for decoration',
+      '1.Buy pesto sauce\n2.Buy pasta\n3.Mix sauce with pasta,\n4.add tomatoes for decoration',
     imageUrl:
       'https://joyfoodsunshine.com/wp-content/uploads/2019/07/pesto-pasta-recipe-3-500x375.jpg',
     likes: 10,
@@ -170,7 +170,7 @@ async function seed() {
     name: 'Spaghetti Meatballs',
     ingredients: 'meat balls - 3 lbs\npasta - 1 pack\ntomatoe sauce - 1 bottle',
     instructions:
-      '1.Buy tomato sauce 2.Buy pasta 3.Buy meatballs 3.Mix sauce, meatballs with pasta',
+      '1.Buy tomato sauce\n2.Buy pasta\n3.Buy meatballs\n3.Mix sauce, meatballs with pasta',
     imageUrl:
       'https://feelgoodfoodie.net/wp-content/uploads/2017/03/Spaghetti-and-Meatballs-7.jpg',
     likes: 15,
