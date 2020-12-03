@@ -37,7 +37,7 @@ class SingleRecipe extends Component {
     const newLikes = this.state.likes + 1
     this.setState({likes: newLikes})
     await this.props.updateRecipe(this.props.match.params.recipeId, {
-      likes: this.state.likes
+      likes: newLikes
     })
   }
 
@@ -169,7 +169,7 @@ class SingleRecipe extends Component {
         )}
 
         <h5>likes: {this.state.likes}</h5>
-        <button onClick={this.handleClick}>Increment</button>
+        <button onClick={this.handleClick}>Like this recipe</button>
         <h5>Recipe created by: {this.props.singleRecipe.owner.userName}</h5>
       </div>
     )
