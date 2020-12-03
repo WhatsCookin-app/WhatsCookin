@@ -2,7 +2,15 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, CreateUser, UserHome, Recipes} from './components'
+import {
+  Login,
+  Signup,
+  CreateUser,
+  UserHome,
+  Recipes,
+  SingleRecipe,
+  Channels
+} from './components'
 import {me} from './store'
 
 /**
@@ -22,11 +30,23 @@ class Routes extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/home/channels/:channelId" component={Recipes} />
+        <Route
+          exact
+          path="/home/channels/:channelId/:recipeId"
+          component={SingleRecipe}
+        />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/home/channels/:channelId" component={Recipes} />
+            <Route
+              exact
+              path="/home/channels/:channelId/:recipeId"
+              component={SingleRecipe}
+            />
+            <Route exact path="/channels/" component={Channels} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
