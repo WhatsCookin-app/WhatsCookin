@@ -67,6 +67,7 @@ export const auth = (
     console.error(dispatchOrHistoryErr)
   }
 }
+//change Line 65 from /home to /channels when ready
 
 export const logout = () => async dispatch => {
   try {
