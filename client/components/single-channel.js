@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
+import {Modal} from 'react-bootstrap'
 //would be great to allow users to upload their own images here from their devices for image url
 class SingleChannel extends React.Component {
   constructor(props) {
