@@ -514,10 +514,7 @@ var mapDispatch = function mapDispatch(dispatch) {
 /*!************************************!*\
   !*** ./client/components/index.js ***!
   \************************************/
-
-/*! exports provided: Navbar, UserHome, Recipes, SingleRecipe, Login, Signup */
-
-/*! exports provided: Navbar, UserHome, Recipes, SingleRecipe, Login, Signup, Channels */
+/*! exports provided: Navbar, UserHome, Recipes, Login, Signup, SingleRecipe, Channels */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -531,27 +528,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recipes */ "./client/components/recipes.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Recipes", function() { return _recipes__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
+/* harmony import */ var _auth_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./auth-form */ "./client/components/auth-form.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Login", function() { return _auth_form__WEBPACK_IMPORTED_MODULE_3__["Login"]; });
 
 /* harmony import */ var _CreateUser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateUser */ "./client/components/CreateUser.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Signup", function() { return _CreateUser__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _singleRecipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./singleRecipe */ "./client/components/singleRecipe.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleRecipe", function() { return _singleRecipe__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _singleRecipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./singleRecipe */ "./client/components/singleRecipe.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingleRecipe", function() { return _singleRecipe__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _auth_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-form */ "./client/components/auth-form.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Login", function() { return _auth_form__WEBPACK_IMPORTED_MODULE_4__["Login"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Signup", function() { return _auth_form__WEBPACK_IMPORTED_MODULE_4__["Signup"]; });
-
-
-/* harmony import */ var _channels__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./channels */ "./client/components/channels.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Channels", function() { return _channels__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _channels__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./channels */ "./client/components/channels.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Channels", function() { return _channels__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
 /**
  * `components/index.js` exists simply as a 'central export' for our components.
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+
+
 
 
 
@@ -624,6 +619,80 @@ Navbar.propTypes = {
   handleClick: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
   isLoggedIn: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool.isRequired
 };
+
+/***/ }),
+
+/***/ "./client/components/private-channels.js":
+/*!***********************************************!*\
+  !*** ./client/components/private-channels.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+var PrivateChannels = function PrivateChannels(_ref) {
+  var channels = _ref.channels;
+  var privateChannel = channels.filter(function (channel) {
+    return channel.channel.isPrivate;
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, privateChannel.map(function (currChannel) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: currChannel.channel.id
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/home/channels/".concat(currChannel.channelId)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: currChannel.channel.imageUrl
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/home/channels/".concat(currChannel.channelId)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, currChannel.channel.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, currChannel.channel.description));
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PrivateChannels);
+
+/***/ }),
+
+/***/ "./client/components/public-channels.js":
+/*!**********************************************!*\
+  !*** ./client/components/public-channels.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+var PublicChannels = function PublicChannels(_ref) {
+  var channels = _ref.channels;
+  var publicChannel = channels.filter(function (channel) {
+    return !channel.channel.isPrivate;
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, publicChannel.map(function (currChannel) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: currChannel.channel.id
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/home/channels/".concat(currChannel.channelId)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      src: currChannel.channel.imageUrl
+    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      to: "/home/channels/".concat(currChannel.channelId)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, currChannel.channel.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, currChannel.channel.description));
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (PublicChannels);
 
 /***/ }),
 
@@ -788,12 +857,14 @@ function (_Component) {
       instructionEdit: false,
       name: '',
       ingredients: '',
-      instructions: ''
+      instructions: '',
+      likes: 0
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmitName = _this.handleSubmitName.bind(_assertThisInitialized(_this));
     _this.handleSubmitIngredients = _this.handleSubmitIngredients.bind(_assertThisInitialized(_this));
     _this.handleSubmitInstructions = _this.handleSubmitInstructions.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -803,17 +874,51 @@ function (_Component) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
   }, {
-    key: "handleSubmitName",
+    key: "handleClick",
     value: function () {
-      var _handleSubmitName = _asyncToGenerator(
+      var _handleClick = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee(event) {
+      regeneratorRuntime.mark(function _callee() {
+        var newLikes;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                newLikes = this.state.likes + 1;
+                this.setState({
+                  likes: newLikes
+                });
+                _context.next = 4;
+                return this.props.updateRecipe(this.props.match.params.recipeId, {
+                  likes: this.state.likes
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function handleClick() {
+        return _handleClick.apply(this, arguments);
+      }
+
+      return handleClick;
+    }()
+  }, {
+    key: "handleSubmitName",
+    value: function () {
+      var _handleSubmitName = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee2(event) {
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
                 event.preventDefault();
-                _context.next = 3;
+                _context2.next = 3;
                 return this.props.updateRecipe(this.props.match.params.recipeId, {
                   name: this.state.name
                 });
@@ -825,10 +930,10 @@ function (_Component) {
 
               case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, this);
+        }, _callee2, this);
       }));
 
       function handleSubmitName(_x) {
@@ -842,13 +947,13 @@ function (_Component) {
     value: function () {
       var _handleSubmitIngredients = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(event) {
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      regeneratorRuntime.mark(function _callee3(event) {
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
                 event.preventDefault();
-                _context2.next = 3;
+                _context3.next = 3;
                 return this.props.updateRecipe(this.props.match.params.recipeId, {
                   ingredients: this.state.ingredients
                 });
@@ -860,10 +965,10 @@ function (_Component) {
 
               case 4:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function handleSubmitIngredients(_x2) {
@@ -877,13 +982,13 @@ function (_Component) {
     value: function () {
       var _handleSubmitInstructions = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee3(event) {
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      regeneratorRuntime.mark(function _callee4(event) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 event.preventDefault();
-                _context3.next = 3;
+                _context4.next = 3;
                 return this.props.updateRecipe(this.props.match.params.recipeId, {
                   instructions: this.state.instructions
                 });
@@ -895,10 +1000,10 @@ function (_Component) {
 
               case 4:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
       function handleSubmitInstructions(_x3) {
@@ -912,27 +1017,28 @@ function (_Component) {
     value: function () {
       var _componentDidMount = _asyncToGenerator(
       /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee4() {
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      regeneratorRuntime.mark(function _callee5() {
+        return regeneratorRuntime.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _context4.next = 2;
+                _context5.next = 2;
                 return this.props.getOneRecipe(this.props.match.params.channelId, this.props.match.params.recipeId);
 
               case 2:
                 this.setState({
                   name: this.props.singleRecipe.name,
                   ingredients: this.props.singleRecipe.ingredients,
-                  instructions: this.props.singleRecipe.instructions
+                  instructions: this.props.singleRecipe.instructions,
+                  likes: this.props.singleRecipe.likes
                 });
 
               case 3:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
       function componentDidMount() {
@@ -1023,7 +1129,9 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Likes: ", this.props.singleRecipe.likes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Recipe created by: ", this.props.singleRecipe.owner.userName));
+      }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "likes: ", this.state.likes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleClick
+      }, "Increment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Recipe created by: ", this.props.singleRecipe.owner.userName));
     }
   }]);
 
@@ -1246,8 +1354,9 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/home/channels/:channelId/:recipeId",
-
-        component: _components__WEBPACK_IMPORTED_MODULE_4__["SingleRecipe"],
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["SingleRecipe"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
         path: "/channels/",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Channels"]
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
@@ -1419,11 +1528,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./user */ "./client/store/user.js");
 /* harmony import */ var _recipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./recipe */ "./client/store/recipe.js");
+/* harmony import */ var _singleRecipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./singleRecipe */ "./client/store/singleRecipe.js");
+/* harmony import */ var _channel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./channel */ "./client/store/channel.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "postUser", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["postUser"]; });
 
-/* harmony import */ var _singleRecipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./singleRecipe */ "./client/store/singleRecipe.js");
-
-/* harmony import */ var _channel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./channel */ "./client/store/channel.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "me", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["me"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["auth"]; });
@@ -1437,11 +1545,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var reducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   user: _user__WEBPACK_IMPORTED_MODULE_4__["default"],
   recipe: _recipe__WEBPACK_IMPORTED_MODULE_5__["default"],
   singleRecipe: _singleRecipe__WEBPACK_IMPORTED_MODULE_6__["default"],
-  channels: _channel__WEBPACK_IMPORTED_MODULE_6__["default"]
+  channels: _channel__WEBPACK_IMPORTED_MODULE_7__["default"]
 });
 var middleware = Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_3__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], Object(redux_logger__WEBPACK_IMPORTED_MODULE_1__["createLogger"])({
   collapsed: true
@@ -1861,6 +1970,10 @@ var postUser = function postUser(userObj) {
     }()
   );
 };
+/**
+ * THUNK CREATORS
+ */
+
 var me = function me() {
   return (
     /*#__PURE__*/
@@ -4377,7 +4490,7 @@ function fromByteArray (uint8) {
 var BlobBuilder = typeof BlobBuilder !== 'undefined' ? BlobBuilder :
   typeof WebKitBlobBuilder !== 'undefined' ? WebKitBlobBuilder :
   typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder :
-  typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder :
+  typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder : 
   false;
 
 /**
@@ -36564,7 +36677,7 @@ function insertNonHydratedInstance(returnFiber, fiber) {
               didNotFindHydratableContainerTextInstance(parentContainer, text);
               break;
             case SuspenseComponent:
-
+              
               break;
           }
           break;
@@ -46629,7 +46742,7 @@ __webpack_require__.r(__webpack_exports__);
   selectorFactory, which has the signature:
 
     (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
-
+  
   connect passes its args to connectAdvanced as options, which will in turn pass them to
   selectorFactory each time a Connect component instance is instantiated or hot reloaded.
 

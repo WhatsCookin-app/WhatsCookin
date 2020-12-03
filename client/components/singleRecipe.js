@@ -19,16 +19,26 @@ class SingleRecipe extends Component {
       instructionEdit: false,
       name: '',
       ingredients: '',
-      instructions: ''
+      instructions: '',
+      likes: 0
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmitName = this.handleSubmitName.bind(this)
     this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this)
     this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+  }
+
+  async handleClick() {
+    const newLikes = this.state.likes + 1
+    this.setState({likes: newLikes})
+    await this.props.updateRecipe(this.props.match.params.recipeId, {
+      likes: this.state.likes
+    })
   }
 
   async handleSubmitName(event) {
@@ -63,7 +73,8 @@ class SingleRecipe extends Component {
     this.setState({
       name: this.props.singleRecipe.name,
       ingredients: this.props.singleRecipe.ingredients,
-      instructions: this.props.singleRecipe.instructions
+      instructions: this.props.singleRecipe.instructions,
+      likes: this.props.singleRecipe.likes
     })
   }
 
@@ -157,7 +168,8 @@ class SingleRecipe extends Component {
           </form>
         )}
 
-        <h5>Likes: {this.props.singleRecipe.likes}</h5>
+        <h5>likes: {this.state.likes}</h5>
+        <button onClick={this.handleClick}>Increment</button>
         <h5>Recipe created by: {this.props.singleRecipe.owner.userName}</h5>
       </div>
     )
