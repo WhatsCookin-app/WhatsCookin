@@ -11,7 +11,8 @@ class CreateUser extends Component {
       lastName: '',
       userName: '',
       email: '',
-      password: ''
+      password: '',
+      profilePicture: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,7 +29,8 @@ class CreateUser extends Component {
         lastName: this.state.lastName,
         userName: this.state.userName,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        profilePicture: this.state.profilePicture
       }
       //await this.props.sendUserToPost(newUserObj)
       await this.props.auth({...newUserObj, method: 'signup'})
@@ -38,7 +40,8 @@ class CreateUser extends Component {
         lastName: '',
         userName: '',
         email: '',
-        password: ''
+        password: '',
+        profilePicture: ''
       })
       // redirect to My Account view
       // this.history.push(`/myaccount`)
@@ -84,7 +87,7 @@ class CreateUser extends Component {
             <label htmlFor="profilePicture">
               <small>Profile Picture</small>
             </label>
-            <input type="file" id="myFile" name="filename" />
+            <input type="file" id="myFile" name="profilePicture" />
           </div>
           <div>
             <label htmlFor="userName">
@@ -117,7 +120,7 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     sendUserToPost: userObj => dispatch(postUser(userObj)),
-    auth: userObj => dispatch(auth(userObj, method))
+    auth: userObj => dispatch(auth(userObj, userObj.method))
   }
 }
 
