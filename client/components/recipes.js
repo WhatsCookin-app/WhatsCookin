@@ -2,6 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchRecipes} from '../store/recipe.js'
 import {Link} from 'react-router-dom'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import {Button, Form, Modal} from 'react-bootstrap'
 
 class Recipes extends React.Component {
   componentDidMount() {

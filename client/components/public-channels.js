@@ -14,6 +14,9 @@ const PublicChannels = ({channels}) => {
             <h1>{currChannel.channel.name}</h1>
           </Link>
           <p>{currChannel.channel.description}</p>
+          {/* <Link> */}
+          <button type="button">Edit</button>
+          {/* </Link> */}
         </div>
       ))}
     </>
