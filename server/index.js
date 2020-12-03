@@ -47,6 +47,7 @@ const createApp = () => {
   // body parsing middleware
   app.use(express.json())
   app.use(express.urlencoded({extended: true}))
+  app.use('/uploads', express.static('uploads')) //IMAGE
 
   // compression middleware
   app.use(compression())
@@ -57,7 +58,7 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: false,
+      saveUninitialized: false
     })
   )
   app.use(passport.initialize())
