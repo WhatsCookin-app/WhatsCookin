@@ -7,14 +7,14 @@ const GET_CHANNELS = 'GET_CHANNELS'
 const defaultChannels = []
 
 // action creator
-const getChannels = (channels) => ({
+const getChannels = channels => ({
   type: GET_CHANNELS,
-  channels,
+  channels
 })
 
 //thunk creator
 export const fetchChannels = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       const {data} = await axios.get(`/api/channels`)
       dispatch(getChannels(data))
@@ -25,7 +25,7 @@ export const fetchChannels = () => {
 }
 
 // reducer
-export default function (state = defaultChannels, action) {
+export default function(state = defaultChannels, action) {
   switch (action.type) {
     case GET_CHANNELS:
       return action.channels
