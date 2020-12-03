@@ -43,25 +43,46 @@ class SingleRecipe extends Component {
 
   async handleSubmitName(event) {
     event.preventDefault()
-    await this.props.updateRecipe(this.props.match.params.recipeId, {
-      name: this.state.name
-    })
+    if (
+      this.props.user.id &&
+      Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId)
+    ) {
+      await this.props.updateRecipe(this.props.match.params.recipeId, {
+        name: this.state.name
+      })
+    } else {
+      alert('Only Recipe owner can edit this recipe')
+    }
     this.setState({nameEdit: false})
   }
 
   async handleSubmitIngredients(event) {
     event.preventDefault()
-    await this.props.updateRecipe(this.props.match.params.recipeId, {
-      ingredients: this.state.ingredients
-    })
+    if (
+      this.props.user.id &&
+      Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId)
+    ) {
+      await this.props.updateRecipe(this.props.match.params.recipeId, {
+        ingredients: this.state.ingredients
+      })
+    } else {
+      alert('Only Recipe owner can edit this recipe')
+    }
     this.setState({ingredientEdit: false})
   }
 
   async handleSubmitInstructions(event) {
     event.preventDefault()
-    await this.props.updateRecipe(this.props.match.params.recipeId, {
-      instructions: this.state.instructions
-    })
+    if (
+      this.props.user.id &&
+      Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId)
+    ) {
+      await this.props.updateRecipe(this.props.match.params.recipeId, {
+        instructions: this.state.instructions
+      })
+    } else {
+      alert('Only Recipe owner can edit this recipe')
+    }
     this.setState({instructionEdit: false})
   }
 
@@ -91,6 +112,9 @@ class SingleRecipe extends Component {
         </div>
       )
     }
+    // if(!this,props.singlerecipe){
+    //   return <h1>your recipe has been deleted</h1>
+    // }
     return (
       <div>
         <img src={this.props.singleRecipe.imageUrl} />
@@ -98,14 +122,13 @@ class SingleRecipe extends Component {
         {!this.state.nameEdit ? (
           <div>
             <h5>Recipe Name: {this.props.singleRecipe.name}</h5>
-
-            <button
+            <i
+              disabled={!this.props.user.id}
+              className="fas fa-edit"
               onClick={() => {
                 this.setState({nameEdit: true})
               }}
-            >
-              Edit
-            </button>
+            />
           </div>
         ) : (
           <form onSubmit={this.handleSubmitName}>
@@ -121,19 +144,29 @@ class SingleRecipe extends Component {
         <div>
           {!this.state.ingredientEdit ? (
             <div>
-              <h5>Ingredients: {this.props.singleRecipe.ingredients}</h5>
-              <button
+              <h5>Ingredients:</h5>
+              <h5>
+                {this.props.singleRecipe.ingredients
+                  .split('\n')
+                  .map((elm, index) => {
+                    return <li key={index}>{elm}</li>
+                  })}
+              </h5>
+              <i
+                className="fas fa-edit"
+                disabled={
+                  !this.props.user.id ||
+                  Number(this.props.user.id) !==
+                    Number(this.props.singleRecipe.ownerId)
+                }
                 onClick={() => {
                   this.setState({ingredientEdit: true})
                 }}
-              >
-                Edit
-              </button>
+              />
             </div>
           ) : (
             <form onSubmit={this.handleSubmitIngredients}>
-              <input
-                type="text"
+              <textarea
                 style={{width: '370px', height: '300px'}}
                 name="ingredients"
                 value={this.state.ingredients}
@@ -143,22 +176,27 @@ class SingleRecipe extends Component {
             </form>
           )}
         </div>
-
         {!this.state.instructionEdit ? (
           <div>
-            <h5>Instructions: {this.props.singleRecipe.instructions}</h5>
-            <button
+            <h5>Instructions:</h5>
+            <h5>
+              {' '}
+              {this.props.singleRecipe.instructions
+                .split('\n')
+                .map((elm, index) => {
+                  return <li key={index}>{elm}</li>
+                })}
+            </h5>
+            <i
+              className="fas fa-edit"
               onClick={() => {
                 this.setState({instructionEdit: true})
               }}
-            >
-              Edit
-            </button>
+            />
           </div>
         ) : (
           <form onSubmit={this.handleSubmitInstructions}>
-            <input
-              type="text"
+            <textarea
               name="instructions"
               style={{width: '370px', height: '500px'}}
               value={this.state.instructions}
@@ -169,7 +207,11 @@ class SingleRecipe extends Component {
         )}
 
         <h5>likes: {this.state.likes}</h5>
-        <button onClick={this.handleClick}>Like this recipe</button>
+        <i
+          className="fas fa-heart"
+          style={{color: 'red'}}
+          onClick={this.handleClick}
+        />
         <h5>Recipe created by: {this.props.singleRecipe.owner.userName}</h5>
       </div>
     )
@@ -179,7 +221,8 @@ class SingleRecipe extends Component {
 const mapState = state => {
   return {
     singleRecipe: state.singleRecipe.recipe,
-    loading: state.singleRecipe.loading
+    loading: state.singleRecipe.loading,
+    user: state.user
   }
 }
 

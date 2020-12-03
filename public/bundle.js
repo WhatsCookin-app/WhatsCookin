@@ -918,17 +918,30 @@ function (_Component) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 event.preventDefault();
-                _context2.next = 3;
+
+                if (!(this.props.user.id && Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId))) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _context2.next = 4;
                 return this.props.updateRecipe(this.props.match.params.recipeId, {
                   name: this.state.name
                 });
 
-              case 3:
+              case 4:
+                _context2.next = 7;
+                break;
+
+              case 6:
+                alert('Only Recipe owner can edit this recipe');
+
+              case 7:
                 this.setState({
                   nameEdit: false
                 });
 
-              case 4:
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -953,17 +966,30 @@ function (_Component) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 event.preventDefault();
-                _context3.next = 3;
+
+                if (!(this.props.user.id && Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId))) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _context3.next = 4;
                 return this.props.updateRecipe(this.props.match.params.recipeId, {
                   ingredients: this.state.ingredients
                 });
 
-              case 3:
+              case 4:
+                _context3.next = 7;
+                break;
+
+              case 6:
+                alert('Only Recipe owner can edit this recipe');
+
+              case 7:
                 this.setState({
                   ingredientEdit: false
                 });
 
-              case 4:
+              case 8:
               case "end":
                 return _context3.stop();
             }
@@ -988,17 +1014,30 @@ function (_Component) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 event.preventDefault();
-                _context4.next = 3;
+
+                if (!(this.props.user.id && Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId))) {
+                  _context4.next = 6;
+                  break;
+                }
+
+                _context4.next = 4;
                 return this.props.updateRecipe(this.props.match.params.recipeId, {
                   instructions: this.state.instructions
                 });
 
-              case 3:
+              case 4:
+                _context4.next = 7;
+                break;
+
+              case 6:
+                alert('Only Recipe owner can edit this recipe');
+
+              case 7:
                 this.setState({
                   instructionEdit: false
                 });
 
-              case 4:
+              case 8:
               case "end":
                 return _context4.stop();
             }
@@ -1066,17 +1105,22 @@ function (_Component) {
           height: 80,
           width: 80
         }));
-      }
+      } // if(!this,props.singlerecipe){
+      //   return <h1>your recipe has been deleted</h1>
+      // }
+
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.singleRecipe.imageUrl
-      }), !this.state.nameEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Recipe Name: ", this.props.singleRecipe.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), !this.state.nameEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Recipe Name: ", this.props.singleRecipe.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        disabled: !this.props.user.id,
+        className: "fas fa-edit",
         onClick: function onClick() {
           _this2.setState({
             nameEdit: true
           });
         }
-      }, "Edit")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmitName
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -1087,16 +1131,21 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !this.state.ingredientEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Ingredients: ", this.props.singleRecipe.ingredients), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !this.state.ingredientEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Ingredients:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, this.props.singleRecipe.ingredients.split('\n').map(function (elm, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: index
+        }, elm);
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-edit",
+        disabled: !this.props.user.id || Number(this.props.user.id) !== Number(this.props.singleRecipe.ownerId),
         onClick: function onClick() {
           _this2.setState({
             ingredientEdit: true
           });
         }
-      }, "Edit")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmitIngredients
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         style: {
           width: '370px',
           height: '300px'
@@ -1108,16 +1157,20 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "Save"))), !this.state.instructionEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Instructions: ", this.props.singleRecipe.instructions), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Save"))), !this.state.instructionEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Instructions:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, " ", this.props.singleRecipe.instructions.split("\n").map(function (elm, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: index
+        }, elm);
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-edit",
         onClick: function onClick() {
           _this2.setState({
             instructionEdit: true
           });
         }
-      }, "Edit")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmitInstructions
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         name: "instructions",
         style: {
           width: '370px',
@@ -1129,9 +1182,13 @@ function (_Component) {
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit"
-      }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "likes: ", this.state.likes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Save")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "likes: ", this.state.likes), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-heart",
+        style: {
+          color: 'red'
+        },
         onClick: this.handleClick
-      }, "Like this recipe"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Recipe created by: ", this.props.singleRecipe.owner.userName));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", null, "Recipe created by: ", this.props.singleRecipe.owner.userName));
     }
   }]);
 
@@ -1141,7 +1198,8 @@ function (_Component) {
 var mapState = function mapState(state) {
   return {
     singleRecipe: state.singleRecipe.recipe,
-    loading: state.singleRecipe.loading
+    loading: state.singleRecipe.loading,
+    user: state.user
   };
 };
 
@@ -1701,7 +1759,13 @@ var updateSingleRecipeCreator = function updateSingleRecipeCreator(recipe) {
     type: UPDATE_SINGLE_RECIPE,
     recipe: recipe
   };
-}; //thunk creator
+}; // const DELETE_SINGLE_RECIPE = 'DELETE_SINGLE_RECIPE'
+// const deleteSingleRecipeCreator = () => {
+//   return {
+//     type: DELETE_SINGLE_RECIPE,
+//   }
+// }
+//thunk creator
 
 
 var fetchOneRecipe = function fetchOneRecipe(channelId, recipeId) {
@@ -1851,7 +1915,9 @@ var updateSingleRecipe = function updateSingleRecipe(recipeId, recipe) {
     case SET_LOADING:
       return {
         recipe: _objectSpread({}, state.recipe),
-        loading: true
+        loading: true // case DELETE_RECIPE:
+        //   return defaultRecipe
+
       };
 
     default:

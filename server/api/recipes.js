@@ -62,27 +62,28 @@ router.post('/', async (req, res, next) => {
 router.put('/:recipeId', async (req, res, next) => {
   try {
     const recipe = await Recipe.findByPk(req.params.recipeId)
-    if (
-      (Object.keys(req.body).length === 1 &&
-        Object.keys(req.body)[0] === 'likes') ||
-      Number(recipe.dataValues.ownerId) === Number(req.user.id)
-    ) {
-      await recipe.update(req.body)
-      const updated = await Recipe.findOne({
-        where: {
-          id: req.params.recipeId
-        },
-        include: {
-          model: User,
-          as: 'owner'
-        }
-      })
-      res.json(updated)
-    } else {
-      const err = new Error('Only recipe owner can edit this recipe')
-      err.status = 401
-      return next(err)
-    }
+    // if (
+    //   (Object.keys(req.body).length === 1 &&
+    //     Object.keys(req.body)[0] === 'likes')
+    //     ||
+    //   Number(recipe.dataValues.ownerId) === Number(req.user.id)
+    // ) {
+    await recipe.update(req.body)
+    const updated = await Recipe.findOne({
+      where: {
+        id: req.params.recipeId
+      },
+      include: {
+        model: User,
+        as: 'owner'
+      }
+    })
+    res.json(updated)
+    // } else {
+    //   const err = new Error('Only recipe owner can edit this recipe')
+    //   err.status = 401
+    //   res.send(err)
+    // }
   } catch (err) {
     next(err)
   }

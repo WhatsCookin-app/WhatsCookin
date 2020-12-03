@@ -23,6 +23,13 @@ const updateSingleRecipeCreator = recipe => {
   }
 }
 
+// const DELETE_SINGLE_RECIPE = 'DELETE_SINGLE_RECIPE'
+// const deleteSingleRecipeCreator = () => {
+//   return {
+//     type: DELETE_SINGLE_RECIPE,
+//   }
+// }
+
 //thunk creator
 
 export const fetchOneRecipe = (channelId, recipeId) => {
@@ -74,6 +81,8 @@ export default function(state = defaultRecipe, action) {
       return {recipe: action.recipe, loading: false}
     case SET_LOADING:
       return {recipe: {...state.recipe}, loading: true}
+    // case DELETE_RECIPE:
+    //   return defaultRecipe
     default:
       return state
   }
