@@ -1,4 +1,4 @@
-import React, {Component, Profiler} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {postUser} from '../store/user'
 import {auth} from '../store'
