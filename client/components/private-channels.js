@@ -14,6 +14,7 @@ const PrivateChannels = ({channels}) => {
             <h1>{currChannel.channel.name}</h1>
           </Link>
           <p>{currChannel.channel.description}</p>
+          <button type="button">Edit</button>
         </div>
       ))}
     </>

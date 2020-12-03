@@ -4,6 +4,8 @@ import {fetchChannels} from '../store/channel.js'
 import {Link} from 'react-router-dom'
 import PublicChannels from './public-channels'
 import PrivateChannels from './private-channels'
+import SingleChannel from './single-channel'
+import {Button} from 'react-bootstrap'
 
 class Channels extends React.Component {
   componentDidMount() {
@@ -19,6 +21,7 @@ class Channels extends React.Component {
       <>
         <PublicChannels channels={this.props.channels} />
         <PrivateChannels channels={this.props.channels} />
+        <SingleChannel channels={this.props.channels} channelId={1} />
       </>
     )
   }

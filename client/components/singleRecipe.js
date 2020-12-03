@@ -6,9 +6,14 @@ import {connect} from 'react-redux'
 import {
   fetchOneRecipe,
   loadingRecipe,
-  updateSingleRecipe
+  updateSingleRecipe,
+  deleteRecipe
 } from '../store/singleRecipe.js'
 import Loader from 'react-loader-spinner'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faEdit} from '@fortawesome/free-solid-svg-icons'
+import {Button, Form} from 'react-bootstrap'
+import NotFound from './notFound'
 
 class SingleRecipe extends Component {
   constructor(props) {
@@ -23,6 +28,7 @@ class SingleRecipe extends Component {
       likes: 0
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleSubmitName = this.handleSubmitName.bind(this)
     this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this)
     this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this)
@@ -41,48 +47,31 @@ class SingleRecipe extends Component {
     })
   }
 
+  handleDelete() {
+    this.props.removeRecipe(this.props.match.params.recipeId)
+  }
+
   async handleSubmitName(event) {
     event.preventDefault()
-    if (
-      this.props.user.id &&
-      Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId)
-    ) {
-      await this.props.updateRecipe(this.props.match.params.recipeId, {
-        name: this.state.name
-      })
-    } else {
-      alert('Only Recipe owner can edit this recipe')
-    }
+    await this.props.updateRecipe(this.props.match.params.recipeId, {
+      name: this.state.name
+    })
     this.setState({nameEdit: false})
   }
 
   async handleSubmitIngredients(event) {
     event.preventDefault()
-    if (
-      this.props.user.id &&
-      Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId)
-    ) {
-      await this.props.updateRecipe(this.props.match.params.recipeId, {
-        ingredients: this.state.ingredients
-      })
-    } else {
-      alert('Only Recipe owner can edit this recipe')
-    }
+    await this.props.updateRecipe(this.props.match.params.recipeId, {
+      ingredients: this.state.ingredients
+    })
     this.setState({ingredientEdit: false})
   }
 
   async handleSubmitInstructions(event) {
     event.preventDefault()
-    if (
-      this.props.user.id &&
-      Number(this.props.user.id) === Number(this.props.singleRecipe.ownerId)
-    ) {
-      await this.props.updateRecipe(this.props.match.params.recipeId, {
-        instructions: this.state.instructions
-      })
-    } else {
-      alert('Only Recipe owner can edit this recipe')
-    }
+    await this.props.updateRecipe(this.props.match.params.recipeId, {
+      instructions: this.state.instructions
+    })
     this.setState({instructionEdit: false})
   }
 
@@ -104,6 +93,7 @@ class SingleRecipe extends Component {
   }
 
   render() {
+    console.log('recipe: ', this.props.singleRecipe)
     const {loading} = this.props
     if (loading) {
       return (
@@ -112,23 +102,27 @@ class SingleRecipe extends Component {
         </div>
       )
     }
-    // if(!this,props.singlerecipe){
-    //   return <h1>your recipe has been deleted</h1>
-    // }
+    if (!this.props.singleRecipe.id) {
+      return <NotFound />
+    }
     return (
-      <div>
+      <div className="m-3">
         <img src={this.props.singleRecipe.imageUrl} />
 
         {!this.state.nameEdit ? (
           <div>
             <h5>Recipe Name: {this.props.singleRecipe.name}</h5>
-            <i
-              disabled={!this.props.user.id}
-              className="fas fa-edit"
-              onClick={() => {
-                this.setState({nameEdit: true})
-              }}
-            />
+            {this.props.user.id &&
+            this.props.user.id === this.props.singleRecipe.ownerId ? (
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={() => {
+                  this.setState({nameEdit: true})
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
+            )}
           </div>
         ) : (
           <form onSubmit={this.handleSubmitName}>
@@ -138,7 +132,9 @@ class SingleRecipe extends Component {
               value={this.state.name}
               onChange={event => this.handleChange(event)}
             />
-            <button type="submit">Save</button>
+            <Button variant="primary" type="submit" size="sm">
+              Save
+            </Button>
           </form>
         )}
         <div>
@@ -152,17 +148,17 @@ class SingleRecipe extends Component {
                     return <li key={index}>{elm}</li>
                   })}
               </h5>
-              <i
-                className="fas fa-edit"
-                disabled={
-                  !this.props.user.id ||
-                  Number(this.props.user.id) !==
-                    Number(this.props.singleRecipe.ownerId)
-                }
-                onClick={() => {
-                  this.setState({ingredientEdit: true})
-                }}
-              />
+              {this.props.user.id &&
+              this.props.user.id === this.props.singleRecipe.ownerId ? (
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  onClick={() => {
+                    this.setState({ingredientEdit: true})
+                  }}
+                />
+              ) : (
+                <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
+              )}
             </div>
           ) : (
             <form onSubmit={this.handleSubmitIngredients}>
@@ -172,7 +168,9 @@ class SingleRecipe extends Component {
                 value={this.state.ingredients}
                 onChange={event => this.handleChange(event)}
               />
-              <button type="submit">Save</button>
+              <Button variant="primary" type="submit">
+                Save
+              </Button>
             </form>
           )}
         </div>
@@ -187,12 +185,17 @@ class SingleRecipe extends Component {
                   return <li key={index}>{elm}</li>
                 })}
             </h5>
-            <i
-              className="fas fa-edit"
-              onClick={() => {
-                this.setState({instructionEdit: true})
-              }}
-            />
+            {this.props.user.id &&
+            this.props.user.id === this.props.singleRecipe.ownerId ? (
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={() => {
+                  this.setState({instructionEdit: true})
+                }}
+              />
+            ) : (
+              <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
+            )}
           </div>
         ) : (
           <form onSubmit={this.handleSubmitInstructions}>
@@ -202,7 +205,9 @@ class SingleRecipe extends Component {
               value={this.state.instructions}
               onChange={event => this.handleChange(event)}
             />
-            <button type="submit">Save</button>
+            <Button variant="primary" type="submit">
+              Save
+            </Button>
           </form>
         )}
 
@@ -213,6 +218,9 @@ class SingleRecipe extends Component {
           onClick={this.handleClick}
         />
         <h5>Recipe created by: {this.props.singleRecipe.owner.userName}</h5>
+        <Button variant="primary" type="submit" onClick={this.handleDelete}>
+          Delete recipe
+        </Button>
       </div>
     )
   }
@@ -232,7 +240,8 @@ const mapDispatch = dispatch => {
       dispatch(fetchOneRecipe(channelId, recipeId)),
     changeLoadingState: () => dispatch(loadingRecipe()),
     updateRecipe: (recipeId, recipe) =>
-      dispatch(updateSingleRecipe(recipeId, recipe))
+      dispatch(updateSingleRecipe(recipeId, recipe)),
+    removeRecipe: recipeId => dispatch(deleteRecipe(recipeId))
   }
 }
 

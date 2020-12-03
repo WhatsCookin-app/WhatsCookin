@@ -23,12 +23,12 @@ const updateSingleRecipeCreator = recipe => {
   }
 }
 
-// const DELETE_SINGLE_RECIPE = 'DELETE_SINGLE_RECIPE'
-// const deleteSingleRecipeCreator = () => {
-//   return {
-//     type: DELETE_SINGLE_RECIPE,
-//   }
-// }
+const DELETE_RECIPE = 'DELETE_RECIPE'
+const deleteRecipeCreator = () => {
+  return {
+    type: DELETE_RECIPE
+  }
+}
 
 //thunk creator
 
@@ -72,6 +72,18 @@ export const updateSingleRecipe = (recipeId, recipe) => {
   }
 }
 
+export const deleteRecipe = recipeId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/recipes/${recipeId}`)
+      const action = deleteRecipeCreator()
+      dispatch(action)
+    } catch (err) {
+      console.error(err.message)
+    }
+  }
+}
+
 // reducer
 export default function(state = defaultRecipe, action) {
   switch (action.type) {
@@ -81,8 +93,8 @@ export default function(state = defaultRecipe, action) {
       return {recipe: action.recipe, loading: false}
     case SET_LOADING:
       return {recipe: {...state.recipe}, loading: true}
-    // case DELETE_RECIPE:
-    //   return defaultRecipe
+    case DELETE_RECIPE:
+      return defaultRecipe
     default:
       return state
   }
