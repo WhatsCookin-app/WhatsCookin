@@ -58,6 +58,7 @@ class Channels extends React.Component {
         {/* <ImageUrl handleClose={this.handleClose} />
         </Modal> */}
       </div>
+
     )
   }
 }
