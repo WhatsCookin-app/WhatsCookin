@@ -21,7 +21,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
-  color: #8e9aaf;
+  color: whitesmoke;
 }
 
 nav a:hover {
@@ -90,6 +90,14 @@ form div {
   flex-direction: column;
 }
 
+#channel-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 5px;
+}
+
 .all-channels {
   display: flex;
   flex-wrap: wrap;
@@ -104,4 +112,8 @@ form div {
 
 footer {
   background-color: #e63946;
+}
+
+.cursor:hover {
+  cursor: pointer;
 }

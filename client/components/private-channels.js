@@ -1,29 +1,29 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Card} from 'react-bootstrap'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faLock} from '@fortawesome/free-solid-svg-icons'
 
 const PrivateChannels = ({channels}) => {
   const privateChannel = channels.filter(channel => channel.channel.isPrivate)
   return (
     <>
       {privateChannel.map(currChannel => (
-        <Card
-          className="bg-dark text-white image m-2"
-          key={currChannel.channel.id}
-        >
+        <Card className="text-white image m-2" key={currChannel.channel.id}>
+          <Card.Img
+            src={currChannel.channel.imageUrl}
+            className="image filter rounded"
+          />
           <Link to={`/home/channels/${currChannel.channelId}`}>
-            <Card.Img
-              src={currChannel.channel.imageUrl}
-              className="image filter"
-              rounded
-            />
+            <Card.ImgOverlay>
+              {/* <Link to={`/home/channels/${currChannel.channelId}`}> */}
+              <Card.Title>
+                {currChannel.channel.name} <FontAwesomeIcon icon={faLock} />
+              </Card.Title>
+              {/* </Link> */}
+              <Card.Text>{currChannel.channel.description}</Card.Text>
+            </Card.ImgOverlay>
           </Link>
-          <Card.ImgOverlay>
-            <Link to={`/home/channels/${currChannel.channelId}`}>
-              <Card.Title>{currChannel.channel.name}</Card.Title>
-            </Link>
-            <Card.Text>{currChannel.channel.description}</Card.Text>
-          </Card.ImgOverlay>
           {/* <button type="button">Edit</button> */}
         </Card>
       ))}

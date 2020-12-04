@@ -40,8 +40,8 @@ class Channels extends React.Component {
       <div id="flex">
         <h1>Browse</h1>
         <div className="all-channels">
-          <PublicChannels channels={this.props.channels} />
           <PrivateChannels channels={this.props.channels} />
+          <PublicChannels channels={this.props.channels} />
         </div>
         {/* <SingleChannel channels={this.props.channels} channelId={1} /> */}
 
