@@ -19,7 +19,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <BootstrapNavbar
       bg="info"
-      className="border-bottom justify-content-between"
+      className="border-bottom justify-content-between shadow-sm rounded"
       expand="sm"
     >
       <BootstrapNavbar.Brand href="/home">WhatsCookin</BootstrapNavbar.Brand>
