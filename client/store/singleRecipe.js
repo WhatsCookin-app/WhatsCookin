@@ -1,6 +1,6 @@
 import axios from 'axios'
 import recipe from './recipe'
-// import history from '../history'
+import history from '../history'
 
 // action type
 const GET_ONE_RECIPE = 'GET_ONE_RECIPE'
@@ -72,12 +72,13 @@ export const updateSingleRecipe = (recipeId, recipe) => {
   }
 }
 
-export const deleteRecipe = recipeId => {
+export const deleteRecipe = (recipeId, channelId) => {
   return async dispatch => {
     try {
       await axios.delete(`/api/recipes/${recipeId}`)
       const action = deleteRecipeCreator()
       dispatch(action)
+      history.push(`/home/channels/${channelId}`)
     } catch (err) {
       console.error(err.message)
     }
