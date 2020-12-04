@@ -11,3 +11,6 @@ export {default as Signup} from './CreateUser'
 export {default as SingleRecipe} from './singleRecipe'
 export {default as Channels} from './channels'
 export {default as SingleChannel} from './single-channel'
+export {default as SessionContainer} from './video-session-container'
+
+export {default as VideoSession} from './videotest-kade'

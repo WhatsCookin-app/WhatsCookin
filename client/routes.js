@@ -9,7 +9,9 @@ import {
   UserHome,
   Recipes,
   SingleRecipe,
-  Channels
+  Channels,
+  VideoSession,
+  SessionContainer
 } from './components'
 import {me} from './store'
 
@@ -40,6 +42,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
+            <Route exact path="/home/get-cookin" component={SessionContainer} />
             <Route exact path="/home/channels/:channelId" component={Recipes} />
             <Route
               exact

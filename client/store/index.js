@@ -7,6 +7,7 @@ import recipe from './recipe'
 import singleRecipe from './singleRecipe'
 import channels from './channel'
 import singleChannel from './single-channel'
+import videoReducer from './videos'
 
 const reducer = combineReducers({
   user,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   channels,
   singleChannel,
   singleRecipe,
+  videos: videoReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
