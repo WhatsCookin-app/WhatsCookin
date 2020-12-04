@@ -49,8 +49,7 @@ class Channels extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Rename Channel</Modal.Title>
           </Modal.Header>
-
-          {/* <RenameChannel handleClose={this.handleClose}/> */}
+          <RenameChannel handleClose={this.handleClose} />
           <ImageUrl handleClose={this.handleClose} />
         </Modal>
       </>
