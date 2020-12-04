@@ -162,6 +162,7 @@ class SingleRecipe extends Component {
             style={{color: 'red'}}
             onClick={this.handleClick}
           />
+
           <h5 className="authorline">
             &nbsp;likes:{this.state.likes}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </h5>
