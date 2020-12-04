@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
+import {SingleChannel} from './index'
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -44,6 +45,10 @@ class Recipes extends React.Component {
   render() {
     const recipes = this.props.recipes
     return (
+      <div id="all-recipes" className="flex-column">
+        <div>
+          <SingleChannel channelId={this.props.match.params.channelId} />
+        </div>
       <div>
         <FontAwesomeIcon
           icon={faPlus}
@@ -146,6 +151,7 @@ class Recipes extends React.Component {
             recipes.map(element => {
               return (
                 <div key={element.id} id="single-recipe">
+
                   <Link
                     to={`/home/channels/${this.props.match.params.channelId}/${
                       element.id

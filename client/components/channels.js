@@ -37,22 +37,28 @@ class Channels extends React.Component {
     if (!channels.length) return <h1>Loading</h1>
 
     return (
-      <>
-        <PublicChannels channels={this.props.channels} />
-        <PrivateChannels channels={this.props.channels} />
+      <div id="flex">
+        <h1>Browse</h1>
+        <div className="all-channels">
+          <PrivateChannels channels={this.props.channels} />
+          <PublicChannels channels={this.props.channels} />
+        </div>
         {/* <SingleChannel channels={this.props.channels} channelId={1} /> */}
-        <Button variant="primary" onClick={this.handleShow}>
+
+        {/* This is the template for any modal form
+         <Button variant="primary" onClick={this.handleShow}>
           Rename Channel
         </Button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Rename Channel</Modal.Title>
-          </Modal.Header>
-          <RenameChannel handleClose={this.handleClose} />
-          <ImageUrl handleClose={this.handleClose} />
-        </Modal>
-      </>
+          </Modal.Header> */}
+
+        {/* <ImageUrl handleClose={this.handleClose} />
+        </Modal> */}
+      </div>
+
     )
   }
 }

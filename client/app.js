@@ -6,7 +6,7 @@ import '../public/App.scss'
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-light">
       <Navbar />
       <Routes />
     </div>
