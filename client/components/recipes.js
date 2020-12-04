@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchRecipes} from '../store/recipe.js'
+import {fetchRecipes, postRecipe} from '../store/recipe.js'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
@@ -10,12 +10,31 @@ class Recipes extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      show: false
+      show: false,
+      name: '',
+      ingredients: '',
+      instructions: ''
     }
     this.handleClose = this.handleClose.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount() {
     this.props.getAllRecipes(this.props.match.params.channelId)
+  }
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.addRecipe({
+      name: this.state.name,
+      ingredients: this.state.ingredients,
+      instructions: this.state.instructions,
+      channels: [this.props.match.params.channelId]
+    })
+    this.handleClose()
   }
 
   handleClose() {
@@ -25,35 +44,45 @@ class Recipes extends React.Component {
   render() {
     const recipes = this.props.recipes
     return (
-      <div id="all-recipes">
+      <div>
         <FontAwesomeIcon
           icon={faPlus}
+          style={{marginLeft: '1200px', color: '#0645AD'}}
+          size="lg"
           onClick={() => {
             this.setState({show: true})
           }}
         />
-
-        <Modal
-          show={this.state.show}
-          onHide={this.handleClose}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Upload a Recipe</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group>
+        <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
+          Add a recipe
+        </h6>
+        <div id="all-recipes">
+          <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Upload a Recipe</Modal.Title>
+            </Modal.Header>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="name">
                 <Form.Label>Recipe Name</Form.Label>
-                <Form.Control placeholder="Easy Pancake" />
+                <Form.Control
+                  name="name"
+                  type="name"
+                  style={{marginLeft: '100px'}}
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  placeholder="Easy Pancake"
+                />
               </Form.Group>
-              <Form.Group>
+              <Form.Group controlId="ingredients">
                 <Form.Label>Ingredients</Form.Label>
                 <Form.Control
                   as="textarea"
-                  rows="10"
+                  rows="5"
+                  name="ingredients"
+                  type="ingredients"
+                  style={{marginLeft: '100px'}}
+                  value={this.state.ingredients}
+                  onChange={this.handleChange}
                   placeholder={
                     '1 cup all-purpose flour' +
                     '\n' +
@@ -67,11 +96,16 @@ class Recipes extends React.Component {
                   }
                 />
               </Form.Group>
-              <Form.Group>
+              <Form.Group controlId="instructions">
                 <Form.Label>Instructions</Form.Label>
                 <Form.Control
+                  name="instructions"
+                  type="instructions"
+                  value={this.state.instructions}
+                  onChange={this.handleChange}
                   as="textarea"
                   rows="10"
+                  style={{marginLeft: '100px'}}
                   placeholder={
                     'In a large bowl, mix flour, sugar, baking powder and salt. Make a well in the center, and pour in milk, egg and oil. Mix until smooth.' +
                     '\n' +
@@ -79,34 +113,51 @@ class Recipes extends React.Component {
                   }
                 />
               </Form.Group>
+              {this.state.name &&
+              this.state.ingredients &&
+              this.state.instructions ? (
+                <Button
+                  variant="success"
+                  active
+                  type="submit"
+                  style={{
+                    marginLeft: '400px',
+                    marginBottom: '30px'
+                  }}
+                >
+                  Upload
+                </Button>
+              ) : (
+                <Button
+                  variant="success"
+                  disabled
+                  type="submit"
+                  style={{
+                    marginLeft: '400px',
+                    marginBottom: '30px'
+                  }}
+                >
+                  Upload
+                </Button>
+              )}
             </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Cancel
-            </Button>
-            <Button variant="primary" onClick={this.handleClick}>
-              Upload
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        {recipes &&
-          recipes.map(element => {
-            return (
-              <div key={element.id} id="single-recipe">
-                <img src={element.imageUrl} id="img" />
-                <div id="recipe-info">
+          </Modal>
+          {recipes &&
+            recipes.map(element => {
+              return (
+                <div key={element.id} id="single-recipe">
                   <Link
                     to={`/home/channels/${this.props.match.params.channelId}/${
                       element.id
                     }`}
                   >
-                    {element.name}
+                    <img src={element.imageUrl} id="img" />
+                    <div id="recipe-info">{element.name}</div>
                   </Link>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
+        </div>
       </div>
     )
   }
@@ -120,7 +171,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllRecipes: channelId => dispatch(fetchRecipes(channelId))
+    getAllRecipes: channelId => dispatch(fetchRecipes(channelId)),
+    addRecipe: newRecipe => dispatch(postRecipe(newRecipe))
   }
 }
 
