@@ -2,8 +2,16 @@ body {
   font-family: sans-serif;
 }
 
-a {
+div a {
   text-decoration: none;
+  color: whitesmoke;
+  font-weight: bold;
+}
+
+div a:hover {
+  text-decoration: none;
+  color: whitesmoke;
+  font-weight: bold;
 }
 
 label {
@@ -13,6 +21,13 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: #8e9aaf;
+}
+
+nav a:hover {
+  color: #e63946;
+  text-decoration: none;
+  /* font-weight: bold; */
 }
 
 form div {
@@ -48,3 +63,45 @@ form div {
 #imageUpload {
   ="position-relative"
 } */
+.image {
+  width: 33.25rem;
+  height: 33.25rem;
+}
+
+.filter {
+  filter: brightness(70%);
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+  .image {
+    width: 10.6875rem;
+    height: 10.6875rem;
+  }
+}
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  .image {
+    width: 10.6875rem;
+    height: 10.6875rem;
+  }
+}
+
+#flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.all-channels {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-2 {
+  max-width: 678px;
+  max-height: 70px;
+}
+
+footer {
+  background-color: #e63946;
+}
