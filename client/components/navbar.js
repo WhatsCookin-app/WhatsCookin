@@ -36,7 +36,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/channels">
             <Nav.Item>Channels</Nav.Item>
           </Link>
-          <Link to="/getCookin">
+          <Link to="/home/get-cookin">
             <Nav.Item>GetCookin</Nav.Item>
           </Link>
 
