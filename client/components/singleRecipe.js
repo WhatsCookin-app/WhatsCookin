@@ -119,10 +119,10 @@ class SingleRecipe extends Component {
     }
     return (
       <div className="m-3">
-        <img src={this.props.singleRecipe.imageUrl} id="img" />
-
         <div id="editButton">
-          <h5>Recipe Name: {this.props.singleRecipe.name}&nbsp;&nbsp;</h5>
+          <h5 className="headline">
+            {this.props.singleRecipe.name}&nbsp;&nbsp;
+          </h5>
           {this.props.user.id &&
           this.props.user.id === this.props.singleRecipe.ownerId ? (
             <FontAwesomeIcon
@@ -156,10 +156,26 @@ class SingleRecipe extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <div id="editButton">
+          <i
+            className="fas fa-heart"
+            style={{color: 'red'}}
+            onClick={this.handleClick}
+          />
+          <h5 className="authorline">
+            &nbsp;likes:{this.state.likes}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </h5>
+
+          <h5 className="authorline">
+            Recipe created by: {this.props.singleRecipe.owner.userName}
+          </h5>
+        </div>
+        <img src={this.props.singleRecipe.imageUrl} id="img" />
+
         <div>
           <div>
             <div id="editButton">
-              <h5>Ingredients:&nbsp;&nbsp;</h5>
+              <h5 className="section-headline">Ingredients:&nbsp;&nbsp;</h5>
               {this.props.user.id &&
               this.props.user.id === this.props.singleRecipe.ownerId ? (
                 <FontAwesomeIcon
@@ -177,7 +193,12 @@ class SingleRecipe extends Component {
               {this.props.singleRecipe.ingredients
                 .split('\n')
                 .map((elm, index) => {
-                  return <li key={index}>{elm}</li>
+                  return (
+                    <div id="editButton">
+                      <Form.Check aria-label="option 1" key={index} />
+                      <p className="item-text">{elm}</p>
+                    </div>
+                  )
                 })}
             </h5>
           </div>
@@ -206,7 +227,7 @@ class SingleRecipe extends Component {
         </div>
         <div>
           <div id="editButton">
-            <h5>Instructions:&nbsp;&nbsp;</h5>
+            <h5 className="section-headline">Instructions:&nbsp;&nbsp;</h5>
             {this.props.user.id &&
             this.props.user.id === this.props.singleRecipe.ownerId ? (
               <FontAwesomeIcon
@@ -224,7 +245,11 @@ class SingleRecipe extends Component {
             {this.props.singleRecipe.instructions
               .split('\n')
               .map((elm, index) => {
-                return <li key={index}>{elm}</li>
+                return (
+                  <li key={index} className="item-text">
+                    {elm}
+                  </li>
+                )
               })}
           </h5>
         </div>
@@ -250,23 +275,23 @@ class SingleRecipe extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        <h5>likes: {this.state.likes}</h5>
-        <i
-          className="fas fa-heart"
-          style={{color: 'red'}}
-          onClick={this.handleClick}
-        />
-        <h5>Recipe created by: {this.props.singleRecipe.owner.userName}</h5>
-        <Button
-          variant="danger"
-          type="submit"
-          onClick={() => {
-            this.setState({show: true})
-          }}
-        >
-          Delete recipe
-        </Button>
+        {this.props.user.id &&
+        this.props.user.id === this.props.singleRecipe.ownerId ? (
+          <Button
+            variant="danger"
+            type="submit"
+            size="sm"
+            onClick={() => {
+              this.setState({show: true})
+            }}
+          >
+            Delete recipe
+          </Button>
+        ) : (
+          <Button variant="danger" type="submit" size="sm" disabled>
+            Delete recipe
+          </Button>
+        )}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title />
