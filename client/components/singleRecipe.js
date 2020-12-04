@@ -9,7 +9,7 @@ import {
   updateSingleRecipe,
   deleteRecipe
 } from '../store/singleRecipe.js'
-// import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
