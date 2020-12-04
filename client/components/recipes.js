@@ -49,7 +49,7 @@ class Recipes extends React.Component {
         <div>
           <SingleChannel channelId={this.props.match.params.channelId} />
         </div>
-      <div>
+
         <FontAwesomeIcon
           icon={faPlus}
           style={{marginLeft: '1200px', color: '#0645AD'}}
@@ -151,7 +151,6 @@ class Recipes extends React.Component {
             recipes.map(element => {
               return (
                 <div key={element.id} id="single-recipe">
-
                   <Link
                     to={`/home/channels/${this.props.match.params.channelId}/${
                       element.id

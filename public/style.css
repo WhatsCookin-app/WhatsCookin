@@ -45,6 +45,14 @@ form div {
   padding: 20px;
 }
 
+#single-recipe a {
+  color: black;
+  text-decoration: none;
+}
+#single-recipe a:hover {
+  color: black;
+  text-decoration: none;
+}
 #img {
   border-radius: 13px;
   border-color: rgb(219, 247, 211);
