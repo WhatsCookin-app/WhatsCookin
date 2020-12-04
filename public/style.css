@@ -47,7 +47,7 @@ form div {
 
 #img {
   border-radius: 13px;
-  border-color: rgb(222, 255, 253);
+  border-color: rgb(219, 247, 211);
   border-style: solid;
   height: 270px;
   width: 300px;
@@ -58,6 +58,37 @@ form div {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+#editButton {
+  display: flex;
+  flex-direction: row;
+}
+.section-headline {
+  color: rgba(0, 0, 0, 0.95);
+  font-family: 'CopperPot Bold';
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-top: 16px;
+}
+.item-text {
+  font-family: 'Source Sans Pro', Times, serif;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.headline {
+  font-size: 48px;
+  line-height: 52px;
+  font-family: 'Source Sans Pro', Times, serif;
+}
+.authorline {
+  line-height: 24px;
+  font-family: 'Source Sans Pro', Times, serif;
+  font-size: 16px;
 }
 /*
 #imageUpload {

@@ -158,7 +158,7 @@ async function seed() {
     name: 'Pesto Pasta',
     ingredients: 'pesto sauce - 1 bottle\npasta - 1 pack\ntomatoes - 3',
     instructions:
-      '1.Buy pesto sauce\n2.Buy pasta\n3.Mix sauce with pasta,\n4.add tomatoes for decoration',
+      'Buy pesto sauce\nBuy pasta\nMix sauce with pasta,\nadd tomatoes for decoration',
     imageUrl:
       'https://joyfoodsunshine.com/wp-content/uploads/2019/07/pesto-pasta-recipe-3-500x375.jpg',
     likes: 10,
@@ -170,14 +170,70 @@ async function seed() {
     name: 'Spaghetti Meatballs',
     ingredients: 'meat balls - 3 lbs\npasta - 1 pack\ntomatoe sauce - 1 bottle',
     instructions:
-      '1.Buy tomato sauce\n2.Buy pasta\n3.Buy meatballs\n3.Mix sauce, meatballs with pasta',
+      'Buy tomato sauce\nBuy pasta\nBuy meatballs\nMix sauce, meatballs with pasta',
     imageUrl:
       'https://feelgoodfoodie.net/wp-content/uploads/2017/03/Spaghetti-and-Meatballs-7.jpg',
     likes: 15,
     ownerId: 1
   })
 
-  await recipes2.setChannels([3, 4])
+  await recipes2.setChannels([1, 2, 3, 4])
+
+  const recipes3 = await Recipe.create({
+    name: 'Easy Pancake',
+    ingredients:
+      '3 ½ teaspoons baking powder\n1 ½ cups all-purpose flour\n1 tablespoon white sugar\n1 ¼ cups milk\n1 egg\n3 tablespoons butter, melted',
+    instructions:
+      'In a large bowl, sift together the flour, baking powder, salt and sugar. Make a well in the center and pour in the milk, egg and melted butter; mix until smooth.\nHeat a lightly oiled griddle or frying pan over medium-high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.',
+    imageUrl:
+      'https://www.rachaelrayshow.com/sites/default/files/styles/video_1920x1080/public/images/2020-08/pancakes.jpg?itok=_b20Usqy',
+    likes: 15,
+    ownerId: 2
+  })
+
+  await recipes3.setChannels([1, 2, 3, 4])
+
+  const recipes4 = await Recipe.create({
+    name: 'French Toast',
+    ingredients:
+      '1 teaspoon ground cinnamon\n1/4 teaspoon ground nutmeg\n2 tablespoons sugar\n4 tablespoons butter\n1/4 cup milk\n8 slices challah, brioche, or white bread\n1/2 teaspoon vanilla extract\n1/2 cup maple syrup, warmed',
+    instructions:
+      'In a small bowl, combine cinnamon, nutmeg, and sugar and set aside briefly.\nIn a 10-inch or 12-inch skillet, melt butter over medium heat. Whisk together cinnamon mixture, eggs, milk, and vanilla and pour into a shallow container such as a pie plate. Dip bread in egg mixture. Fry slices until golden brown, then flip to cook the other side. Serve with syrup.',
+    imageUrl:
+      'https://d1e3z2jco40k3v.cloudfront.net/-/media/mccormick-us/recipes/mccormick/q/800/quick_and_easy_french_toast_new_800x800.jpg',
+    likes: 20,
+    ownerId: 2
+  })
+
+  await recipes4.setChannels([1, 2, 3, 4])
+
+  const recipes5 = await Recipe.create({
+    name: 'Avocado Toast',
+    ingredients:
+      '1 avocado peeled and seeded\n2 tablespoons chopped cilantro\njuice of 1/2 lime\n2 slices whole grain bread or bread of choice\n2 eggs fried, scrambled, or poached, optional',
+    instructions:
+      'Toast 2 slices of whole grain in a toaster until golden and crispy.\nIn a small bowl combine and mash the avocado, cilantro, lime, and salt + pepper to taste. Spread half of the mixture on each slice of toasted bread. Top with fried, scrambled, or poached egg if desired.',
+    imageUrl:
+      'https://www.thekitchenwhisperer.net/wp-content/uploads/2020/03/Caprese-Avocado-Toast-7.jpg',
+    likes: 5,
+    ownerId: 2
+  })
+
+  await recipes5.setChannels([1, 2, 3, 4])
+
+  const recipes6 = await Recipe.create({
+    name: 'Smoked Salmon Bagel',
+    ingredients:
+      '1 pumpernickel or plain bagel (6 oz.)\n2 tablespoons chive cream cheese\n⅓ cup thinly sliced English cucumber\n3 ounces thin-sliced smoked salmon\n3 thin rings red onion\n½ teaspoon drained capers',
+    instructions:
+      'Split bagel in half horizontally. Spread cut sides with cream cheese. Over cheese on 1 bagel half, layer cucumber, smoked salmon, red onion, and capers. Set remaining bagel half, cream cheese side down, over filling.',
+    imageUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJocc8XdPQAafaheeo_s60M85QUHWn8imtYA&usqp=CAU',
+    likes: 15,
+    ownerId: 2
+  })
+
+  await recipes6.setChannels([1, 2, 3, 4])
 
   console.log(
     `seeded ${users.length} users, ${channels.length} channels, and ${

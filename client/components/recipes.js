@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchRecipes} from '../store/recipe.js'
+import {fetchRecipes, postRecipe} from '../store/recipe.js'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
@@ -11,12 +11,31 @@ class Recipes extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      show: false
+      show: false,
+      name: '',
+      ingredients: '',
+      instructions: ''
     }
     this.handleClose = this.handleClose.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount() {
     this.props.getAllRecipes(this.props.match.params.channelId)
+  }
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.addRecipe({
+      name: this.state.name,
+      ingredients: this.state.ingredients,
+      instructions: this.state.instructions,
+      channels: [this.props.match.params.channelId]
+    })
+    this.handleClose()
   }
 
   handleClose() {
@@ -30,85 +49,117 @@ class Recipes extends React.Component {
         <div>
           <SingleChannel channelId={this.props.match.params.channelId} />
         </div>
-        <div>
-          <FontAwesomeIcon
-            icon={faPlus}
-            onClick={() => {
-              this.setState({show: true})
-            }}
-          />
-
-          <Modal
-            show={this.state.show}
-            onHide={this.handleClose}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
+      <div>
+        <FontAwesomeIcon
+          icon={faPlus}
+          style={{marginLeft: '1200px', color: '#0645AD'}}
+          size="lg"
+          onClick={() => {
+            this.setState({show: true})
+          }}
+        />
+        <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
+          Add a recipe
+        </h6>
+        <div id="all-recipes">
+          <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Upload a Recipe</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group>
-                  <Form.Label>Recipe Name</Form.Label>
-                  <Form.Control placeholder="Easy Pancake" />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Ingredients</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows="10"
-                    placeholder={
-                      '1 cup all-purpose flour' +
-                      '\n' +
-                      '2 tablespoons white sugar' +
-                      '\n' +
-                      '1 cup milk' +
-                      '\n' +
-                      '1 egg, beaten' +
-                      '\n' +
-                      '1 cup milk'
-                    }
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Instructions</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows="10"
-                    placeholder={
-                      'In a large bowl, mix flour, sugar, baking powder and salt. Make a well in the center, and pour in milk, egg and oil. Mix until smooth.' +
-                      '\n' +
-                      'Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.'
-                    }
-                  />
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={this.handleClose}>
-                Cancel
-              </Button>
-              <Button variant="primary" onClick={this.handleClick}>
-                Upload
-              </Button>
-            </Modal.Footer>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Group controlId="name">
+                <Form.Label>Recipe Name</Form.Label>
+                <Form.Control
+                  name="name"
+                  type="name"
+                  style={{marginLeft: '100px'}}
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  placeholder="Easy Pancake"
+                />
+              </Form.Group>
+              <Form.Group controlId="ingredients">
+                <Form.Label>Ingredients</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows="5"
+                  name="ingredients"
+                  type="ingredients"
+                  style={{marginLeft: '100px'}}
+                  value={this.state.ingredients}
+                  onChange={this.handleChange}
+                  placeholder={
+                    '1 cup all-purpose flour' +
+                    '\n' +
+                    '2 tablespoons white sugar' +
+                    '\n' +
+                    '1 cup milk' +
+                    '\n' +
+                    '1 egg, beaten' +
+                    '\n' +
+                    '1 cup milk'
+                  }
+                />
+              </Form.Group>
+              <Form.Group controlId="instructions">
+                <Form.Label>Instructions</Form.Label>
+                <Form.Control
+                  name="instructions"
+                  type="instructions"
+                  value={this.state.instructions}
+                  onChange={this.handleChange}
+                  as="textarea"
+                  rows="10"
+                  style={{marginLeft: '100px'}}
+                  placeholder={
+                    'In a large bowl, mix flour, sugar, baking powder and salt. Make a well in the center, and pour in milk, egg and oil. Mix until smooth.' +
+                    '\n' +
+                    'Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.'
+                  }
+                />
+              </Form.Group>
+              {this.state.name &&
+              this.state.ingredients &&
+              this.state.instructions ? (
+                <Button
+                  variant="success"
+                  active
+                  type="submit"
+                  style={{
+                    marginLeft: '400px',
+                    marginBottom: '30px'
+                  }}
+                >
+                  Upload
+                </Button>
+              ) : (
+                <Button
+                  variant="success"
+                  disabled
+                  type="submit"
+                  style={{
+                    marginLeft: '400px',
+                    marginBottom: '30px'
+                  }}
+                >
+                  Upload
+                </Button>
+              )}
+            </Form>
           </Modal>
           {recipes &&
             recipes.map(element => {
               return (
                 <div key={element.id} id="single-recipe">
-                  <img src={element.imageUrl} id="img" />
-                  <div id="recipe-info">
-                    <Link
-                      to={`/home/channels/${
-                        this.props.match.params.channelId
-                      }/${element.id}`}
-                    >
-                      {element.name}
-                    </Link>
-                  </div>
+
+                  <Link
+                    to={`/home/channels/${this.props.match.params.channelId}/${
+                      element.id
+                    }`}
+                  >
+                    <img src={element.imageUrl} id="img" />
+                    <div id="recipe-info">{element.name}</div>
+                  </Link>
                 </div>
               )
             })}
@@ -126,7 +177,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getAllRecipes: channelId => dispatch(fetchRecipes(channelId))
+    getAllRecipes: channelId => dispatch(fetchRecipes(channelId)),
+    addRecipe: newRecipe => dispatch(postRecipe(newRecipe))
   }
 }
 
