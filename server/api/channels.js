@@ -37,7 +37,6 @@ router.get('/:channelId', async (req, res, next) => {
   }
 })
 
-
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
   try {
@@ -48,7 +47,6 @@ router.post('/', async (req, res, next) => {
       description,
       imageUrl,
       isPrivate,
-      //will be req.user.id when not using postman
       userId: req.user.id
     })
 
@@ -97,7 +95,7 @@ router.delete('/:channelId', async (req, res, next) => {
 
     const channel = await Channel.findByPk(req.params.channelId)
 
-    if (channel.ownerId === userId) {
+    if (channel.userId === userId) {
       await channel.destroy()
       res.json('Channel deleted')
     } else {
