@@ -1,7 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Button, Form} from 'react-bootstrap'
-import {fetchChannel, updateChannel} from '../../store/single-channel'
 
 class RenameChannel extends React.Component {
   constructor(props) {
@@ -15,9 +13,7 @@ class RenameChannel extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentDidMount() {
-    console.log('On the Rename Channel Component')
-    await this.props.getChannel(8)
+  componentDidMount() {
     this.setState({name: this.props.channel.name})
   }
 
@@ -29,7 +25,6 @@ class RenameChannel extends React.Component {
     event.preventDefault()
     this.props.channel.name = this.state.name
     this.props.updateChannel(this.props.channel)
-    //still needs help re rending with the right name
     this.props.handleClose()
   }
 
@@ -66,13 +61,4 @@ class RenameChannel extends React.Component {
   }
 }
 
-const mapState = state => ({
-  channel: state.singleChannel.channel
-})
-
-const mapDispatch = dispatch => ({
-  getChannel: channelId => dispatch(fetchChannel(channelId)),
-  updateChannel: channel => dispatch(updateChannel(channel))
-})
-
-export default connect(mapState, mapDispatch)(RenameChannel)
+export default RenameChannel

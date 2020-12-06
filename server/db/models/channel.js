@@ -13,7 +13,7 @@ const Channel = db.define('channel', {
   imageUrl: {
     type: Sequelize.STRING,
     default:
-      'https://i2.wp.com/www.eatthis.com/wp-content/uploads/2019/10/mixed-greens-salad-pears-pumpkin.jpg?resize=1250%2C702&ssl=1'
+      'https://mzo5g3ubj8u20bigm1x3cth1-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Eat-this-to-build-muscle-M-610x407.jpg'
   },
   isPrivate: {
     type: Sequelize.BOOLEAN,
