@@ -47,7 +47,6 @@ router.post('/', async (req, res, next) => {
       description,
       imageUrl,
       isPrivate,
-      //will be req.user.id when not using postman
       userId: req.user.id
     })
 

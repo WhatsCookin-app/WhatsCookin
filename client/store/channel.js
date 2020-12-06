@@ -3,6 +3,8 @@ import axios from 'axios'
 // action type
 const GET_CHANNELS = 'GET_CHANNELS'
 
+const ADD_CHANNEL = 'ADD_CHANNEL'
+
 // initial state
 const defaultChannels = []
 
@@ -18,6 +20,17 @@ export const fetchChannels = () => {
     try {
       const {data} = await axios.get(`/api/channels`)
       dispatch(getChannels(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const createChannel = channel => {
+  return async dispatch => {
+    try {
+      await axios.post(`/api/channels`, channel)
+      dispatch(fetchChannels())
     } catch (error) {
       console.log(error)
     }

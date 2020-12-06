@@ -5,7 +5,7 @@ import PublicChannels from './public-channels'
 import PrivateChannels from './private-channels'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
-import {OverlayTrigger, Tooltip, ListGroup} from 'react-bootstrap'
+import {OverlayTrigger, Tooltip, ListGroup, Modal} from 'react-bootstrap'
 import {AddChannel} from './edit-channel-sections/index.js'
 
 class Channels extends React.Component {
@@ -58,6 +58,19 @@ class Channels extends React.Component {
           <PrivateChannels channels={this.props.channels} />
           <PublicChannels channels={this.props.channels} />
         </div>
+        {this.state.showAddOptions ? (
+          <Modal
+            show={this.state.showAddOptions}
+            onHide={() => this.setState({showAddOptions: !bool})}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Create a Channel</Modal.Title>
+            </Modal.Header>
+            <AddChannel close={() => this.setState({showAddOptions: !bool})} />
+          </Modal>
+        ) : (
+          ''
+        )}
       </div>
     )
   }
