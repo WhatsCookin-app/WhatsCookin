@@ -6,3 +6,5 @@
 export {default as EditDescription} from './description-channel'
 export {default as EditImage} from './imageUrl-channel'
 export {default as EditName} from './rename-channel'
+export {default as DeleteChannel} from './delete-channel'
+export {default as AddChannel} from './add-channel'
