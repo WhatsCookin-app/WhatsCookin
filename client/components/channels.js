@@ -1,64 +1,64 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchChannels} from '../store/channel.js'
-import {Link} from 'react-router-dom'
 import PublicChannels from './public-channels'
 import PrivateChannels from './private-channels'
-// import SingleChannel from './single-channel'
-import RenameChannel from './edit-channel-sections/rename-channel'
-import ChannelDescription from './edit-channel-sections/description-channel'
-import ImageUrl from './edit-channel-sections/imageUrl-channel'
-import {Modal, Button} from 'react-bootstrap'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import {OverlayTrigger, Tooltip, ListGroup} from 'react-bootstrap'
+import {AddChannel} from './edit-channel-sections/index.js'
 
 class Channels extends React.Component {
   constructor() {
     super()
     this.state = {
-      show: false
+      show: false,
+      showAddOptions: false,
+      overlay: ''
     }
-    this.handleClose = this.handleClose.bind(this)
-    this.handleShow = this.handleShow.bind(this)
   }
+
   componentDidMount() {
     this.props.getChannels()
   }
 
-  handleClose() {
-    this.setState({show: false})
-  }
-
-  handleShow() {
-    this.setState({show: true})
+  handleOverlay() {
+    let overlay = 'test'
   }
 
   render() {
     const channels = this.props.channels
+    const bool = this.state.showAddOptions
 
     if (!channels.length) return <h1>Loading</h1>
 
     return (
       <div id="flex">
-        <h1>Browse</h1>
+        <div className="d-flex justify-content-between align-items-center">
+          <h1 className="ml-3">Channels</h1>{' '}
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip id="tooltip-top" name="Tool Tip">
+                Add a Channel
+              </Tooltip>
+            }
+          >
+            <FontAwesomeIcon
+              icon={faPlus}
+              className="mr-3 text-info cursor"
+              size="lg"
+              onClick={() => {
+                this.setState({showAddOptions: !bool})
+              }}
+            />
+          </OverlayTrigger>
+        </div>
         <div className="all-channels">
           <PrivateChannels channels={this.props.channels} />
           <PublicChannels channels={this.props.channels} />
         </div>
-        {/* <SingleChannel channels={this.props.channels} channelId={1} /> */}
-
-        {/* This is the template for any modal form
-         <Button variant="primary" onClick={this.handleShow}>
-          Rename Channel
-        </Button>
-
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Rename Channel</Modal.Title>
-          </Modal.Header> */}
-
-        {/* <ImageUrl handleClose={this.handleClose} />
-        </Modal> */}
       </div>
-
     )
   }
 }
