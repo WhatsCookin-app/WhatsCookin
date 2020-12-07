@@ -24,6 +24,19 @@ module.exports = io => {
       }
     })
 
+    socket.on('ready', function(room) {
+      socket.broadcast.to(room).emit('ready')
+    })
+    socket.on('candidate', function(event) {
+      socket.broadcast.to(event.room).emit('candidate', event)
+    })
+    socket.on('offer', function(event) {
+      socket.broadcast.to(event.room).emit('offer', event.sdp)
+    })
+    socket.on('answer', function(event) {
+      socket.broadcast.to(event.room).emit('answer', event.sdp)
+    })
+
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })
