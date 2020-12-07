@@ -4,30 +4,68 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {CreateUser} from './CreateUser'
+import {
+  Navbar as BootstrapNavbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  NavItem
+} from 'react-bootstrap'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSearch} from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>WhatsCookin</h1>
-    <nav>
+    <BootstrapNavbar
+      bg="info"
+      className="border-bottom justify-content-between shadow-sm rounded"
+      expand="sm"
+    >
+      <BootstrapNavbar.Brand href="/home">WhatsCookin</BootstrapNavbar.Brand>
+      {/* <Nav> */}
       {isLoggedIn ? (
-        <div>
+        <Nav>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/channels">Channels</Link>
 
-          <a href="#" onClick={handleClick}>
+          <Link to="/home">
+            <Nav.Item>
+              Home
+            </Nav.Item>
+           </Link>
+
+
+          <Link to="/channels">
+            <Nav.Item>Channels</Nav.Item>
+          </Link>
+          <Link to="/home/get-cookin">
+            <Nav.Item>GetCookin</Nav.Item>
+          </Link>
+
+          <Link to="/" onClick={handleClick}>
             Logout
-          </a>
-        </div>
+          </Link>
+          <Form inline>
+            <FormControl
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2 bg-light"
+            />
+            <Button variant="outline-kade">
+              <FontAwesomeIcon icon={faSearch} />
+            </Button>
+          </Form>
+        </Nav>
       ) : (
-        <div>
+        <Nav>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-        </div>
+        </Nav>
       )}
-    </nav>
-    <hr />
+      {/* </Nav> */}
+      {/* <hr /> */}
+    </BootstrapNavbar>
   </div>
 )
 
