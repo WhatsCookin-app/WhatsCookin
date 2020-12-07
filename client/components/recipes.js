@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchRecipes, postRecipe} from '../store/recipe.js'
+import {
+  deleteChannel,
+  fetchChannel,
+  updateChannel
+} from '../store/single-channel'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
@@ -47,7 +52,13 @@ class Recipes extends React.Component {
     return (
       <div id="all-recipes" className="flex-column">
         <div>
-          <SingleChannel channelId={this.props.match.params.channelId} />
+          <SingleChannel
+            channelId={this.props.match.params.channelId}
+            updateChannel={this.props.updateChannel}
+            getChannel={this.props.getChannel}
+            channel={this.props.channel}
+            deleteChannel={this.props.deleteChannel}
+          />
         </div>
 
         <FontAwesomeIcon
@@ -57,6 +68,7 @@ class Recipes extends React.Component {
           onClick={() => {
             this.setState({show: true})
           }}
+          className="cursor"
         />
         <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
           Add a recipe
@@ -170,14 +182,18 @@ class Recipes extends React.Component {
 
 const mapState = state => {
   return {
-    recipes: state.recipe
+    recipes: state.recipe,
+    channel: state.singleChannel.channel
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     getAllRecipes: channelId => dispatch(fetchRecipes(channelId)),
-    addRecipe: newRecipe => dispatch(postRecipe(newRecipe))
+    addRecipe: newRecipe => dispatch(postRecipe(newRecipe)),
+    getChannel: channelId => dispatch(fetchChannel(channelId)),
+    updateChannel: channel => dispatch(updateChannel(channel)),
+    deleteChannel: channelId => dispatch(deleteChannel(channelId))
   }
 }
 
