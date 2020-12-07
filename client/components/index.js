@@ -4,6 +4,7 @@
  * having to figure out which file they belong to!
  */
 export {default as Navbar} from './navbar'
+export {default as NavCopy} from './navbar copy'
 export {default as Recipes} from './recipes'
 export {Login} from './auth-form'
 export {default as Signup} from './CreateUser'
@@ -11,3 +12,4 @@ export {default as SingleRecipe} from './singleRecipe'
 export {default as Channels} from './channels'
 export {default as SingleChannel} from './single-channel'
 export {default as VideoSession} from './videotest-kade'
+export {default as EventsPage} from './events-page'

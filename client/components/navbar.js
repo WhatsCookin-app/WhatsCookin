@@ -27,11 +27,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <Nav>
           {/* The navbar will show these links after you log in */}
-          <Nav.Item>
-            <Link to="/home" bg="kade">
-              Home
-            </Link>
-          </Nav.Item>
+
+          <Link to="/home">
+            <Nav.Item>Home</Nav.Item>
+          </Link>
 
           <Link to="/channels">
             <Nav.Item>Channels</Nav.Item>
