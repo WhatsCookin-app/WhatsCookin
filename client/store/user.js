@@ -15,9 +15,9 @@ const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const gotUserFromServer = user => ({type: POST_USER, user})
 
-/**
- * THUNK CREATORS
- */
+// /**
+//  * THUNK CREATORS
+//  */
 
 export const postUser = userObj => {
   return async dispatch => {
@@ -30,9 +30,6 @@ export const postUser = userObj => {
   }
 }
 
-/**
- * THUNK CREATORS
- */
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -59,7 +56,7 @@ export const auth = userObj => async dispatch => {
   }
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/channels')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
