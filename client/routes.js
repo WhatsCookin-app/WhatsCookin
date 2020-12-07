@@ -13,6 +13,7 @@ import {
   VideoSession
 } from './components'
 import {me} from './store'
+import NotFound from './components/notFound'
 
 /**
  * COMPONENT
@@ -49,6 +50,7 @@ class Routes extends Component {
               component={SingleRecipe}
             />
             <Route exact path="/channels/" component={Channels} />
+            <Route exact path="/notFound" component={NotFound} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

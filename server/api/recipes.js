@@ -22,6 +22,26 @@ router.get('/:channelId', async (req, res, next) => {
   }
 })
 
+// get recipe based on search string
+router.get('/', async (req, res, next) => {
+  try {
+    const recipes = await Recipe.findAll({
+      include: [
+        {
+          model: Channel,
+          where: {
+            id: req.params.channelId
+          }
+        }
+      ]
+    })
+    console.log(recipes)
+    res.json(recipes)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // get a single recipe
 router.get('/:channelId/:recipeId', async (req, res, next) => {
   try {
