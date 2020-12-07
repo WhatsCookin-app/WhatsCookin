@@ -91,9 +91,14 @@ class CreateUser extends Component {
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
-        <a href="/auth/google">Sign Up with Google</a>
+        <a href="/auth/google" className="text-kade">
+          Sign Up with Google
+        </a>
         <p>
-          Already have an account? <a href="/login">Login here!</a>
+          Already have an account?{' '}
+          <a href="/login" className="text-kade">
+            Login here!
+          </a>
         </p>
       </div>
     )
