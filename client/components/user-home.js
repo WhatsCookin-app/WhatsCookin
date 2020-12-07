@@ -6,12 +6,13 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {firstName} = props
-
+  const {firstName, profilePicture} = props
   return (
     <div>
       <h3>Welcome, {firstName}</h3>
-      {/* <h3>{profilePicture}</h3> */}
+
+      <img src={profilePicture} height={100} />
+
     </div>
   )
 }
@@ -21,7 +22,8 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    firstName: state.user.firstName
+    firstName: state.user.firstName,
+    profilePicture: state.user.profilePicture
   }
 }
 
