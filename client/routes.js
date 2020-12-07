@@ -10,9 +10,11 @@ import {
   Recipes,
   SingleRecipe,
   Channels,
-  VideoSession
+  VideoSession,
+  EventsPage
 } from './components'
 import {me} from './store'
+import NotFound from './components/notFound'
 
 /**
  * COMPONENT
@@ -41,7 +43,9 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
-            <Route exact path="/home/get-cookin" component={VideoSession} />
+            {/* <Route exact path="/home/get-cookin" component={VideoSession} /> */}
+            <Route exact path="/home/get-cookin" component={EventsPage} />
+
             <Route exact path="/home/channels/:channelId" component={Recipes} />
             <Route
               exact
@@ -49,6 +53,7 @@ class Routes extends Component {
               component={SingleRecipe}
             />
             <Route exact path="/channels/" component={Channels} />
+            <Route exact path="/notFound" component={NotFound} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
