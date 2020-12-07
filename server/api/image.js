@@ -26,6 +26,7 @@ const fileFilter = (req, file, cb) => {
 //filetypes to be accepted by the server
 //check to see if the commented out code works
 
+//Limiting the file size to prevent virus, video
 const upload = multer({
   storage: storage,
   limits: {
