@@ -1,6 +1,14 @@
 /*eslint-disable */
 // ^^^^ TAKE OUT
 
+/* 
+  General note: watch your naming convention to keep it consistent across the whole project. This component is `singleRecipe` but I also see some hyphenated components like `user-home` and `events-page`
+*/
+
+/*
+  This component is getting quite long - can we break this up into a couple different components?
+*/
+
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {
@@ -51,6 +59,7 @@ class SingleRecipe extends Component {
     })
   }
 
+  // do we need async/await here?
   async handleClick() {
     const newLikes = this.state.likes + 1
     this.setState({likes: newLikes})
@@ -67,6 +76,7 @@ class SingleRecipe extends Component {
     )
   }
 
+  // do we need async/await here?
   async handleSubmitName(event) {
     event.preventDefault()
     await this.props.updateRecipe(this.props.match.params.recipeId, {
@@ -75,6 +85,7 @@ class SingleRecipe extends Component {
     this.setState({nameEdit: false})
   }
 
+  // do we need async/await here?
   async handleSubmitIngredients(event) {
     event.preventDefault()
     await this.props.updateRecipe(this.props.match.params.recipeId, {
@@ -83,6 +94,7 @@ class SingleRecipe extends Component {
     this.setState({ingredientEdit: false})
   }
 
+  // do we need async/await here?
   async handleSubmitInstructions(event) {
     event.preventDefault()
     await this.props.updateRecipe(this.props.match.params.recipeId, {
@@ -91,6 +103,7 @@ class SingleRecipe extends Component {
     this.setState({instructionEdit: false})
   }
 
+  // do we need async/await here?
   async componentDidMount() {
     await this.props.getOneRecipe(
       this.props.match.params.channelId,

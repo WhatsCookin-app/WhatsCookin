@@ -2,6 +2,9 @@ const router = require('express').Router()
 const {Recipe, Channel, User} = require('../db/models')
 module.exports = router
 
+// I would put this one under the channels api
+// /api/channels/:channelId/recipes
+
 // get all recipes of a channel
 router.get('/:channelId', async (req, res, next) => {
   try {
@@ -22,6 +25,8 @@ router.get('/:channelId', async (req, res, next) => {
   }
 })
 
+// is the below route doing what you want in terms of a search string?
+
 // get recipe based on search string
 router.get('/', async (req, res, next) => {
   try {
@@ -41,6 +46,8 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+// I would keep the search for just recipeId in this file and anything that specifies the channelId in the channel api
 
 // get a single recipe
 router.get('/:channelId/:recipeId', async (req, res, next) => {

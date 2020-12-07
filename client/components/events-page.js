@@ -1,3 +1,5 @@
+// make sure to remove unused imports (hooks and uuidv4)
+
 import React, {useEffect, useState, useRef} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'

@@ -21,6 +21,8 @@ router.get('/', async (req, res, next) => {
 
 //Get a single a User's Channels with the Channel eager loaded
 
+// In users: /api/users/:userId/channels/
+
 router.get('/:channelId', async (req, res, next) => {
   try {
     const user = req.user.id

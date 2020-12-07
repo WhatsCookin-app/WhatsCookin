@@ -12,6 +12,10 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
 import {SingleChannel} from './index'
 
+/* 
+  I recommend splitting this component up into multiple components. The Form could be its own component? 
+*/
+
 class Recipes extends React.Component {
   constructor(props) {
     super(props)

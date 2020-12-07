@@ -1,3 +1,5 @@
+// Do we need to store a copy? Git does a good job keeping a historical record in case something gets messed up.
+
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'

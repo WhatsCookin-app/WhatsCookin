@@ -1,6 +1,10 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+/* 
+ Can you create a class method on the Events model that will get all the user's events? 
+*/
+
 const Event = db.define('event', {
   roomId: {
     type: Sequelize.UUID

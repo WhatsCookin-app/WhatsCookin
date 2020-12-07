@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faGlobeAmericas} from '@fortawesome/free-solid-svg-icons'
 
 const PublicChannels = ({channels}) => {
+  // this feels like something our backend could help filter for us (using Sequlize filter in the query)
   const publicChannel = channels.filter(channel => !channel.channel.isPrivate)
   return (
     <>
