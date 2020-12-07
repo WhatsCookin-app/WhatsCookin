@@ -32,9 +32,12 @@ async function seed() {
 
   const events = await Promise.all([
     Event.create({
-      organizer: '1',
-      guest: '2',
-      eventDate: 2020 - 11 - 30
+      roomId: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+      name: 'first event!',
+      description: 'here is the first cooking event!',
+      eventDate: 2020 - 11 - 30,
+      organizerId: 1,
+      guestId: 2
     })
   ])
 
