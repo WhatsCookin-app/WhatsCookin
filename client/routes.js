@@ -10,10 +10,11 @@ import {
   SingleRecipe,
   Channels,
   VideoSession,
-  EventsPage
+  EventsPage,
+  BrowseChannels,
+  NotFound
 } from './components'
 import {me} from './store'
-import NotFound from './components/notFound'
 
 /**
  * COMPONENT
@@ -49,7 +50,8 @@ class Routes extends Component {
               path="/home/channels/:channelId/:recipeId"
               component={SingleRecipe}
             />
-            <Route exact path="/channels/" component={Channels} />
+            <Route exact path="/channels" component={Channels} />
+            <Route exact path="/browse" component={BrowseChannels} />
             <Route exact path="/notFound" component={NotFound} />
           </Switch>
         )}
