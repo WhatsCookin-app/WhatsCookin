@@ -45,17 +45,14 @@ export const me = () => async dispatch => {
 export const auth = userObj => async dispatch => {
   let res
   try {
-    console.log('BEFORE Sign up', userObj)
     if (userObj.method === 'signup') {
       res = await axios.post(`/auth/${userObj.method}`, {
         ...userObj
       })
-      console.log('SIGNUP', res)
     } else if (userObj.method === 'login') {
       res = await axios.post(`/auth/${userObj.method}`, {
         ...userObj
       })
-      console.log('LOGIN RES', res)
     }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
