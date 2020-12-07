@@ -6,7 +6,6 @@ import {
   Login,
   Signup,
   CreateUser,
-  UserHome,
   Recipes,
   SingleRecipe,
   Channels,
@@ -40,7 +39,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/home" component={UserHome} />
+            <Route exact path="/home" component={Channels} />
             <Route exact path="/home/get-cookin" component={VideoSession} />
             <Route exact path="/home/channels/:channelId" component={Recipes} />
             <Route
