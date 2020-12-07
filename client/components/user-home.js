@@ -10,7 +10,9 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {firstName}</h3>
+
       <img src={profilePicture} height={100} />
+
     </div>
   )
 }
