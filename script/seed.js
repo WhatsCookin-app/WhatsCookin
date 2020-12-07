@@ -32,6 +32,8 @@ async function seed() {
 
   const events = await Promise.all([
     Event.create({
+      name: 'First Video',
+      room: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
       organizer: '1',
       guest: '2',
       eventDate: 2020 - 11 - 30

@@ -2,6 +2,13 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Event = db.define('event', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  room: {
+    type: Sequelize.UUID
+  },
   organizer: {
     type: Sequelize.TEXT,
     allowNull: false
@@ -26,6 +33,10 @@ const Event = db.define('event', {
         }
       }
     }
+  },
+  isUpcoming: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   }
 })
 
