@@ -9,6 +9,7 @@ import channels from './channel'
 import singleChannel from './single-channel'
 import events from './events'
 import videos from './videos'
+import profiles from './profiles'
 
 const reducer = combineReducers({
   user,
@@ -17,7 +18,8 @@ const reducer = combineReducers({
   singleChannel,
   singleRecipe,
   events,
-  videos
+  videos,
+  profiles
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
