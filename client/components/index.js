@@ -5,8 +5,6 @@
  */
 export {default as Navbar} from './navbar'
 export {default as NavCopy} from './navbar copy'
-
-export {default as UserHome} from './user-home'
 export {default as Recipes} from './recipes'
 export {Login} from './auth-form'
 export {default as Signup} from './CreateUser'
