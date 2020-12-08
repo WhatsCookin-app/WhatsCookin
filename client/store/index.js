@@ -9,6 +9,7 @@ import channels from './channel'
 import singleChannel from './single-channel'
 import events from './events'
 import videos from './videos'
+import profiles from './profiles'
 import browseChannels from './browseChannels'
 
 const reducer = combineReducers({
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   singleRecipe,
   events,
   videos,
+  profiles,
   browseChannels
 })
 const middleware = composeWithDevTools(
