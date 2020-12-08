@@ -39,7 +39,7 @@ class Channels extends React.Component {
       <div id="flex">
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            <h1 className="ml-3">{this.props.user.userName} Channels</h1>
+            <h1 className="ml-3">{this.props.user.userName}'s Channels</h1>
             <img src={this.props.user.profilePicture} />
           </div>
           <div>
