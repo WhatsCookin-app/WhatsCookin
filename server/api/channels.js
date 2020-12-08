@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {channelUser, Channel} = require('../db/models')
 module.exports = router
+const Sequelize = require('sequelize')
+const User = require('../db/models/user')
 
 //Get all of a User's Channels with the Channel eager loaded
 //likely dont need the isUserMiddleware
@@ -14,6 +16,28 @@ router.get('/', async (req, res, next) => {
       include: Channel
     })
     res.json(channels)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//unjoined public channels-LIDIA
+router.get('/browse', async (req, res, next) => {
+  try {
+    const unjoinedChannels = await channelUser.findAll({
+      where: {
+        userId: {
+          [Sequelize.Op.not]: req.user.id
+        }
+      },
+      include: {
+        model: Channel,
+        where: {
+          isPrivate: false
+        }
+      }
+    })
+    res.send(unjoinedChannels)
   } catch (err) {
     next(err)
   }
@@ -87,6 +111,22 @@ router.put('/:channelId', async (req, res, next) => {
     next(err)
   }
 })
+
+// new user joining a channel
+router.put('/join/:channelId', async (req, res, next) => {
+  try {
+    const joinChannel = await Channel.findByPk(req.params.channelId)
+    await joinChannel.addUser(req.user)
+    res.send(joinChannel)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// //await channelUser.create({
+//   userId: req.user.id,
+//   channelId: req.params.channelId,
+// })
 
 // delete a channel
 router.delete('/:channelId', async (req, res, next) => {
