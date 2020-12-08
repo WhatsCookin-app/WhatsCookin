@@ -90,19 +90,37 @@ async function seed() {
     },
     {
       name: 'Dairy Free',
-      imageUrl:
-        'https://cooknourishbliss.com/wp-content/uploads/2020/07/Dairy_free_nacho_cheese.jpg',
+      imageUrl: '/img/IMG_0397-1536x1152.jpg',
       description:
         'There is no dairy at all; the food is made from plants or nuts instead.',
       isPrivate: false
     },
     {
       name: 'WhatsCookin Admins',
-      imageUrl:
-        'https://vegansbaby.com/wp-content/uploads/2020/01/IMG_0397-1536x1152.jpg',
+      imageUrl: 'img/IMG_0397-1536x1152.jpg',
       description: 'Where the true WhatsCookin bosses meet.',
       isPrivate: true,
       userId: 1
+    },
+    {
+      name: 'Desserts',
+      imageUrl: 'img/pexels-arminas-raudys-808941.jpg',
+      description: `Everyone/s Guilty Pleasure`,
+      isPrivate: false
+    },
+    {
+      name: 'Keto',
+      imageUrl: 'img/pexels-ronit-hanegby-5463882.jpg',
+      description:
+        'Balanced diet nutrition keto concept. Assortment of healthy ketogenic low carb food ingredients for cooking on a kitchen table.',
+      isPrivate: false
+    },
+    {
+      name: 'Pescatarian',
+      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
+      description:
+        'Involves eating fish, as a main source of protein, alongside vegetables and other plant-based foods',
+      isPrivate: false
     }
   ]
 
