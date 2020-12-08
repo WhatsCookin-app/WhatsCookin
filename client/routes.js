@@ -12,7 +12,8 @@ import {
   VideoSession,
   EventsPage,
   BrowseChannels,
-  NotFound
+  NotFound,
+  UserSettings
 } from './components'
 import {me} from './store'
 
@@ -53,6 +54,7 @@ class Routes extends Component {
             <Route exact path="/channels" component={Channels} />
             <Route exact path="/browse" component={BrowseChannels} />
             <Route exact path="/notFound" component={NotFound} />
+            <Route exact path="/editProfile" component={UserSettings} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
