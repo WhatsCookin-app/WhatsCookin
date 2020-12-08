@@ -13,6 +13,58 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  const searchUsers = [
+    {
+      firstName: 'Michelle',
+      lastName: 'Obama',
+      userName: '1lady',
+      email: 'becoming@hotmail.com',
+      password: 'barack'
+    },
+    {
+      firstName: 'Kade',
+      lastName: 'Cahe',
+      userName: 'Kadecahe',
+      email: 'kadecahe@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Mikyla',
+      lastName: 'Zhang',
+      userName: 'mikylaz',
+      email: 'mikylaz@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Lidia',
+      lastName: 'De la Cruz',
+      userName: 'Lidiadelacruz',
+      email: 'lidiadelacruz@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Maddie',
+      lastName: 'Higgens',
+      userName: 'madelineurl',
+      email: 'madelineurl@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Natalie',
+      lastName: 'Lane',
+      userName: 'nlane',
+      email: 'nlane@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Ben',
+      lastName: 'Rodriguez',
+      userName: 'bienvenidos',
+      email: 'benbucks@gmail.com',
+      password: '1234567'
+    }
+  ]
+
   const users = await Promise.all([
     User.create({
       firstName: 'Barack',
@@ -29,6 +81,8 @@ async function seed() {
       password: 'ilovegh'
     })
   ])
+
+  const moreUsers = await User.bulkCreate(searchUsers)
 
   const events = await Promise.all([
     Event.create({
@@ -257,9 +311,11 @@ async function seed() {
   await recipes6.setChannels([1, 2, 3, 4])
 
   console.log(
-    `seeded ${users.length} users, ${channels.length} channels, and ${
-      newChannelUsers.length
-    } channel users`
+    `seeded ${users.length + moreUsers.length} users, ${
+      channels.length
+    } channels, ${newChannelUsers.length} users channels, 6 recipes, and ${
+      events.length
+    } events.`
   )
 
   console.log(`seeded successfully`)

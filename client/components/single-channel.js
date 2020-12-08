@@ -10,10 +10,11 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
   faInfoCircle,
-  faUserFriends,
   faTrash,
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
+import {AddUser} from './index'
+import {removeUsers} from '../store/profiles'
 
 //would be great to allow users to upload their own images here from their devices for image url
 class SingleChannel extends React.Component {
@@ -22,7 +23,8 @@ class SingleChannel extends React.Component {
     this.state = {
       show: false,
       component: '',
-      showModal: false
+      showModal: false,
+      search: false
     }
 
     this.handleClose = this.handleClose.bind(this)
@@ -31,6 +33,7 @@ class SingleChannel extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.clickedComponent = this.clickedComponent.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
   componentDidMount() {
     this.props.getChannel(this.props.channelId)
@@ -46,12 +49,18 @@ class SingleChannel extends React.Component {
   }
 
   handleCloseModal() {
-    this.setState({showModal: false})
+    const check = this.props.profiles.length ? this.props.removeUsers() : ''
+    this.setState({showModal: false, search: false})
   }
 
   handleShow(event) {
     this.clickedComponent(event)
     this.setState({showModal: true})
+  }
+
+  handleSearch() {
+    const bool = this.state.search
+    this.setState({search: !bool})
   }
 
   handleDelete() {
@@ -71,9 +80,12 @@ class SingleChannel extends React.Component {
           <div>
             <h1>{thisChannel.name} Recipes</h1>
           </div>
-
-          <div>
-            <FontAwesomeIcon icon={faUserFriends} className="cursor" />{' '}
+          <div className="d-flex align-items-center">
+            <AddUser
+              search={this.state.search}
+              handleCloseModal={this.handleCloseModal}
+              handleSearch={this.handleSearch}
+            />
             {this.props.user === thisChannel.userId ? (
               <FontAwesomeIcon
                 icon={faInfoCircle}
@@ -173,7 +185,12 @@ class SingleChannel extends React.Component {
 }
 
 const mapState = state => ({
-  user: state.user.id
+  user: state.user.id,
+  profiles: state.profiles
 })
 
-export default connect(mapState)(SingleChannel)
+const mapDispatch = dispatch => ({
+  removeUsers: () => dispatch(removeUsers())
+})
+
+export default connect(mapState, mapDispatch)(SingleChannel)
