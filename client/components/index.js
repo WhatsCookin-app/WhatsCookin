@@ -5,8 +5,6 @@
  */
 export {default as Navbar} from './navbar'
 export {default as NavCopy} from './navbar copy'
-
-export {default as UserHome} from './user-home'
 export {default as Recipes} from './recipes'
 export {Login} from './auth-form'
 export {default as Signup} from './CreateUser'
@@ -18,3 +16,5 @@ export {default as EventsPage} from './events-page'
 export {default as SearchUsers} from './SearchUsers'
 export {default as AddUser} from './AddUsers'
 export {default as UserProfiles} from './UserProfiles'
+export {default as BrowseChannels} from './BrowseChannels'
+export {default as NotFound} from './notFound'
