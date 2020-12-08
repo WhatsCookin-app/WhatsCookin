@@ -10,6 +10,7 @@ import singleChannel from './single-channel'
 import events from './events'
 import videos from './videos'
 import profiles from './profiles'
+import browseChannels from './browseChannels'
 
 const reducer = combineReducers({
   user,
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   singleRecipe,
   events,
   videos,
-  profiles
+  profiles,
+  browseChannels
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -28,3 +30,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
+export * from './browseChannels'
