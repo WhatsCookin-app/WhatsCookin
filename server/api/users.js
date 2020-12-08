@@ -16,8 +16,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id',async(req,res,next) => {
-  try{
+router.get('/:id', async (req, res, next) => {
+  try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
   } catch (err) {
@@ -25,8 +25,8 @@ router.get('/:id',async(req,res,next) => {
   }
 })
 
-router.post('/', async(req,res,next) => {
-  try{
+router.post('/', async (req, res, next) => {
+  try {
     const user = await User.create(req.body)
     res.json(user)
   } catch (err) {
@@ -34,4 +34,10 @@ router.post('/', async(req,res,next) => {
   }
 })
 
-
+router.post('/forgot', async (req, res, next) => {
+  try {
+    const isUser = await User.findAll()
+  } catch (err) {
+    next(err)
+  }
+})

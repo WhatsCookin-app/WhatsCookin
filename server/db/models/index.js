@@ -38,9 +38,11 @@ Channel.belongsToMany(Recipe, {
 })
 // Channel.belongsTo(User, {as: 'owner'})
 Channel.belongsTo(User)
-User.belongsToMany(Channel, {through: channelUser})
-Channel.belongsToMany(User, {through: channelUser})
+User.belongsToMany(Channel, {through: channelUser, as: 'members'})
+Channel.belongsToMany(User, {through: channelUser, as: 'members'})
 channelUser.belongsTo(Channel)
+
+//Added members to be able to eager load the members of channels
 
 module.exports = {
   User,
