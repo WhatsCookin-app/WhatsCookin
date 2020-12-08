@@ -2,6 +2,7 @@ import axios from 'axios'
 
 // action type
 const GET_CHANNELS = 'GET_CHANNELS'
+
 const ADD_CHANNEL = 'ADD_CHANNEL'
 
 // initial state
