@@ -4,9 +4,10 @@ import {fetchChannels} from '../store/channel.js'
 import PublicChannels from './public-channels'
 import PrivateChannels from './private-channels'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {OverlayTrigger, Tooltip, ListGroup, Modal} from 'react-bootstrap'
 import {AddChannel} from './edit-channel-sections/index.js'
+import {Link} from 'react-router-dom'
 
 class Channels extends React.Component {
   constructor() {
@@ -36,23 +37,41 @@ class Channels extends React.Component {
       <div id="flex">
         <div className="d-flex justify-content-between align-items-center">
           <h1 className="ml-3">Channels</h1>{' '}
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip id="tooltip-top" name="Tool Tip">
-                Add a Channel
-              </Tooltip>
-            }
-          >
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="mr-3 text-info cursor"
-              size="lg"
-              onClick={() => {
-                this.setState({showAddOptions: !bool})
-              }}
-            />
-          </OverlayTrigger>
+          <div>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="tooltip-top" name="Tool Tip">
+                  Add a Channel
+                </Tooltip>
+              }
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="mr-3 text-info cursor"
+                size="lg"
+                onClick={() => {
+                  this.setState({showAddOptions: !bool})
+                }}
+              />
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="tooltip-top" name="Tool Tip">
+                  Browse Channels
+                </Tooltip>
+              }
+            >
+              <Link to="/browse">
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  className="mr-3 text-info cursor"
+                  size="lg"
+                />
+              </Link>
+            </OverlayTrigger>
+          </div>
         </div>
         <div className="all-channels">
           <PrivateChannels channels={this.props.channels} />
