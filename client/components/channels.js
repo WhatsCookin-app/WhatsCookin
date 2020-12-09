@@ -58,11 +58,7 @@ class Channels extends React.Component {
             </OverlayTrigger>
             <OverlayTrigger
               placement="top"
-              overlay={
-                <Tooltip id="tooltip-top" name="Tool Tip">
-                  Browse Channels
-                </Tooltip>
-              }
+              overlay={<Tooltip name="Tool Tip">Browse Channels</Tooltip>}
             >
               <Link to="/browse">
                 <FontAwesomeIcon
