@@ -8,6 +8,7 @@ import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {OverlayTrigger, Tooltip, ListGroup, Modal} from 'react-bootstrap'
 import {AddChannel} from './edit-channel-sections/index.js'
 import {Link} from 'react-router-dom'
+import {me} from '../store/user'
 
 class Channels extends React.Component {
   constructor() {
@@ -21,6 +22,7 @@ class Channels extends React.Component {
 
   componentDidMount() {
     this.props.getChannels()
+    this.props.me()
   }
 
   handleOverlay() {
@@ -31,12 +33,15 @@ class Channels extends React.Component {
     const channels = this.props.channels
     const bool = this.state.showAddOptions
 
-    if (!channels.length) return <h1>Loading</h1>
+    //if (!channels.length) return <h1>Loading</h1>
 
     return (
       <div id="flex">
         <div className="d-flex justify-content-between align-items-center">
-          <h1 className="ml-3">Channels</h1>{' '}
+          <div>
+            <h1 className="ml-3">{this.props.user.userName} Channels</h1>
+            <img src={this.props.user.profilePicture} />
+          </div>
           <div>
             <OverlayTrigger
               placement="top"
@@ -96,11 +101,13 @@ class Channels extends React.Component {
 }
 
 const mapState = state => ({
-  channels: state.channels
+  channels: state.channels,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
-  getChannels: () => dispatch(fetchChannels())
+  getChannels: () => dispatch(fetchChannels()),
+  me: () => dispatch(me())
 })
 
 export default connect(mapState, mapDispatch)(Channels)
