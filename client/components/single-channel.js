@@ -1,35 +1,42 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Modal, Jumbotron, ListGroup} from 'react-bootstrap'
-import {EditDescription, EditImage, EditName} from './edit-channel-sections'
-import {fetchChannel, updateChannel} from '../store/single-channel'
+import {Modal, Button} from 'react-bootstrap'
+import {
+  EditDescription,
+  EditImage,
+  EditName,
+  DeleteChannel
+} from './edit-channel-sections'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faInfoCircle, faUserFriends} from '@fortawesome/free-solid-svg-icons'
+import {
+  faInfoCircle,
+  faTrash,
+  faTimesCircle
+} from '@fortawesome/free-solid-svg-icons'
+import {AddUser} from './index'
+import {removeUsers} from '../store/profiles'
 
 //would be great to allow users to upload their own images here from their devices for image url
 class SingleChannel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      description: '',
-      imageUrl: '',
-      isPrivate: false,
       show: false,
-      component: ''
+      component: '',
+      showModal: false,
+      search: false
     }
-    this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
+
+    this.handleClose = this.handleClose.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+    this.handleCloseModal = this.handleCloseModal.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.alertClicked = this.alertClicked.bind(this)
+    this.clickedComponent = this.clickedComponent.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
   }
   componentDidMount() {
-    console.log('Single Channel Component')
     this.props.getChannel(this.props.channelId)
-  }
-
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
   }
 
   handleClick() {
@@ -37,25 +44,48 @@ class SingleChannel extends React.Component {
     this.setState({show: !bool})
   }
 
-  alertClicked(event) {
+  handleClose() {
+    this.setState({show: false})
+  }
+
+  handleCloseModal() {
+    const check = this.props.profiles.length ? this.props.removeUsers() : ''
+    this.setState({showModal: false, search: false})
+  }
+
+  handleShow(event) {
+    this.clickedComponent(event)
+    this.setState({showModal: true})
+  }
+
+  handleSearch() {
+    const bool = this.state.search
+    this.setState({search: !bool})
+  }
+
+  handleDelete() {
+    this.setState({component: 'Delete Channel', showModal: true})
+  }
+
+  clickedComponent(event) {
+    console.log(event.target)
     this.setState({component: event.target.name})
   }
 
   render() {
     const thisChannel = this.props.channel || []
-    // console.log(thisChannel)
-    // className="d-flex align-items-center mr-5"
-    //Make a modal
-    // const component = this.sta
     return (
       <>
         <div className="d-flex align-items-center justify-content-between mr-5">
           <div>
             <h1>{thisChannel.name} Recipes</h1>
           </div>
-
-          <div>
-            <FontAwesomeIcon icon={faUserFriends} className="cursor" />{' '}
+          <div className="d-flex align-items-center">
+            <AddUser
+              search={this.state.search}
+              handleCloseModal={this.handleCloseModal}
+              handleSearch={this.handleSearch}
+            />
             {this.props.user === thisChannel.userId ? (
               <FontAwesomeIcon
                 icon={faInfoCircle}
@@ -68,33 +98,82 @@ class SingleChannel extends React.Component {
           </div>
           {this.state.show ? (
             <div>
-              <h1>Edit</h1>
-              <ListGroup>
-                <ListGroup.Item
-                  action
-                  onClick={this.alertClicked}
-                  name="EditName"
-                >
-                  Rename Channel
-                </ListGroup.Item>
-                <ListGroup.Item
-                  action
-                  onClick={this.alertClicked}
-                  name="EditDescription"
-                >
-                  Edit Description
-                </ListGroup.Item>
-                <ListGroup.Item
-                  action
-                  onClick={this.alertClicked}
-                  name="EditImage"
-                >
-                  Edit Image
-                </ListGroup.Item>
-                {/* <EditName />
-                <EditDescription />
-                <EditImage />  */}
-              </ListGroup>
+              <div className="d-flex justify-content-between align-items-center">
+                <h1>Edit</h1>
+                <FontAwesomeIcon
+                  icon={faTimesCircle}
+                  className="cursor"
+                  onClick={this.handleClick}
+                />
+              </div>
+              <Button
+                variant="warning"
+                onClick={this.handleShow}
+                name="Rename Channel"
+              >
+                Rename Channel
+              </Button>{' '}
+              <Button
+                variant="warning"
+                onClick={this.handleShow}
+                name="Edit Description"
+              >
+                Edit Description
+              </Button>{' '}
+              <Button
+                variant="warning"
+                onClick={this.handleShow}
+                name="Edit Image"
+              >
+                Edit Image
+              </Button>{' '}
+              <Button
+                variant="danger"
+                onClick={this.handleDelete}
+                name="Delete Channel"
+              >
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  className="cursor"
+                  name="Delete Channel"
+                />
+              </Button>{' '}
+              <Modal
+                backdrop="static"
+                show={this.state.showModal}
+                onHide={this.handleClose}
+              >
+                <Modal.Header>
+                  <Modal.Title>{this.state.component}</Modal.Title>
+                </Modal.Header>
+                {this.state.component === 'Rename Channel' ? (
+                  <EditName
+                    handleClose={this.handleCloseModal}
+                    channel={this.props.channel}
+                    updateChannel={this.props.updateChannel}
+                  />
+                ) : this.state.component === 'Edit Description' ? (
+                  <EditDescription
+                    handleClose={this.handleCloseModal}
+                    channel={this.props.channel}
+                    updateChannel={this.props.updateChannel}
+                  />
+                ) : this.state.component === 'Edit Image' ? (
+                  <EditImage
+                    handleClose={this.handleCloseModal}
+                    channel={this.props.channel}
+                    updateChannel={this.props.updateChannel}
+                  />
+                ) : this.state.component === 'Delete Channel' ? (
+                  <DeleteChannel
+                    handleClose={this.handleCloseModal}
+                    channel={this.props.channel}
+                    deleteChannel={this.props.deleteChannel}
+                  />
+                ) : (
+                  ''
+                )}
+              </Modal>
             </div>
           ) : (
             ''
@@ -106,13 +185,12 @@ class SingleChannel extends React.Component {
 }
 
 const mapState = state => ({
-  channel: state.singleChannel.channel,
-  user: state.user.id
+  user: state.user.id,
+  profiles: state.profiles
 })
 
 const mapDispatch = dispatch => ({
-  getChannel: channelId => dispatch(fetchChannel(channelId)),
-  updateChannel: channel => dispatch(updateChannel(channel))
+  removeUsers: () => dispatch(removeUsers())
 })
 
 export default connect(mapState, mapDispatch)(SingleChannel)

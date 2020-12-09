@@ -7,17 +7,18 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const POST_USER = 'POST_USER'
-
+const EDITED_USER = 'EDITED_USER'
 /**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const gotUserFromServer = user => ({type: POST_USER, user})
+const editedUser = user => ({type: EDITED_USER, user})
 
-/**
- * THUNK CREATORS
- */
+// /**
+//  * THUNK CREATORS
+//  */
 
 export const postUser = userObj => {
   return async dispatch => {
@@ -30,9 +31,6 @@ export const postUser = userObj => {
   }
 }
 
-/**
- * THUNK CREATORS
- */
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -45,35 +43,40 @@ export const me = () => async dispatch => {
 export const auth = userObj => async dispatch => {
   let res
   try {
-    console.log('BEFORE Sign up', userObj)
     if (userObj.method === 'signup') {
       res = await axios.post(`/auth/${userObj.method}`, {
         ...userObj
       })
-      console.log('SIGNUP', res)
     } else if (userObj.method === 'login') {
       res = await axios.post(`/auth/${userObj.method}`, {
         ...userObj
       })
-      console.log('LOGIN RES', res)
     }
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/channels')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
 }
-//change Line 65 from /home to /channels when ready
 
 export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
     history.push('/login')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const editUser = body => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/users', body)
+    dispatch(editedUser(data))
   } catch (err) {
     console.error(err)
   }
@@ -95,6 +98,8 @@ export default function(state = defaultUser, action) {
       return defaultUser
     case POST_USER:
       return [...state, action.user]
+    case EDITED_USER:
+      return action.user
     default:
       return state
   }

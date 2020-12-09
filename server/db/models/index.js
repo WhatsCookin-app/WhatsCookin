@@ -25,6 +25,9 @@ const Image = require('./image')
 //Might also want to define as a string the through table for lines 22 and 26/23 so that both associations belong to the same table
 // Event.belongsToMany(User, {as: 'Organizer', through: 'EventParticipants'}) //example
 
+Event.belongsTo(User, {as: 'organizer'})
+Event.belongsTo(User, {as: 'guest'})
+
 // User.hasMany(Recipe)
 Recipe.belongsTo(User, {as: 'owner'})
 Recipe.belongsToMany(Channel, {
@@ -35,9 +38,11 @@ Channel.belongsToMany(Recipe, {
 })
 // Channel.belongsTo(User, {as: 'owner'})
 Channel.belongsTo(User)
-User.belongsToMany(Channel, {through: channelUser})
-Channel.belongsToMany(User, {through: channelUser})
+User.belongsToMany(Channel, {through: channelUser, as: 'members'})
+Channel.belongsToMany(User, {through: channelUser, as: 'members'})
 channelUser.belongsTo(Channel)
+
+//Added members to be able to eager load the members of channels
 
 module.exports = {
   User,

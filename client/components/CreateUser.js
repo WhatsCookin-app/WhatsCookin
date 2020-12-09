@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {postUser} from '../store/user'
 import {auth} from '../store'
+import UploadImage from './UploadImage'
 
 class CreateUser extends Component {
   constructor() {
@@ -16,6 +16,7 @@ class CreateUser extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.setProfilePicture = this.setProfilePicture.bind(this)
   }
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
@@ -32,32 +33,24 @@ class CreateUser extends Component {
         password: this.state.password,
         profilePicture: this.state.profilePicture
       }
-      //await this.props.sendUserToPost(newUserObj)
       await this.props.auth({...newUserObj, method: 'signup'})
-      // this.props.auth(newUserObj.email, newUserObj.password, 'signup')
-      this.setState({
-        firstName: '',
-        lastName: '',
-        userName: '',
-        email: '',
-        password: '',
-        profilePicture: ''
-      })
-      // redirect to My Account view
-      // this.history.push(`/myaccount`)
     } catch (err) {
       console.error(err)
     }
   }
-
+  setProfilePicture(path) {
+    this.setState({
+      profilePicture: path
+    })
+  }
   render() {
-    const {name, error} = this.props
+    const {error} = this.props
     return (
       <div className="sign-up">
         <form
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}
-          name={name}
+          name="signup"
         >
           <div>
             <label htmlFor="email">
@@ -84,10 +77,8 @@ class CreateUser extends Component {
             <input name="password" type="password" />
           </div>
           <div>
-            <label htmlFor="profilePicture">
-              <small>Profile Picture</small>
-            </label>
-            <input type="file" id="myFile" name="profilePicture" />
+            <label htmlFor="profilePicture" />
+            <UploadImage setImageUrl={this.setProfilePicture} />
           </div>
           <div>
             <label htmlFor="userName">
@@ -100,9 +91,14 @@ class CreateUser extends Component {
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
-        <a href="/auth/google">Sign Up with Google</a>
+        <a href="/auth/google" className="text-kade">
+          Sign Up with Google
+        </a>
         <p>
-          Already have an account? <a href="/login">Login here!</a>
+          Already have an account?{' '}
+          <a href="/login" className="text-kade">
+            Login here!
+          </a>
         </p>
       </div>
     )
@@ -119,7 +115,6 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    sendUserToPost: userObj => dispatch(postUser(userObj)),
     auth: userObj => dispatch(auth(userObj, userObj.method))
   }
 }

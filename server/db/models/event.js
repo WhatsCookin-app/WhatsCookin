@@ -2,13 +2,18 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Event = db.define('event', {
-  organizer: {
-    type: Sequelize.TEXT,
-    allowNull: false
+  roomId: {
+    type: Sequelize.UUID
   },
-  guest: {
-    type: Sequelize.TEXT,
-    allowNull: false
+  name: {
+    type: Sequelize.STRING
+  },
+  // isUpcoming: {
+  //   type: Sequelize.BOOLEAN,
+  //   defaultValue: true
+  // },
+  description: {
+    type: Sequelize.STRING
   },
   eventDate: {
     type: Sequelize.DATE,
@@ -27,6 +32,14 @@ const Event = db.define('event', {
       }
     }
   }
+  //   eventDate: {
+  //     type: Sequelize.STRING,
+  //     allowNull: false
+  //   },
+  //   eventTime: {
+  //     type: Sequelize.STRING,
+  //     allowNull: false
+  //   },
 })
 
 // Event.prototype.isAfter = function () {

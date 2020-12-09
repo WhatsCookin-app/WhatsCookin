@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const {channelUser, Channel, Recipe} = require('../db/models')
-const {Sequelize} = require('sequelize')
 
 module.exports = router
+const Sequelize = require('sequelize')
+const User = require('../db/models/user')
 
 //Get all of a User's Channels with the Channel eager loaded
 //likely dont need the isUserMiddleware
@@ -39,19 +40,42 @@ router.get('/search', async (req, res, next) => {
   }
 })
 
-//Get a single a User's Channels with the Channel eager loaded
+//unjoined public channels-LIDIA
+router.get('/browse', async (req, res, next) => {
+  try {
+    const publicChannels = await Channel.findAll({
+      where: {
+        isPrivate: false
+      },
+      include: {model: User, as: 'members'}
+    })
+    const myChannels = await req.user.getMembers().map(channel => channel.id)
+    const unjoinedChannels = publicChannels.filter(
+      channel => !myChannels.includes(channel.id)
+    )
+    res.send(unjoinedChannels)
+  } catch (err) {
+    next(err)
+  }
+})
 
+//User will be able to view public channels that they are not in
+//Users cannot view private channels they are not in
 router.get('/:channelId', async (req, res, next) => {
   try {
-    const user = req.user.id
-    const channel = await channelUser.findOne({
-      where: {
-        userId: user,
-        channelId: req.params.channelId
-      },
-      include: Channel
+    const channel = await Channel.findByPk(req.params.channelId, {
+      include: {
+        model: User,
+        as: 'members'
+      }
     })
-    res.json(channel)
+    if (
+      channel.isPrivate &&
+      !channel.members.find(user => user.id === req.user.id)
+    ) {
+      return res.sendStatus(401)
+    }
+    res.json({channel})
   } catch (err) {
     next(err)
   }
@@ -76,6 +100,23 @@ router.get('/:channelId/recipes', async (req, res, next) => {
     next(err)
   }
 })
+// Get a single a User's Channels with the Channel eager loaded
+// This will only get a single channel the user is in
+// router.get('/:channelId', async (req, res, next) => {
+//   try {
+//     const user = req.user.id
+//     const channel = await channelUser.findOne({
+//       where: {
+//         userId: user,
+//         channelId: req.params.channelId,
+//       },
+//       include: Channel,
+//     })
+//     res.json(channel)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
@@ -87,7 +128,6 @@ router.post('/', async (req, res, next) => {
       description,
       imageUrl,
       isPrivate,
-      //will be req.user.id when not using postman
       userId: req.user.id
     })
 
@@ -129,6 +169,24 @@ router.put('/:channelId', async (req, res, next) => {
   }
 })
 
+// new user joining a channel
+router.put('/join/:channelId', async (req, res, next) => {
+  try {
+    await channelUser.create({
+      userId: req.user.id,
+      channelId: req.params.channelId
+    })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// //await channelUser.create({
+//   userId: req.user.id,
+//   channelId: req.params.channelId,
+// })
+
 // delete a channel
 router.delete('/:channelId', async (req, res, next) => {
   try {
@@ -136,7 +194,7 @@ router.delete('/:channelId', async (req, res, next) => {
 
     const channel = await Channel.findByPk(req.params.channelId)
 
-    if (channel.ownerId === userId) {
+    if (channel.userId === userId) {
       await channel.destroy()
       res.json('Channel deleted')
     } else {
