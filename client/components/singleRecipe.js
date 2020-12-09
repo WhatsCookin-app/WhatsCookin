@@ -62,8 +62,6 @@ class SingleRecipe extends Component {
 
   handleDelete() {
     this.handleClose()
-    console.log()
-    console.log('channelId: ', this.props.location.state.channelId)
     this.props.removeRecipe(
       this.props.match.params.recipeId,
       this.props.location.state.source,
