@@ -53,7 +53,7 @@ class Routes extends Component {
             <Route exact path="/notFound" component={NotFound} />
             <Route
               exact
-              path="/recipes/searchResults"
+              path="/recipes/searchResult"
               component={SearchResults}
             />
             <Route exact path="/editProfile" component={UserSettings} />

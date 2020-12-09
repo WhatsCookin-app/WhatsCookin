@@ -11,6 +11,7 @@ import events from './events'
 import videos from './videos'
 import profiles from './profiles'
 import browseChannels from './browseChannels'
+import searchStr from './searchStr'
 
 const reducer = combineReducers({
   user,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   events,
   videos,
   profiles,
-  browseChannels
+  browseChannels,
+  searchStr
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

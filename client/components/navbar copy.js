@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link, Redirect} from 'react-router-dom'
 import {logout} from '../store'
 import {fetchResults} from '../store/recipe.js'
+import {getSearchStr} from '../store/searchStr'
 import {CreateUser} from './CreateUser'
 import {
   Navbar as BootstrapNavbar,
@@ -32,10 +33,11 @@ class NavCopy extends Component {
     this.setState({keyWord: event.target.value})
   }
   handleClickSearch() {
+    this.props.fetchSearch(this.state.keyWord)
     this.props.getResults(this.state.keyWord)
-    // this.props.history.push('/recipes/searchResults')
+    // this.props.history.push('/recipes/searchResult')
     this.props.history.push({
-      pathname: '/recipes/searchResults',
+      pathname: '/recipes/searchResult',
       state: {searchStr: this.state.keyWord}
     })
     this.setState({keyWord: ''})
@@ -44,10 +46,11 @@ class NavCopy extends Component {
   handleKeyPress(event) {
     if (event.key === 'Enter') {
       event.preventDefault()
+      this.props.fetchSearch(this.state.keyWord)
       this.props.getResults(this.state.keyWord)
-      // this.props.history.push('/recipes/searchResults')
+      // this.props.history.push('/recipes/searchResult')
       this.props.history.push({
-        pathname: '/recipes/searchResults',
+        pathname: '/recipes/searchResult',
         state: {searchStr: this.state.keyWord}
       })
       this.setState({keyWord: ''})
@@ -136,7 +139,8 @@ class NavCopy extends Component {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    recipes: state.recipe
+    recipes: state.recipe,
+    searchStr: state.searchStr
   }
 }
 
@@ -145,7 +149,8 @@ const mapDispatch = dispatch => {
     handleClick() {
       dispatch(logout())
     },
-    getResults: searchStr => dispatch(fetchResults(searchStr))
+    getResults: searchStr => dispatch(fetchResults(searchStr)),
+    fetchSearch: searchStr => dispatch(getSearchStr(searchStr))
   }
 }
 
