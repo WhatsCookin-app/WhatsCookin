@@ -91,6 +91,10 @@ router.get('/:channelId/recipes', async (req, res, next) => {
           where: {
             id: req.params.channelId
           }
+        },
+        {
+          model: User,
+          as: 'owner'
         }
       ]
     })
