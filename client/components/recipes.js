@@ -8,9 +8,10 @@ import {
 } from '../store/single-channel'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlus} from '@fortawesome/free-solid-svg-icons'
-import {Button, Form, Modal} from 'react-bootstrap'
-import {SingleChannel} from './index'
+import {faHeart} from '@fortawesome/free-solid-svg-icons'
+import {Button, Form, Modal, Card} from 'react-bootstrap'
+import {SingleChannel, AddRecipe} from './index'
+import axios from 'axios'
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -24,6 +25,8 @@ class Recipes extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleAddRecipe = this.handleAddRecipe.bind(this)
+    this.handleImage = this.handleImage.bind(this)
   }
   componentDidMount() {
     this.props.getAllRecipes(this.props.match.params.channelId)
@@ -38,7 +41,8 @@ class Recipes extends React.Component {
       name: this.state.name,
       ingredients: this.state.ingredients,
       instructions: this.state.instructions,
-      channels: [this.props.match.params.channelId]
+      channels: [this.props.match.params.channelId],
+      imageUrl: this.state.imageUrl
     })
     this.handleClose()
   }
@@ -47,10 +51,22 @@ class Recipes extends React.Component {
     this.setState({show: false})
   }
 
+  handleAddRecipe() {
+    this.setState({show: true})
+  }
+
+  async handleImage() {
+    let imageFormObj = new FormData()
+    imageFormObj.append('imageData', event.target.files[0])
+    const {data} = await axios.post('/api/image/upload', imageFormObj)
+
+    this.setState({imageUrl: data})
+  }
+
   render() {
     const recipes = this.props.recipes
     return (
-      <div id="all-recipes" className="flex-column">
+      <div id="all-recipes" className="flex-column vieww">
         <div>
           <SingleChannel
             channelId={this.props.match.params.channelId}
@@ -58,46 +74,80 @@ class Recipes extends React.Component {
             getChannel={this.props.getChannel}
             channel={this.props.channel}
             deleteChannel={this.props.deleteChannel}
+            handleAddRecipe={this.handleAddRecipe}
           />
         </div>
+        <div className="d-flex flex-wrap justify-content-center align-items-center ">
+          {recipes &&
+            recipes.map(element => {
+              return (
+                <Card
+                  key={element.id}
+                  className="recipe-card m-2 border-light"
+                  bg="transparent"
+                >
+                  <Link
+                    to={`/home/channels/${this.props.match.params.channelId}/${
+                      element.id
+                    }`}
+                  >
+                    <Card.Img
+                      src={element.imageUrl}
+                      className="recipe-image rounded"
+                    />
+                  </Link>
+                  <Link
+                    to={`/home/channels/${this.props.match.params.channelId}/${
+                      element.id
+                    }`}
+                    className="text-info mt-1"
+                  >
+                    <Card.Title>
+                      {element.name}{' '}
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        className="cursor text-danger"
+                      />
+                      <span className="text-secondary">{element.likes}</span>
+                    </Card.Title>
+                  </Link>
+                  <Card.Text>
+                    by {element.owner.firstName} {element.owner.lastName} |{' '}
+                    <span className="text-kade font-weight-bold">
+                      @{element.owner.userName}
+                    </span>{' '}
+                  </Card.Text>
+                </Card>
+              )
+            })}
+        </div>
 
-        <FontAwesomeIcon
-          icon={faPlus}
-          style={{marginLeft: '1200px', color: '#0645AD'}}
-          size="lg"
-          onClick={() => {
-            this.setState({show: true})
-          }}
-          className="cursor"
-        />
-        <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
-          Add a recipe
-        </h6>
-        <div id="all-recipes">
+        <div>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Upload a Recipe</Modal.Title>
             </Modal.Header>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Group controlId="name">
+            <Form onSubmit={this.handleSubmit} className="d-flex flex-column">
+              <Form.Group controlId="name" className="mb-0">
                 <Form.Label>Recipe Name</Form.Label>
                 <Form.Control
                   name="name"
                   type="name"
-                  style={{marginLeft: '100px'}}
+                  // style={{marginLeft: '100px'}}
                   value={this.state.name}
                   onChange={this.handleChange}
                   placeholder="Easy Pancake"
+                  className="mb-1 mt-1"
                 />
               </Form.Group>
-              <Form.Group controlId="ingredients">
+              <Form.Group controlId="ingredients" className="mb-1 mt-1">
                 <Form.Label>Ingredients</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows="5"
                   name="ingredients"
                   type="ingredients"
-                  style={{marginLeft: '100px'}}
+                  // style={{marginLeft: '100px'}}
                   value={this.state.ingredients}
                   onChange={this.handleChange}
                   placeholder={
@@ -112,6 +162,7 @@ class Recipes extends React.Component {
                     '1 cup milk'
                   }
                 />
+                {/* <br /> */}
               </Form.Group>
               <Form.Group controlId="instructions">
                 <Form.Label>Instructions</Form.Label>
@@ -122,7 +173,6 @@ class Recipes extends React.Component {
                   onChange={this.handleChange}
                   as="textarea"
                   rows="10"
-                  style={{marginLeft: '100px'}}
                   placeholder={
                     'In a large bowl, mix flour, sugar, baking powder and salt. Make a well in the center, and pour in milk, egg and oil. Mix until smooth.' +
                     '\n' +
@@ -130,50 +180,34 @@ class Recipes extends React.Component {
                   }
                 />
               </Form.Group>
+              <Form.Group controlId="imageUrl" className="mb-1 mt-1">
+                <Form.Label>Recipe Image</Form.Label>
+                <br />
+                <Form.File
+                  id="imageUpload"
+                  name="imageUrl"
+                  className="m-0 mb-1"
+                  onChange={this.handleImage}
+                />
+                <br />{' '}
+              </Form.Group>
               {this.state.name &&
               this.state.ingredients &&
               this.state.instructions ? (
-                <Button
-                  variant="success"
-                  active
-                  type="submit"
-                  style={{
-                    marginLeft: '400px',
-                    marginBottom: '30px'
-                  }}
-                >
-                  Upload
-                </Button>
+                <div className="d-flex justify-content-end mt-1">
+                  <Button variant="success" active type="submit">
+                    Upload
+                  </Button>
+                </div>
               ) : (
-                <Button
-                  variant="success"
-                  disabled
-                  type="submit"
-                  style={{
-                    marginLeft: '400px',
-                    marginBottom: '30px'
-                  }}
-                >
-                  Upload
-                </Button>
+                <div className="d-flex justify-content-end mt-1">
+                  <Button variant="success" disabled type="submit">
+                    Upload
+                  </Button>
+                </div>
               )}
             </Form>
           </Modal>
-          {recipes &&
-            recipes.map(element => {
-              return (
-                <div key={element.id} id="single-recipe">
-                  <Link
-                    to={`/home/channels/${this.props.match.params.channelId}/${
-                      element.id
-                    }`}
-                  >
-                    <img src={element.imageUrl} id="img" />
-                    <div id="recipe-info">{element.name}</div>
-                  </Link>
-                </div>
-              )
-            })}
         </div>
       </div>
     )

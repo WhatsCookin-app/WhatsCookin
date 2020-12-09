@@ -1,5 +1,9 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, channelUser} = require('../db/models')
+const isUserMiddleware = require('./isUserMiddleware')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -13,6 +17,44 @@ router.get('/', async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/profiles', isUserMiddleware, async (req, res, next) => {
+  try {
+    let lookupValue = req.query.profiles.toLowerCase()
+    const users = await User.findAll({
+      limit: 10,
+      where: {
+        [Op.or]: [
+          {
+            firtName: Sequelize.where(
+              Sequelize.fn('LOWER', Sequelize.col('firstName')),
+              'LIKE',
+              '%' + lookupValue + '%'
+            )
+          },
+          {
+            lastName: Sequelize.where(
+              Sequelize.fn('LOWER', Sequelize.col('lastName')),
+              'LIKE',
+              '%' + lookupValue + '%'
+            )
+          },
+          {
+            userName: Sequelize.where(
+              Sequelize.fn('LOWER', Sequelize.col('userName')),
+              'LIKE',
+              '%' + lookupValue + '%'
+            )
+          }
+        ]
+      }
+    })
+
+    res.json(users)
+  } catch (error) {
+    next(error)
   }
 })
 
@@ -35,6 +77,7 @@ router.post('/', async (req, res, next) => {
       password: req.body.password,
       profilePicture: req.body.profilePicture
     })
+
     res.json(user)
   } catch (err) {
     next(err)
@@ -52,5 +95,20 @@ router.put('/', async (req, res, next) => {
     res.send(req.user)
   } catch (err) {
     next(err)
+  }
+})
+
+router.post('/add', isUserMiddleware, async (req, res, next) => {
+  try {
+    const userChannel = await channelUser.findOrCreate({
+      where: {
+        userId: req.body.userId,
+        channelId: req.body.channelId
+      }
+    })
+
+    res.json('success')
+  } catch (error) {
+    next(error)
   }
 })
