@@ -12,7 +12,8 @@ import {
   faInfoCircle,
   faUserFriends,
   faTrash,
-  faTimesCircle
+  faTimesCircle,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons'
 
 //would be great to allow users to upload their own images here from their devices for image url
@@ -73,6 +74,11 @@ class SingleChannel extends React.Component {
           </div>
 
           <div>
+            <FontAwesomeIcon
+              icon={faPlus}
+              onClick={this.props.handleAddRecipe}
+              className="cursor"
+            />{' '}
             <FontAwesomeIcon icon={faUserFriends} className="cursor" />{' '}
             {this.props.user === thisChannel.userId ? (
               <FontAwesomeIcon
