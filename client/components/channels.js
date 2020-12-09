@@ -45,11 +45,7 @@ class Channels extends React.Component {
           <div>
             <OverlayTrigger
               placement="top"
-              overlay={
-                <Tooltip id="tooltip-top" name="Tool Tip">
-                  Add a Channel
-                </Tooltip>
-              }
+              overlay={<Tooltip name="Tool Tip">Add a Channel</Tooltip>}
             >
               <FontAwesomeIcon
                 icon={faPlus}

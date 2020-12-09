@@ -8,7 +8,7 @@ import {
 } from '../store/single-channel'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faHeart, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {faHeart} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal, Card} from 'react-bootstrap'
 import {SingleChannel, AddRecipe} from './index'
 
@@ -63,19 +63,8 @@ class Recipes extends React.Component {
             getChannel={this.props.getChannel}
             channel={this.props.channel}
             deleteChannel={this.props.deleteChannel}
+            handleAddRecipe={this.handleAddRecipe}
           />
-          {/* <FontAwesomeIcon
-          icon={faPlus}
-          style={{marginLeft: '1200px', color: '#0645AD'}}
-          size="lg"
-          onClick={() => {
-            this.setState({show: true})
-          }}
-          className="cursor"
-        /> */}
-          {/* <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
-          Add a recipe
-        </h6> */}
         </div>
         <div className="d-flex flex-wrap justify-content-center align-items-center ">
           {recipes &&
@@ -122,33 +111,32 @@ class Recipes extends React.Component {
             })}
         </div>
 
-        {/* <AddRecipe show={this.state.show} handleClose={this.handleClose} handleSubmit={this.handleSubmit}
-        handleChange={this.state.handleChange} name={this.state.name} ingredients={this.state.ingredients} instructions={this.state.instructions}/> */}
-        <div id="">
+        <div>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Upload a Recipe</Modal.Title>
             </Modal.Header>
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Group controlId="name">
+            <Form onSubmit={this.handleSubmit} className="d-flex flex-column">
+              <Form.Group controlId="name" className="mb-0">
                 <Form.Label>Recipe Name</Form.Label>
                 <Form.Control
                   name="name"
                   type="name"
-                  style={{marginLeft: '100px'}}
+                  // style={{marginLeft: '100px'}}
                   value={this.state.name}
                   onChange={this.handleChange}
                   placeholder="Easy Pancake"
+                  className="mb-1 mt-1"
                 />
               </Form.Group>
-              <Form.Group controlId="ingredients">
+              <Form.Group controlId="ingredients" className="mb-1 mt-1">
                 <Form.Label>Ingredients</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows="5"
                   name="ingredients"
                   type="ingredients"
-                  style={{marginLeft: '100px'}}
+                  // style={{marginLeft: '100px'}}
                   value={this.state.ingredients}
                   onChange={this.handleChange}
                   placeholder={
@@ -163,6 +151,7 @@ class Recipes extends React.Component {
                     '1 cup milk'
                   }
                 />
+                {/* <br /> */}
               </Form.Group>
               <Form.Group controlId="instructions">
                 <Form.Label>Instructions</Form.Label>
@@ -173,7 +162,6 @@ class Recipes extends React.Component {
                   onChange={this.handleChange}
                   as="textarea"
                   rows="10"
-                  style={{marginLeft: '100px'}}
                   placeholder={
                     'In a large bowl, mix flour, sugar, baking powder and salt. Make a well in the center, and pour in milk, egg and oil. Mix until smooth.' +
                     '\n' +
@@ -184,29 +172,17 @@ class Recipes extends React.Component {
               {this.state.name &&
               this.state.ingredients &&
               this.state.instructions ? (
-                <Button
-                  variant="success"
-                  active
-                  type="submit"
-                  style={{
-                    marginLeft: '400px',
-                    marginBottom: '30px'
-                  }}
-                >
-                  Upload
-                </Button>
+                <div className="d-flex justify-content-end mt-1">
+                  <Button variant="success" active type="submit">
+                    Upload
+                  </Button>
+                </div>
               ) : (
-                <Button
-                  variant="success"
-                  disabled
-                  type="submit"
-                  style={{
-                    marginLeft: '400px',
-                    marginBottom: '30px'
-                  }}
-                >
-                  Upload
-                </Button>
+                <div className="d-flex justify-content-end mt-1">
+                  <Button variant="success" disabled type="submit">
+                    Upload
+                  </Button>
+                </div>
               )}
             </Form>
           </Modal>
