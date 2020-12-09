@@ -11,6 +11,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal, Card} from 'react-bootstrap'
 import {SingleChannel, AddRecipe} from './index'
+import axios from 'axios'
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Recipes extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleAddRecipe = this.handleAddRecipe.bind(this)
+    this.handleImage = this.handleImage.bind(this)
   }
   componentDidMount() {
     this.props.getAllRecipes(this.props.match.params.channelId)
@@ -39,7 +41,8 @@ class Recipes extends React.Component {
       name: this.state.name,
       ingredients: this.state.ingredients,
       instructions: this.state.instructions,
-      channels: [this.props.match.params.channelId]
+      channels: [this.props.match.params.channelId],
+      imageUrl: this.state.imageUrl
     })
     this.handleClose()
   }
@@ -50,6 +53,14 @@ class Recipes extends React.Component {
 
   handleAddRecipe() {
     this.setState({show: true})
+  }
+
+  async handleImage() {
+    let imageFormObj = new FormData()
+    imageFormObj.append('imageData', event.target.files[0])
+    const {data} = await axios.post('/api/image/upload', imageFormObj)
+
+    this.setState({imageUrl: data})
   }
 
   render() {
@@ -168,6 +179,17 @@ class Recipes extends React.Component {
                     'Heat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.'
                   }
                 />
+              </Form.Group>
+              <Form.Group controlId="imageUrl" className="mb-1 mt-1">
+                <Form.Label>Recipe Image</Form.Label>
+                <br />
+                <Form.File
+                  id="imageUpload"
+                  name="imageUrl"
+                  className="m-0 mb-1"
+                  onChange={this.handleImage}
+                />
+                <br />{' '}
               </Form.Group>
               {this.state.name &&
               this.state.ingredients &&

@@ -88,8 +88,6 @@ class AddChannel extends React.Component {
             Channel Image
             <span className="text-muted">(Optional)</span>
           </Form.Label>
-          {/* edit images width and find a way to store it */}
-          {/* {' '} */}
           <br />
           <Form.File
             id="imageUpload"
