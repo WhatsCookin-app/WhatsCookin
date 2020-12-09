@@ -35,6 +35,31 @@ async function seed() {
       organizer: '1',
       guest: '2',
       eventDate: 2020 - 11 - 30
+    }),
+    Event.create({
+      organizer: '2',
+      guest: '1',
+      eventDate: 2020 - 12 - 10
+    }),
+    Event.create({
+      organizer: '1',
+      guest: '2',
+      eventDate: 2020 - 12 - 15
+    }),
+    Event.create({
+      organizer: '2',
+      guest: '1',
+      eventDate: 2021 - 1 - 20
+    }),
+    Event.create({
+      organizer: '1',
+      guest: '2',
+      eventDate: 2021 - 1 - 30
+    }),
+    Event.create({
+      organizer: '2',
+      guest: '1',
+      eventDate: 2021 - 1 - 31
     })
   ])
 

@@ -10,7 +10,8 @@ import {
   Recipes,
   SingleRecipe,
   Channels,
-  VideoSession
+  VideoSession,
+  SearchResults
 } from './components'
 import {me} from './store'
 import NotFound from './components/notFound'
@@ -32,11 +33,7 @@ class Routes extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/home/channels/:channelId" component={Recipes} />
-        <Route
-          exact
-          path="/home/channels/:channelId/:recipeId"
-          component={SingleRecipe}
-        />
+        <Route exact path="/home/recipes/:recipeId" component={SingleRecipe} />
 
         {isLoggedIn && (
           <Switch>
@@ -46,11 +43,16 @@ class Routes extends Component {
             <Route exact path="/home/channels/:channelId" component={Recipes} />
             <Route
               exact
-              path="/home/channels/:channelId/:recipeId"
+              path="/home/recipes/:recipeId"
               component={SingleRecipe}
             />
             <Route exact path="/channels/" component={Channels} />
             <Route exact path="/notFound" component={NotFound} />
+            <Route
+              exact
+              path="/recipes/searchResults"
+              component={SearchResults}
+            />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

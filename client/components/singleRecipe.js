@@ -15,6 +15,7 @@ import {faEdit} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
 import NotFound from './notFound'
 import channel from '../store/channel.js'
+import {withRouter} from 'react-router-dom'
 
 class SingleRecipe extends Component {
   constructor(props) {
@@ -61,10 +62,23 @@ class SingleRecipe extends Component {
 
   handleDelete() {
     this.handleClose()
+    console.log()
+    console.log('channelId: ', this.props.location.state.channelId)
     this.props.removeRecipe(
       this.props.match.params.recipeId,
-      this.props.match.params.channelId
+      this.props.location.state.source,
+      this.props.location.state.channelId
     )
+    // if (this.props.location.state.source === 'channels')
+    // {
+    //   this.props.history.push(`/home/channels/${this.props.location.state.channelId}`)
+    // }
+    // if (this.props.location.state.source === 'search'){
+    //   this.props.history.push({
+    //     pathname: '/recipes/searchResults',
+    //     state: { searchStr: this.props.location.state.searchStr}
+    //   })
+    // }
   }
 
   async handleSubmitName(event) {
@@ -92,10 +106,7 @@ class SingleRecipe extends Component {
   }
 
   async componentDidMount() {
-    await this.props.getOneRecipe(
-      this.props.match.params.channelId,
-      this.props.match.params.recipeId
-    )
+    await this.props.getOneRecipe(this.props.match.params.recipeId)
     this.setState({
       name: this.props.singleRecipe.name,
       ingredients: this.props.singleRecipe.ingredients,
@@ -324,14 +335,13 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getOneRecipe: (channelId, recipeId) =>
-      dispatch(fetchOneRecipe(channelId, recipeId)),
+    getOneRecipe: recipeId => dispatch(fetchOneRecipe(recipeId)),
     changeLoadingState: () => dispatch(loadingRecipe()),
     updateRecipe: (recipeId, recipe) =>
       dispatch(updateSingleRecipe(recipeId, recipe)),
-    removeRecipe: (recipeId, channelId) =>
-      dispatch(deleteRecipe(recipeId, channelId))
+    removeRecipe: (recipeId, source, channelId) =>
+      dispatch(deleteRecipe(recipeId, source, channelId))
   }
 }
 
-export default connect(mapState, mapDispatch)(SingleRecipe)
+export default withRouter(connect(mapState, mapDispatch)(SingleRecipe))

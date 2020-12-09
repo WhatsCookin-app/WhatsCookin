@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {logout} from '../store'
+import {fetchResults} from '../store/recipe.js'
 import {CreateUser} from './CreateUser'
 import {
   Navbar as BootstrapNavbar,
@@ -14,19 +15,43 @@ import {
 } from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {withRouter} from 'react-router'
 
 class NavCopy extends Component {
   constructor() {
     super()
     this.state = {
-      search: false,
       keyWord: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClickSearch.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   handleChange(event) {
     this.setState({keyWord: event.target.value})
+  }
+  handleClickSearch() {
+    this.props.getResults(this.state.keyWord)
+    // this.props.history.push('/recipes/searchResults')
+    this.props.history.push({
+      pathname: '/recipes/searchResults',
+      state: {searchStr: this.state.keyWord}
+    })
+    this.setState({keyWord: ''})
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.props.getResults(this.state.keyWord)
+      // this.props.history.push('/recipes/searchResults')
+      this.props.history.push({
+        pathname: '/recipes/searchResults',
+        state: {searchStr: this.state.keyWord}
+      })
+      this.setState({keyWord: ''})
+    }
   }
 
   render() {
@@ -64,25 +89,25 @@ class NavCopy extends Component {
               <Form inline>
                 <FormControl
                   type="text"
-                  placeholder="Search"
+                  placeholder="Search for a recipe"
+                  value={this.state.keyWord}
                   className="mr-sm-2 bg-light"
                   onChange={event => this.handleChange(event)}
+                  onKeyDown={this.handleKeyPress}
                 />
                 {this.state.keyWord === '' ? (
                   <Button variant="outline-kade">
                     <FontAwesomeIcon icon={faSearch} />
                   </Button>
                 ) : (
-                  <Link
-                    to={{
-                      pathname: '/notFound',
-                      state: {
-                        check: false
-                      }
+                  <Button
+                    variant="outline-kade"
+                    onClick={() => {
+                      this.handleClickSearch()
                     }}
                   >
                     <FontAwesomeIcon icon={faSearch} />
-                  </Link>
+                  </Button>
                 )}
               </Form>
             </Nav>
@@ -93,6 +118,7 @@ class NavCopy extends Component {
               <Link to="/signup">Sign Up</Link>
             </Nav>
           )}
+
           {/* </Nav> */}
           {/* <hr /> */}
         </BootstrapNavbar>
@@ -106,7 +132,8 @@ class NavCopy extends Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    recipes: state.recipe
   }
 }
 
@@ -114,11 +141,12 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    getResults: searchStr => dispatch(fetchResults(searchStr))
   }
 }
 
-export default connect(mapState, mapDispatch)(NavCopy)
+export default withRouter(connect(mapState, mapDispatch)(NavCopy))
 
 /**
  * PROP TYPES

@@ -2,14 +2,27 @@ import axios from 'axios'
 
 // action type
 const GET_RECIPES = 'GET_RECIPES'
+const GET_RESULTS = 'GET_RESULTS'
+const GET_STATE_RECIPES = 'GET_STATE_RECIPES'
+
 const ADD_RECIPE = 'ADD_RECIPE'
 
 // initial state
 const defaultRecipe = []
 
+const getStateRecipes = () => ({
+  type: GET_STATE_RECIPES
+})
+
 // action creator
 const getRecipes = recipes => ({
   type: GET_RECIPES,
+  recipes
+})
+
+// action creator
+const getResults = recipes => ({
+  type: GET_RESULTS,
   recipes
 })
 
@@ -24,8 +37,30 @@ const addRecipeCreator = newRecipe => {
 export const fetchRecipes = channelId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/recipes/${channelId}`)
+      const {data} = await axios.get(`/api/channels/${channelId}/recipes`)
       dispatch(getRecipes(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+//thunk creator
+export const fetchResults = searchStr => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/recipes/search?r=${searchStr}`)
+      dispatch(getResults(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const fetchStateRecipes = () => {
+  return async dispatch => {
+    try {
+      dispatch(getStateRecipes())
     } catch (error) {
       console.log(error)
     }
@@ -47,7 +82,11 @@ export const postRecipe = newRecipe => {
 // reducer
 export default function(state = defaultRecipe, action) {
   switch (action.type) {
+    case GET_STATE_RECIPES:
+      return state.recipes
     case GET_RECIPES:
+      return action.recipes
+    case GET_RESULTS:
       return action.recipes
     case ADD_RECIPE:
       return [...state, action.newRecipe]

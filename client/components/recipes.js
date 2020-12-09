@@ -152,9 +152,13 @@ class Recipes extends React.Component {
               return (
                 <div key={element.id} id="single-recipe">
                   <Link
-                    to={`/home/channels/${this.props.match.params.channelId}/${
-                      element.id
-                    }`}
+                    to={{
+                      pathname: `/home/recipes/${element.id}`,
+                      state: {
+                        source: 'channels',
+                        channelId: this.props.match.params.channelId
+                      }
+                    }}
                   >
                     <img src={element.imageUrl} id="img" />
                     <div id="recipe-info">{element.name}</div>
