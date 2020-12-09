@@ -20,7 +20,7 @@ class EventsPage extends React.Component {
     console.log(this.props.events)
     if (!this.props.events.id) return <h1>Loading</h1>
     return (
-      <div>
+      <div className="view">
         <FontAwesomeIcon icon={faPlus} />
         <div>
           <p>{this.props.events.name}</p>

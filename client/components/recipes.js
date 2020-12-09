@@ -66,7 +66,7 @@ class Recipes extends React.Component {
   render() {
     const recipes = this.props.recipes
     return (
-      <div id="all-recipes" className="flex-column">
+      <div id="all-recipes" className="flex-column vieww">
         <div>
           <SingleChannel
             channelId={this.props.match.params.channelId}
