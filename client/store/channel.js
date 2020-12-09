@@ -4,6 +4,8 @@ import axios from 'axios'
 const GET_CHANNELS = 'GET_CHANNELS'
 const GET_RESULTS_CHANNEL = 'GET_RESULTS_CHANNEL'
 
+const ADD_CHANNEL = 'ADD_CHANNEL'
+
 // initial state
 const defaultChannels = []
 
@@ -37,6 +39,16 @@ export const fetchChannelResults = searchStr => {
     try {
       const {data} = await axios.get(`/api/channels/search?c=${searchStr}`)
       dispatch(getResultsChannel(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export const createChannel = channel => {
+  return async dispatch => {
+    try {
+      await axios.post(`/api/channels`, channel)
+      dispatch(fetchChannels())
     } catch (error) {
       console.log(error)
     }

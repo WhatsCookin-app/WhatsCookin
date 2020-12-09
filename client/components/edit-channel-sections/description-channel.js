@@ -1,7 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Button, Form} from 'react-bootstrap'
-import {fetchChannel, updateChannel} from '../../store/single-channel'
 
 class ChannelDescription extends React.Component {
   constructor(props) {
@@ -15,8 +13,7 @@ class ChannelDescription extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentDidMount() {
-    await this.props.getChannel(8)
+  componentDidMount() {
     this.setState({description: this.props.channel.description})
   }
 
@@ -28,7 +25,6 @@ class ChannelDescription extends React.Component {
     event.preventDefault()
     this.props.channel.description = this.state.description
     this.props.updateChannel(this.props.channel)
-    //still needs help re rending with the right name
     this.props.handleClose()
   }
 
@@ -44,9 +40,6 @@ class ChannelDescription extends React.Component {
             value={this.state.description}
             onChange={this.handleChange}
           />
-          {/* <Form.Text className="text-muted">
-          Names can’t be longer than 80 characters.
-        </Form.Text> */}
           <Button variant="outline-secondary" onClick={this.props.handleClose}>
             Cancel
           </Button>{' '}
@@ -65,13 +58,4 @@ class ChannelDescription extends React.Component {
   }
 }
 
-const mapState = state => ({
-  channel: state.singleChannel.channel
-})
-
-const mapDispatch = dispatch => ({
-  getChannel: channelId => dispatch(fetchChannel(channelId)),
-  updateChannel: channel => dispatch(updateChannel(channel))
-})
-
-export default connect(mapState, mapDispatch)(ChannelDescription)
+export default ChannelDescription

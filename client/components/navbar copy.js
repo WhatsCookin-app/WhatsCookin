@@ -75,6 +75,9 @@ class NavCopy extends Component {
                   Home
                 </Link>
               </Nav.Item>
+              <Link to="/editProfile">
+                <Nav.Item>Edit Profile</Nav.Item>
+              </Link>
 
               <Link to="/channels">
                 <Nav.Item>Channels</Nav.Item>

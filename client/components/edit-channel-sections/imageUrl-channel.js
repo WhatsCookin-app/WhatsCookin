@@ -1,7 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Button, Form, Image} from 'react-bootstrap'
-import {fetchChannel, updateChannel} from '../../store/single-channel'
 
 class ImageUrlChannel extends React.Component {
   constructor(props) {
@@ -15,20 +13,25 @@ class ImageUrlChannel extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  async componentDidMount() {
-    await this.props.getChannel(8)
+  componentDidMount() {
     this.setState({imageUrl: this.props.channel.imageUrl})
   }
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value, isActive: true})
+    let file = document.getElementById('imageUpload').files[0]
+    console.log(file)
+    //preventing image from breaking. must use multer
+    // this.setState({[event.target.name]: event.target.value, isActive: true})
+    this.setState({isActive: true})
   }
 
   handleSubmit(event) {
     event.preventDefault()
+    let file = document.getElementById('imageUpload').files[0]
+    console.log(file)
+    console.log('where is it', this.state.imageUrl)
     this.props.channel.imageUrl = this.state.imageUrl
     this.props.updateChannel(this.props.channel)
-    //still needs help re rending with the right name
     this.props.handleClose()
   }
 
@@ -72,13 +75,4 @@ class ImageUrlChannel extends React.Component {
   }
 }
 
-const mapState = state => ({
-  channel: state.singleChannel.channel
-})
-
-const mapDispatch = dispatch => ({
-  getChannel: channelId => dispatch(fetchChannel(channelId)),
-  updateChannel: channel => dispatch(updateChannel(channel))
-})
-
-export default connect(mapState, mapDispatch)(ImageUrlChannel)
+export default ImageUrlChannel
