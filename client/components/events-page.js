@@ -6,6 +6,8 @@ import {fetchEvents} from '../store/events'
 import {Button} from 'react-bootstrap'
 import {VideoSession} from './index'
 import {v4 as uuidv4} from 'uuid'
+import {moment} from 'moment'
+
 import {Container, Row} from 'react-bootstrap'
 class EventsPage extends React.Component {
   constructor() {
@@ -19,7 +21,13 @@ class EventsPage extends React.Component {
     this.props.getEvents(this.props.user.id)
   }
   render() {
-    console.log(this.props.events)
+    console.log('events 0: ', this.props.events[0])
+    // if(this.props.events[0]){
+    //   console.log('original datetime: ', new Date(this.props.events[0].eventDate))
+    //   console.log('convert time: ', new Date(this.props.events[0].eventDate).toLocaleTimeString())
+    //   console.log('convert date: ', new Date(this.props.events[0].eventDate).toLocaleDateString())
+
+    // }
     const events = this.props.events
     if (!this.props.events.length) return <h1>Loading</h1>
     return (
@@ -35,8 +43,16 @@ class EventsPage extends React.Component {
                     <div key={element.id} id="single-recipe">
                       <p> Event Name: {element.name}</p>
                       <p> Description: {element.description}</p>
-                      <p> Scheduled Date: {element.eventDate.slice(0, 10)}</p>
-                      <p> Scheduled Time: {element.eventDate.slice(11, 19)}</p>
+                      <p>
+                        {' '}
+                        Scheduled Date:{' '}
+                        {new Date(element.eventDate).toLocaleDateString()}
+                      </p>
+                      <p>
+                        {' '}
+                        Scheduled Time:{' '}
+                        {new Date(element.eventDate).toLocaleTimeString()}
+                      </p>
                       <p> Organizer: {element.organizer.userName}</p>
                       <p> Guest: {element.guest.userName} </p>
                       {this.state.move ? (
