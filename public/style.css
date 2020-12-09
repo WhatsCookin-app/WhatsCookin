@@ -2,6 +2,12 @@ body {
   font-family: sans-serif;
 }
 
+.view {
+  min-height: 100vh;
+  /* margin: 0rem; */
+  /* margin-left: 0.625rem; */
+}
+
 div a {
   text-decoration: none;
   color: whitesmoke;
