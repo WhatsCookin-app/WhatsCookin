@@ -1,44 +1,39 @@
 const router = require('express').Router()
+const {Sequelize, Op} = require('sequelize')
+
 const {Recipe, Channel, User} = require('../db/models')
 module.exports = router
 
-// get all recipes of a channel
-router.get('/:channelId', async (req, res, next) => {
-  try {
-    const recipes = await Recipe.findAll({
-      include: [
-        {
-          model: Channel,
-          where: {
-            id: req.params.channelId
-          }
-        },
-        {
-          model: User,
-          as: 'owner'
-        }
-      ]
-    })
-    res.json(recipes)
-  } catch (err) {
-    next(err)
-  }
-})
-
 // get recipe based on search string
-router.get('/', async (req, res, next) => {
+router.get('/search', async (req, res, next) => {
   try {
+    console.log(req.query)
     const recipes = await Recipe.findAll({
-      include: [
-        {
-          model: Channel,
-          where: {
-            id: req.params.channelId
+      where: {
+        [Op.or]: [
+          {
+            name: Sequelize.where(
+              Sequelize.fn('LOWER', Sequelize.col('recipe.name')),
+              'LIKE',
+              '%' + req.query.r + '%'
+            )
+          },
+          {
+            ingredients: Sequelize.where(
+              Sequelize.fn('LOWER', Sequelize.col('ingredients')),
+              'LIKE',
+              '%' + req.query.r + '%'
+            )
           }
+        ]
+      },
+      include: {
+        model: Channel,
+        where: {
+          isPrivate: false
         }
-      ]
+      }
     })
-    console.log(recipes)
     res.json(recipes)
   } catch (err) {
     next(err)
@@ -46,8 +41,9 @@ router.get('/', async (req, res, next) => {
 })
 
 // get a single recipe
-router.get('/:channelId/:recipeId', async (req, res, next) => {
+router.get('/:recipeId', async (req, res, next) => {
   try {
+    console.log('recipe id: ', req.params.recipeId)
     const recipes = await Recipe.findOne({
       where: {
         id: req.params.recipeId
@@ -57,7 +53,6 @@ router.get('/:channelId/:recipeId', async (req, res, next) => {
         as: 'owner'
       }
     })
-    console.log(recipes)
     res.json(recipes)
   } catch (err) {
     next(err)

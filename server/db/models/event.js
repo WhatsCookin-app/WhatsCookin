@@ -8,10 +8,10 @@ const Event = db.define('event', {
   name: {
     type: Sequelize.STRING
   },
-  isUpcoming: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true
-  },
+  // isUpcoming: {
+  //   type: Sequelize.BOOLEAN,
+  //   defaultValue: true
+  // },
   description: {
     type: Sequelize.STRING
   },
@@ -32,6 +32,14 @@ const Event = db.define('event', {
       }
     }
   }
+  //   eventDate: {
+  //     type: Sequelize.STRING,
+  //     allowNull: false
+  //   },
+  //   eventTime: {
+  //     type: Sequelize.STRING,
+  //     allowNull: false
+  //   },
 })
 
 // Event.prototype.isAfter = function () {
