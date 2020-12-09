@@ -36,8 +36,8 @@ export const fetchRecipes = channelId => {
 export const postRecipe = newRecipe => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/recipes', newRecipe)
-      dispatch(addRecipeCreator(data))
+      await axios.post('/api/recipes', newRecipe)
+      dispatch(fetchRecipes(newRecipe.channels[0]))
     } catch (error) {
       console.log(error)
     }

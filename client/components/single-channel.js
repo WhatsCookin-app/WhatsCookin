@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Modal, Button} from 'react-bootstrap'
+import {Modal, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {
   EditDescription,
   EditImage,
@@ -85,11 +85,17 @@ class SingleChannel extends React.Component {
           {/* <div> */}
 
           <div className="d-flex align-items-center">
-            <FontAwesomeIcon
-              icon={faPlus}
-              onClick={this.props.handleAddRecipe}
-              className="cursor"
-            />{' '}
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip name="Tool Tip">Add a Recipe</Tooltip>}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                onClick={this.props.handleAddRecipe}
+                className="cursor mr-3"
+              />
+            </OverlayTrigger>
+
             <AddUser
               search={this.state.search}
               handleCloseModal={this.handleCloseModal}

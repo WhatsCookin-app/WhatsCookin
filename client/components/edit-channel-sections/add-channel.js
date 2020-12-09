@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Form} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {createChannel} from '../../store/channel'
+import axios from 'axios'
 
 class AddChannel extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class AddChannel extends React.Component {
       description: '',
       imageUrl:
         'https://mzo5g3ubj8u20bigm1x3cth1-wpengine.netdna-ssl.com/wp-content/uploads/2017/05/Eat-this-to-build-muscle-M-610x407.jpg',
-      // private: false,
       isPrivate: false
     }
 
@@ -24,9 +24,12 @@ class AddChannel extends React.Component {
     console.log('add channel component')
   }
 
-  handleChange() {
-    const bool = this.state.deleteCheckbox
-    this.setState({deleteCheckbox: !bool})
+  async handleChange() {
+    let imageFormObj = new FormData()
+    imageFormObj.append('imageData', event.target.files[0])
+    const {data} = await axios.post('/api/image/upload', imageFormObj)
+
+    this.setState({imageUrl: data})
   }
 
   handleInputChange(event) {
@@ -92,7 +95,7 @@ class AddChannel extends React.Component {
             id="imageUpload"
             name="imageUrl"
             className="m-0 mb-1"
-            // onChange={this.handleChange}
+            onChange={this.handleChange}
           />
           <br />{' '}
         </Form.Group>
