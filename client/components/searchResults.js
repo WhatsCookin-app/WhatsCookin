@@ -15,8 +15,7 @@ class SearchResults extends React.Component {
   //   }
   // }
   componentDidMount() {
-    // this.setState({searchStr: this.props.location.state.searchStr})
-    console.log('in componentDidMount!')
+    console.log('searchStr: ', this.props.searchStr)
     this.props.getResults(this.props.searchStr)
   }
   render() {
