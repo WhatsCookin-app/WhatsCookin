@@ -23,7 +23,8 @@ class EventsPage extends React.Component {
     const events = this.props.events
     if (!this.props.events.length) return <h1>Loading</h1>
     return (
-      <div className="m-3">
+
+      <div className="view">
         <FontAwesomeIcon icon={faPlus} />
         <div>
           {events &&

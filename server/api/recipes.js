@@ -62,11 +62,12 @@ router.get('/:recipeId', async (req, res, next) => {
 // create a recipe (channel ids will be an array in req.body)
 router.post('/', async (req, res, next) => {
   try {
-    const {name, ingredients, instructions, channels} = req.body
+    const {name, ingredients, instructions, imageUrl, channels} = req.body
     const newRecipe = await Recipe.create({
       name,
       ingredients,
       instructions,
+      imageUrl,
       ownerId: req.user.id
     })
     await newRecipe.addChannels(channels)

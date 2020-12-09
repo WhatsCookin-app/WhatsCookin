@@ -90,6 +90,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+
 //get a user's events
 router.get('/:id/events', async (req, res, next) => {
   try {
@@ -126,6 +127,7 @@ router.post('/:id/events', async (req, res, next) => {
     next(err)
   }
 })
+
 
 //User is able to edit their userName & profilePicture
 
