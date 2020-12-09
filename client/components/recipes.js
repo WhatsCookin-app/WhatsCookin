@@ -8,9 +8,9 @@ import {
 } from '../store/single-channel'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlus} from '@fortawesome/free-solid-svg-icons'
-import {Button, Form, Modal} from 'react-bootstrap'
-import {SingleChannel} from './index'
+import {faHeart, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {Button, Form, Modal, Card} from 'react-bootstrap'
+import {SingleChannel, AddRecipe} from './index'
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class Recipes extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleAddRecipe = this.handleAddRecipe.bind(this)
   }
   componentDidMount() {
     this.props.getAllRecipes(this.props.match.params.channelId)
@@ -47,6 +48,10 @@ class Recipes extends React.Component {
     this.setState({show: false})
   }
 
+  handleAddRecipe() {
+    this.setState({show: true})
+  }
+
   render() {
     const recipes = this.props.recipes
     return (
@@ -59,9 +64,7 @@ class Recipes extends React.Component {
             channel={this.props.channel}
             deleteChannel={this.props.deleteChannel}
           />
-        </div>
-
-        <FontAwesomeIcon
+          {/* <FontAwesomeIcon
           icon={faPlus}
           style={{marginLeft: '1200px', color: '#0645AD'}}
           size="lg"
@@ -69,11 +72,59 @@ class Recipes extends React.Component {
             this.setState({show: true})
           }}
           className="cursor"
-        />
-        <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
+        /> */}
+          {/* <h6 style={{marginLeft: '1170px', fontSize: 12, color: '#0645AD'}}>
           Add a recipe
-        </h6>
-        <div id="all-recipes">
+        </h6> */}
+        </div>
+        <div className="d-flex flex-wrap justify-content-center align-items-center ">
+          {recipes &&
+            recipes.map(element => {
+              return (
+                <Card
+                  key={element.id}
+                  className="recipe-card m-2 border-light"
+                  bg="transparent"
+                >
+                  <Link
+                    to={`/home/channels/${this.props.match.params.channelId}/${
+                      element.id
+                    }`}
+                  >
+                    <Card.Img
+                      src={element.imageUrl}
+                      className="recipe-image rounded"
+                    />
+                  </Link>
+                  <Link
+                    to={`/home/channels/${this.props.match.params.channelId}/${
+                      element.id
+                    }`}
+                    className="text-info mt-1"
+                  >
+                    <Card.Title>
+                      {element.name}{' '}
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        className="cursor text-danger"
+                      />
+                      <span className="text-secondary">{element.likes}</span>
+                    </Card.Title>
+                  </Link>
+                  <Card.Text>
+                    by {element.owner.firstName} {element.owner.lastName} |{' '}
+                    <span className="text-kade font-weight-bold">
+                      @{element.owner.userName}
+                    </span>{' '}
+                  </Card.Text>
+                </Card>
+              )
+            })}
+        </div>
+
+        {/* <AddRecipe show={this.state.show} handleClose={this.handleClose} handleSubmit={this.handleSubmit}
+        handleChange={this.state.handleChange} name={this.state.name} ingredients={this.state.ingredients} instructions={this.state.instructions}/> */}
+        <div id="">
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Upload a Recipe</Modal.Title>
@@ -159,21 +210,6 @@ class Recipes extends React.Component {
               )}
             </Form>
           </Modal>
-          {recipes &&
-            recipes.map(element => {
-              return (
-                <div key={element.id} id="single-recipe">
-                  <Link
-                    to={`/home/channels/${this.props.match.params.channelId}/${
-                      element.id
-                    }`}
-                  >
-                    <img src={element.imageUrl} id="img" />
-                    <div id="recipe-info">{element.name}</div>
-                  </Link>
-                </div>
-              )
-            })}
         </div>
       </div>
     )
