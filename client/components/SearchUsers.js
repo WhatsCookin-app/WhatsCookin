@@ -29,7 +29,6 @@ class SearchUsers extends React.Component {
             <Form.Control
               name="lookupValue"
               type="lookupValue"
-              // value={this.state.lookupValue}
               onChange={this.handleChange}
               placeholder="Search by name"
             />

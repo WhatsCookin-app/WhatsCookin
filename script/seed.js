@@ -151,20 +151,20 @@ async function seed() {
     },
     {
       name: 'WhatsCookin Admins',
-      imageUrl: 'img/IMG_0397-1536x1152.jpg',
+      imageUrl: '/img/IMG_0397-1536x1152.jpg',
       description: 'Where the true WhatsCookin bosses meet.',
       isPrivate: true,
       userId: 1
     },
     {
       name: 'Desserts',
-      imageUrl: 'img/pexels-arminas-raudys-808941.jpg',
+      imageUrl: '/img/pexels-arminas-raudys-808941.jpg',
       description: `Everyone/s Guilty Pleasure`,
       isPrivate: false
     },
     {
       name: 'Keto',
-      imageUrl: 'img/pexels-ronit-hanegby-5463882.jpg',
+      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
       description:
         'Balanced diet nutrition keto concept. Assortment of healthy ketogenic low carb food ingredients for cooking on a kitchen table.',
       isPrivate: false

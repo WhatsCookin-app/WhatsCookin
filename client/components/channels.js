@@ -36,7 +36,7 @@ class Channels extends React.Component {
     //if (!channels.length) return <h1>Loading</h1>
 
     return (
-      <div id="flex">
+      <div id="flex view">
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <h1 className="ml-3">{this.props.user.userName} Channels</h1>
@@ -45,11 +45,7 @@ class Channels extends React.Component {
           <div>
             <OverlayTrigger
               placement="top"
-              overlay={
-                <Tooltip id="tooltip-top" name="Tool Tip">
-                  Add a Channel
-                </Tooltip>
-              }
+              overlay={<Tooltip name="Tool Tip">Add a Channel</Tooltip>}
             >
               <FontAwesomeIcon
                 icon={faPlus}
