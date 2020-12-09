@@ -46,7 +46,7 @@ class CreateUser extends Component {
   render() {
     const {error} = this.props
     return (
-      <div className="sign-up">
+      <div className="sign-up view">
         <form
           onChange={this.handleChange}
           onSubmit={this.handleSubmit}

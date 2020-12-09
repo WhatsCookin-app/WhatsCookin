@@ -1,5 +1,6 @@
 import React from 'react'
 import {Button, Form, Image} from 'react-bootstrap'
+import axios from 'axios'
 
 class ImageUrlChannel extends React.Component {
   constructor(props) {
@@ -17,19 +18,17 @@ class ImageUrlChannel extends React.Component {
     this.setState({imageUrl: this.props.channel.imageUrl})
   }
 
-  handleChange(event) {
-    let file = document.getElementById('imageUpload').files[0]
-    console.log(file)
-    //preventing image from breaking. must use multer
-    // this.setState({[event.target.name]: event.target.value, isActive: true})
-    this.setState({isActive: true})
+  async handleChange(event) {
+    let imageFormObj = new FormData()
+    imageFormObj.append('imageData', event.target.files[0])
+    const {data} = await axios.post('/api/image/upload', imageFormObj)
+
+    this.setState({isActive: true, imageUrl: data})
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    let file = document.getElementById('imageUpload').files[0]
-    console.log(file)
-    console.log('where is it', this.state.imageUrl)
+
     this.props.channel.imageUrl = this.state.imageUrl
     this.props.updateChannel(this.props.channel)
     this.props.handleClose()

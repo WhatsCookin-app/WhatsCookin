@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Modal, Button} from 'react-bootstrap'
+import {Modal, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {
   EditDescription,
   EditImage,
@@ -11,7 +11,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
   faInfoCircle,
   faTrash,
-  faTimesCircle
+  faTimesCircle,
+  faPlus
 } from '@fortawesome/free-solid-svg-icons'
 import {AddUser} from './index'
 import {removeUsers} from '../store/profiles'
@@ -80,7 +81,21 @@ class SingleChannel extends React.Component {
           <div>
             <h1>{thisChannel.name} Recipes</h1>
           </div>
+
+          {/* <div> */}
+
           <div className="d-flex align-items-center">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip name="Tool Tip">Add a Recipe</Tooltip>}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                onClick={this.props.handleAddRecipe}
+                className="cursor mr-3"
+              />
+            </OverlayTrigger>
+
             <AddUser
               search={this.state.search}
               handleCloseModal={this.handleCloseModal}
