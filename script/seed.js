@@ -159,12 +159,12 @@ async function seed() {
     {
       name: 'Desserts',
       imageUrl: '/img/pexels-arminas-raudys-808941.jpg',
-      description: `Everyone/s Guilty Pleasure`,
+      description: "Everyone's Guilty Pleasure",
       isPrivate: false
     },
     {
       name: 'Keto',
-      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
+      imageUrl: '/img/pexels-ella-olsson-1640770.jpg',
       description:
         'Balanced diet nutrition keto concept. Assortment of healthy ketogenic low carb food ingredients for cooking on a kitchen table.',
       isPrivate: false
