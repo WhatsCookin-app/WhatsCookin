@@ -1,9 +1,16 @@
 import axios from 'axios'
 import socket from '../socket'
 const GET_EVENTS = 'GET_EVENTS'
+const ADD_EVENTS = 'ADD_EVENTS'
+
 ///two find all for when user id is guest and one where they are owner
 const setEvents = events => ({
   type: GET_EVENTS,
+  events
+})
+
+const addEvents = events => ({
+  type: ADD_EVENTS,
   events
 })
 //thunk creator
@@ -18,12 +25,27 @@ export const fetchEvents = userId => {
     }
   }
 }
+
+//THUNK
+export const postEvent = (newEvent, userId) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.post(`/api/users/${userId}/events`, newEvent)
+      dispatch(addEvents(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
 const defaultEvents = []
 // reducer
 export default function(state = defaultEvents, action) {
   switch (action.type) {
     case GET_EVENTS:
       return action.events
+    case ADD_EVENTS:
+      return [...state, action.events]
     default:
       return state
   }

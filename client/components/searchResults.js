@@ -14,10 +14,11 @@ class SearchResults extends React.Component {
   //     searchstr: ''
   //   }
   // }
-  //  componentDidMount(){
-  //     // this.setState({searchStr: this.props.location.state.searchStr})
-  //     this.props.getResults(this.props.history.location.state.searchStr)
-  //   }
+  componentDidMount() {
+    // this.setState({searchStr: this.props.location.state.searchStr})
+    console.log('in componentDidMount!')
+    this.props.getResults(this.props.searchStr)
+  }
   render() {
     // const recipes = this.state.recipes
     const recipes = this.props.recipes
@@ -37,8 +38,7 @@ class SearchResults extends React.Component {
                   to={{
                     pathname: `/home/recipes/${element.id}`,
                     state: {
-                      source: 'search',
-                      searchStr: this.props.history.location.state.searchStr
+                      source: 'search'
                     }
                   }}
                 >
@@ -55,6 +55,7 @@ class SearchResults extends React.Component {
 
 const mapState = state => {
   return {
+    searchStr: state.searchStr,
     recipes: state.recipe
   }
 }

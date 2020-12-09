@@ -82,6 +82,7 @@ export const deleteRecipe = (recipeId, source, channelId) => {
         history.push(`/home/channels/${channelId}`)
       }
       if (source === 'search') {
+        console.log('pushing back to search result!')
         history.push('/recipes/searchResult')
       }
     } catch (err) {

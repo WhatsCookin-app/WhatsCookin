@@ -11,7 +11,8 @@ class EventsPage extends React.Component {
   constructor() {
     super()
     this.state = {
-      move: false
+      move: false,
+      show: false
     }
   }
   componentDidMount() {

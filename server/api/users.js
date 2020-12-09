@@ -118,6 +118,15 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
+router.post('/:id/events', async (req, res, next) => {
+  try {
+    const events = await Event.create(req.body)
+    res.json(events)
+  } catch (err) {
+    next(err)
+  }
+})
+
 //User is able to edit their userName & profilePicture
 
 router.put('/', async (req, res, next) => {
