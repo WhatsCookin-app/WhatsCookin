@@ -1,5 +1,7 @@
 const router = require('express').Router()
-const {channelUser, Channel} = require('../db/models')
+const {channelUser, Channel, Recipe} = require('../db/models')
+const {Sequelize} = require('sequelize')
+
 module.exports = router
 
 //Get all of a User's Channels with the Channel eager loaded
@@ -12,6 +14,24 @@ router.get('/', async (req, res, next) => {
         userId: user
       },
       include: Channel
+    })
+    res.json(channels)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/search', async (req, res, next) => {
+  try {
+    const channels = await Channel.findAll({
+      where: {
+        name: Sequelize.where(
+          Sequelize.fn('LOWER', Sequelize.col('name')),
+          'LIKE',
+          '%' + req.query.c + '%'
+        ),
+        isPrivate: false
+      }
     })
     res.json(channels)
   } catch (err) {
@@ -37,6 +57,25 @@ router.get('/:channelId', async (req, res, next) => {
   }
 })
 
+// get all recipes of a channel
+router.get('/:channelId/recipes', async (req, res, next) => {
+  try {
+    const recipes = await Recipe.findAll({
+      include: [
+        {
+          model: Channel,
+          where: {
+            id: req.params.channelId
+          }
+        }
+      ]
+    })
+    console.log(recipes)
+    res.json(recipes)
+  } catch (err) {
+    next(err)
+  }
+})
 
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {

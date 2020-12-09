@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Event} = require('../db/models')
+const {Sequelize, Op} = require('sequelize')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -16,8 +17,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id',async(req,res,next) => {
-  try{
+router.get('/:id', async (req, res, next) => {
+  try {
     const user = await User.findByPk(req.params.id)
     res.json(user)
   } catch (err) {
@@ -25,8 +26,8 @@ router.get('/:id',async(req,res,next) => {
   }
 })
 
-router.post('/', async(req,res,next) => {
-  try{
+router.post('/', async (req, res, next) => {
+  try {
     const user = await User.create(req.body)
     res.json(user)
   } catch (err) {
@@ -34,4 +35,19 @@ router.post('/', async(req,res,next) => {
   }
 })
 
-
+//get a user's events
+router.get('/:id/events', async (req, res, next) => {
+  try {
+    const events = await Event.findAll({
+      where: {
+        [Op.or]: [{organizer: req.params.id}, {guest: req.params.id}]
+      },
+      include: {
+        model: User
+      }
+    })
+    res.json(events)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -32,10 +32,10 @@ const deleteRecipeCreator = () => {
 
 //thunk creator
 
-export const fetchOneRecipe = (channelId, recipeId) => {
+export const fetchOneRecipe = recipeId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get(`/api/recipes/${channelId}/${recipeId}`)
+      const {data} = await axios.get(`/api/recipes/${recipeId}`)
       dispatch(getOneRecipe(data))
     } catch (err) {
       console.log(err)
@@ -72,13 +72,18 @@ export const updateSingleRecipe = (recipeId, recipe) => {
   }
 }
 
-export const deleteRecipe = (recipeId, channelId) => {
+export const deleteRecipe = (recipeId, source, channelId) => {
   return async dispatch => {
     try {
       await axios.delete(`/api/recipes/${recipeId}`)
       const action = deleteRecipeCreator()
       dispatch(action)
-      history.push(`/home/channels/${channelId}`)
+      if (source === 'channels') {
+        history.push(`/home/channels/${channelId}`)
+      }
+      if (source === 'search') {
+        history.push('/recipes/searchResult')
+      }
     } catch (err) {
       console.error(err.message)
     }
