@@ -191,5 +191,8 @@ video {
 .cursor:hover {
   cursor: pointer;
 }
-
+.profilepic {
+  width: 10.6875rem;
+  height: 10.6875rem;
+}
 /* 300 x 270 */

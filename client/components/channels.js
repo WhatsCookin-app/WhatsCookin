@@ -38,9 +38,15 @@ class Channels extends React.Component {
     return (
       <div id="flex view">
         <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <h1 className="ml-3">{this.props.user.userName}'s Channels</h1>
-            <Image src={this.props.user.profilePicture} roundedCircle />
+          <div className="d-flex flex-row align-items-center">
+            <Image
+              src={this.props.user.profilePicture}
+              className="profilepic"
+              roundedCircle
+            />
+            <span>
+              <h1 className="ml-3">{this.props.user.userName}'s Channels</h1>
+            </span>
           </div>
           <div>
             <OverlayTrigger
