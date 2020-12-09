@@ -1,7 +1,13 @@
 const router = require('express').Router()
-const {User, channelUser} = require('../db/models')
+const {User, channelUser, Event} = require('../db/models')
 const isUserMiddleware = require('./isUserMiddleware')
 const Sequelize = require('sequelize')
+// var sequelize = new Sequelize(connStr, {
+//   dialectOptions: {
+//       useUTC: false //for reading from database
+//   },
+//   timezone: '+08:00' //for writing to database
+// });
 const Op = Sequelize.Op
 
 module.exports = router
@@ -83,6 +89,45 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+
+//get a user's events
+router.get('/:id/events', async (req, res, next) => {
+  try {
+    console.log('now: ', new Date())
+    const events = await Event.findAll({
+      where: {
+        [Op.or]: [{organizerId: req.params.id}, {guestId: req.params.id}],
+        eventDate: {
+          [Op.gte]: new Date()
+        }
+      },
+      include: [
+        {
+          model: User,
+          as: 'organizer'
+        },
+        {
+          model: User,
+          as: 'guest'
+        }
+      ]
+    })
+    res.json(events)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:id/events', async (req, res, next) => {
+  try {
+    const events = await Event.create(req.body)
+    res.json(events)
+  } catch (err) {
+    next(err)
+  }
+})
+
 
 //User is able to edit their userName & profilePicture
 

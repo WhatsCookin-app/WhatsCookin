@@ -1,5 +1,5 @@
 const db = require('./db')
-const {User, Events, Channel, Recipe, ChannelRecipe} = require('./models')
+const {User, Events, Channel, Recipe} = require('./models')
 
 // register models
 require('./models')
@@ -9,6 +9,5 @@ module.exports = {
   User,
   Events,
   Channel,
-  Recipe,
-  ChannelRecipe
+  Recipe
 }
