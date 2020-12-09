@@ -21,6 +21,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       bg="info"
       className="border-bottom justify-content-between shadow-sm rounded"
       expand="sm"
+      id="nav-top"
     >
       <BootstrapNavbar.Brand href="/home">WhatsCookin</BootstrapNavbar.Brand>
       {/* <Nav> */}

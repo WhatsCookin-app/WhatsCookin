@@ -32,7 +32,7 @@ class NavCopy extends Component {
   render() {
     console.log('keyword: ', this.state.keyWord)
     return (
-      <div>
+      <div id="nav-top">
         <BootstrapNavbar
           bg="info"
           className="border-bottom justify-content-between shadow-sm rounded"
