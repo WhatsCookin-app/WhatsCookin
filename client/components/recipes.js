@@ -80,6 +80,7 @@ class Recipes extends React.Component {
         <div className="d-flex flex-wrap justify-content-center align-items-center ">
           {recipes &&
             recipes.map(element => {
+              console.log('element: ', element)
               return (
                 <Card
                   key={element.id}

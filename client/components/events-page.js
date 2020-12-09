@@ -21,17 +21,9 @@ class EventsPage extends React.Component {
     this.props.getEvents(this.props.user.id)
   }
   render() {
-    console.log('events 0: ', this.props.events[0])
-    // if(this.props.events[0]){
-    //   console.log('original datetime: ', new Date(this.props.events[0].eventDate))
-    //   console.log('convert time: ', new Date(this.props.events[0].eventDate).toLocaleTimeString())
-    //   console.log('convert date: ', new Date(this.props.events[0].eventDate).toLocaleDateString())
-
-    // }
     const events = this.props.events
     if (!this.props.events.length) return <h1>Loading</h1>
     return (
-
       <div className="view">
         <FontAwesomeIcon icon={faPlus} />
         <div>
