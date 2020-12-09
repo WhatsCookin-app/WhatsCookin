@@ -89,9 +89,57 @@ async function seed() {
       roomId: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
       name: 'first event!',
       description: 'here is the first cooking event!',
-      eventDate: 2020 - 11 - 30,
+      eventDate: '2020-11-30 22:15:00',
       organizerId: 1,
       guestId: 2
+    }),
+    Event.create({
+      roomId: '3caf71e2-ea2e-4325-aec6-169dc358c285',
+      name: 'second event!',
+      description: 'here is the second cooking event!',
+      eventDate: '2020-12-11 09:20:00',
+      organizerId: 1,
+      guestId: 2
+    }),
+    Event.create({
+      roomId: '248258bc-665c-410f-b3cd-64644777e15f',
+      name: 'third event!',
+      description: 'here is the third cooking event!',
+      eventDate: '2020-12-20 13:00:00',
+      organizerId: 2,
+      guestId: 1
+    }),
+    Event.create({
+      roomId: 'bf2e5f0d-4b4a-48f5-a481-174de0dcfaab',
+      name: 'fourth event!',
+      description: 'here is the fourth cooking event!',
+      eventDate: '2021-01-20 17:00:00',
+      organizerId: 1,
+      guestId: 2
+    }),
+    Event.create({
+      roomId: '74d86f63-285d-4646-a46e-73b5382a3bce',
+      name: 'fifth event!',
+      description: 'here is the fifth cooking event!',
+      eventDate: '2021-01-21 20:30:00',
+      organizerId: 2,
+      guestId: 1
+    }),
+    Event.create({
+      roomId: 'd2145fbd-f72b-4d9a-a900-82ab6deb9073',
+      name: 'sixth event!',
+      description: 'here is the sixth cooking event!',
+      eventDate: '2021-01-30 16:45:00',
+      organizerId: 1,
+      guestId: 2
+    }),
+    Event.create({
+      roomId: '0d5dfe20-5311-41b0-be58-0eecc2667564',
+      name: 'seventh event!',
+      description: 'here is the seventh cooking event!',
+      eventDate: '2020-12-31 15:30:00',
+      organizerId: 2,
+      guestId: 1
     })
   ])
 
