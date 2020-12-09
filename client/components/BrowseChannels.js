@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import Card from 'react-bootstrap/Card'
-import {getBrowseChannels} from '../store'
-import {faGlobeAmericas} from '@fortawesome/free-solid-svg-icons'
-import {Link} from 'react-router-dom'
+import {getBrowseChannels, joinChannel} from '../store'
+import {faGlobeAmericas, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {withRouter} from 'react-router-dom'
 
 class BrowseChannels extends React.Component {
   componentDidMount() {
@@ -20,21 +20,39 @@ class BrowseChannels extends React.Component {
         </div>
         <div className="all-channels">
           {browseChannels.map(currChannel => (
-            <Card className="text-white image m-2" key={currChannel.channel.id}>
+            <Card className="text-white image m-2" key={currChannel.id}>
               <Card.Img
-                src={currChannel.channel.imageUrl}
+                src={currChannel.imageUrl}
                 className="image filter rounded"
               />
-              <Link to={`/home/channels/${currChannel.channelId}`}>
-                <Card.ImgOverlay>
-                  <Card.Title>
-                    {currChannel.channel.name}{' '}
-                    <FontAwesomeIcon icon={faGlobeAmericas} />
-                  </Card.Title>
+              <div
+                onClick={evt => {
+                  if (evt.target.tagName.toLowerCase() !== 'path')
+                    this.props.history.push(`/home/channels/${currChannel.id}`)
+                }}
+              >
+                <Card.ImgOverlay
+                  style={{display: 'flex', justifyContent: 'space-between'}}
+                >
+                  <div>
+                    <Card.Title>
+                      {currChannel.name}{' '}
+                      <FontAwesomeIcon icon={faGlobeAmericas} />
+                    </Card.Title>
 
-                  <Card.Text>{currChannel.channel.description}</Card.Text>
+                    <Card.Text>{currChannel.description}</Card.Text>
+                  </div>
+                  <FontAwesomeIcon
+                    name="join"
+                    icon={faPlus}
+                    size="lg"
+                    style={{color: '#FFFFFF'}}
+                    onClick={() => {
+                      this.props.joinChannel(this.props.user.id, currChannel.id)
+                    }}
+                  />
                 </Card.ImgOverlay>
-              </Link>
+              </div>
             </Card>
           ))}
         </div>
@@ -44,11 +62,13 @@ class BrowseChannels extends React.Component {
 }
 
 const mapState = state => ({
-  browseChannels: state.browseChannels
+  browseChannels: state.browseChannels,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
-  getBrowseChannels: () => dispatch(getBrowseChannels())
+  getBrowseChannels: () => dispatch(getBrowseChannels()),
+  joinChannel: (userId, channelId) => dispatch(joinChannel(userId, channelId))
 })
 
-export default connect(mapState, mapDispatch)(BrowseChannels)
+export default withRouter(connect(mapState, mapDispatch)(BrowseChannels))

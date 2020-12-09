@@ -13,6 +13,58 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
+  const searchUsers = [
+    {
+      firstName: 'Michelle',
+      lastName: 'Obama',
+      userName: '1lady',
+      email: 'becoming@hotmail.com',
+      password: 'barack'
+    },
+    {
+      firstName: 'Kade',
+      lastName: 'Cahe',
+      userName: 'Kadecahe',
+      email: 'kadecahe@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Mikyla',
+      lastName: 'Zhang',
+      userName: 'mikylaz',
+      email: 'mikylaz@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Lidia',
+      lastName: 'De la Cruz',
+      userName: 'Lidiadelacruz',
+      email: 'lidiadelacruz@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Maddie',
+      lastName: 'Higgens',
+      userName: 'madelineurl',
+      email: 'madelineurl@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Natalie',
+      lastName: 'Lane',
+      userName: 'nlane',
+      email: 'nlane@gmail.com',
+      password: '1234567'
+    },
+    {
+      firstName: 'Ben',
+      lastName: 'Rodriguez',
+      userName: 'bienvenidos',
+      email: 'benbucks@gmail.com',
+      password: '1234567'
+    }
+  ]
+
   const users = await Promise.all([
     User.create({
       firstName: 'Barack',
@@ -29,6 +81,8 @@ async function seed() {
       password: 'ilovegh'
     })
   ])
+
+  const moreUsers = await User.bulkCreate(searchUsers)
 
   const events = await Promise.all([
     Event.create({
@@ -90,19 +144,37 @@ async function seed() {
     },
     {
       name: 'Dairy Free',
-      imageUrl:
-        'https://cooknourishbliss.com/wp-content/uploads/2020/07/Dairy_free_nacho_cheese.jpg',
+      imageUrl: '/img/IMG_0397-1536x1152.jpg',
       description:
         'There is no dairy at all; the food is made from plants or nuts instead.',
       isPrivate: false
     },
     {
       name: 'WhatsCookin Admins',
-      imageUrl:
-        'https://vegansbaby.com/wp-content/uploads/2020/01/IMG_0397-1536x1152.jpg',
+      imageUrl: 'img/IMG_0397-1536x1152.jpg',
       description: 'Where the true WhatsCookin bosses meet.',
       isPrivate: true,
       userId: 1
+    },
+    {
+      name: 'Desserts',
+      imageUrl: 'img/pexels-arminas-raudys-808941.jpg',
+      description: `Everyone/s Guilty Pleasure`,
+      isPrivate: false
+    },
+    {
+      name: 'Keto',
+      imageUrl: 'img/pexels-ronit-hanegby-5463882.jpg',
+      description:
+        'Balanced diet nutrition keto concept. Assortment of healthy ketogenic low carb food ingredients for cooking on a kitchen table.',
+      isPrivate: false
+    },
+    {
+      name: 'Pescatarian',
+      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
+      description:
+        'Involves eating fish, as a main source of protein, alongside vegetables and other plant-based foods',
+      isPrivate: false
     }
   ]
 
@@ -239,9 +311,11 @@ async function seed() {
   await recipes6.setChannels([1, 2, 3, 4])
 
   console.log(
-    `seeded ${users.length} users, ${channels.length} channels, and ${
-      newChannelUsers.length
-    } channel users`
+    `seeded ${users.length + moreUsers.length} users, ${
+      channels.length
+    } channels, ${newChannelUsers.length} users channels, 6 recipes, and ${
+      events.length
+    } events.`
   )
 
   console.log(`seeded successfully`)

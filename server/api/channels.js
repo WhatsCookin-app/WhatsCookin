@@ -24,42 +24,61 @@ router.get('/', async (req, res, next) => {
 //unjoined public channels-LIDIA
 router.get('/browse', async (req, res, next) => {
   try {
-    const unjoinedChannels = await channelUser.findAll({
+    const publicChannels = await Channel.findAll({
       where: {
-        userId: {
-          [Sequelize.Op.not]: req.user.id
-        }
+        isPrivate: false
       },
-      include: {
-        model: Channel,
-        where: {
-          isPrivate: false
-        }
-      }
+      include: {model: User, as: 'members'}
     })
+    const myChannels = await req.user.getMembers().map(channel => channel.id)
+    const unjoinedChannels = publicChannels.filter(
+      channel => !myChannels.includes(channel.id)
+    )
     res.send(unjoinedChannels)
   } catch (err) {
     next(err)
   }
 })
 
-//Get a single a User's Channels with the Channel eager loaded
-
+//User will be able to view public channels that they are not in
+//Users cannot view private channels they are not in
 router.get('/:channelId', async (req, res, next) => {
   try {
-    const user = req.user.id
-    const channel = await channelUser.findOne({
-      where: {
-        userId: user,
-        channelId: req.params.channelId
-      },
-      include: Channel
+    const channel = await Channel.findByPk(req.params.channelId, {
+      include: {
+        model: User,
+        as: 'members'
+      }
     })
-    res.json(channel)
+    if (
+      channel.isPrivate &&
+      !channel.members.find(user => user.id === req.user.id)
+    ) {
+      return res.sendStatus(401)
+    }
+    res.json({channel})
   } catch (err) {
     next(err)
   }
 })
+
+// Get a single a User's Channels with the Channel eager loaded
+// This will only get a single channel the user is in
+// router.get('/:channelId', async (req, res, next) => {
+//   try {
+//     const user = req.user.id
+//     const channel = await channelUser.findOne({
+//       where: {
+//         userId: user,
+//         channelId: req.params.channelId,
+//       },
+//       include: Channel,
+//     })
+//     res.json(channel)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 //Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
@@ -115,9 +134,11 @@ router.put('/:channelId', async (req, res, next) => {
 // new user joining a channel
 router.put('/join/:channelId', async (req, res, next) => {
   try {
-    const joinChannel = await Channel.findByPk(req.params.channelId)
-    await joinChannel.addUser(req.user)
-    res.send(joinChannel)
+    await channelUser.create({
+      userId: req.user.id,
+      channelId: req.params.channelId
+    })
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }

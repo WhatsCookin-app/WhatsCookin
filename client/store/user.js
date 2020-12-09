@@ -7,13 +7,14 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const POST_USER = 'POST_USER'
-
+const EDITED_USER = 'EDITED_USER'
 /**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const gotUserFromServer = user => ({type: POST_USER, user})
+const editedUser = user => ({type: EDITED_USER, user})
 
 // /**
 //  * THUNK CREATORS
@@ -61,13 +62,21 @@ export const auth = userObj => async dispatch => {
     console.error(dispatchOrHistoryErr)
   }
 }
-//change Line 65 from /home to /channels when ready
 
 export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
     history.push('/login')
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const editUser = body => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/users', body)
+    dispatch(editedUser(data))
   } catch (err) {
     console.error(err)
   }
@@ -89,6 +98,8 @@ export default function(state = defaultUser, action) {
       return defaultUser
     case POST_USER:
       return [...state, action.user]
+    case EDITED_USER:
+      return action.user
     default:
       return state
   }
