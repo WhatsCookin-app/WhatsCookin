@@ -58,7 +58,6 @@ router.get('/profiles', isUserMiddleware, async (req, res, next) => {
   }
 })
 
-
 router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
@@ -85,7 +84,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-
 //User is able to edit their userName & profilePicture
 
 router.put('/', async (req, res, next) => {
@@ -97,7 +95,7 @@ router.put('/', async (req, res, next) => {
     res.send(req.user)
   } catch (err) {
     next(err)
-     }
+  }
 })
 
 router.post('/add', isUserMiddleware, async (req, res, next) => {
@@ -112,6 +110,5 @@ router.post('/add', isUserMiddleware, async (req, res, next) => {
     res.json('success')
   } catch (error) {
     next(error)
-
   }
 })

@@ -158,7 +158,7 @@ class SingleRecipe extends Component {
         </Modal>
         <div id="editButton">
           <i
-            className="fas fa-heart"
+            className="fas fa-heart cursor"
             style={{color: 'red'}}
             onClick={this.handleClick}
           />

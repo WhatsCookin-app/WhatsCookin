@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {NavCopy} from './components'
+import {Footer, NavCopy} from './components'
 import Routes from './routes'
 import '../public/App.scss'
 
@@ -9,6 +9,7 @@ const App = () => {
     <div className="bg-light">
       <NavCopy />
       <Routes />
+      <Footer />
     </div>
   )
 }
