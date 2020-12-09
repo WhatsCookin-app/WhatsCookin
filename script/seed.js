@@ -171,7 +171,7 @@ async function seed() {
     },
     {
       name: 'Pescatarian',
-      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
+      imageUrl: 'img/pexels-cottonbro-3298057.jpg',
       description:
         'Involves eating fish, as a main source of protein, alongside vegetables and other plant-based foods',
       isPrivate: false

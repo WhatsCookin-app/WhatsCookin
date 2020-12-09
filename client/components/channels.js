@@ -5,7 +5,7 @@ import PublicChannels from './public-channels'
 import PrivateChannels from './private-channels'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons'
-import {OverlayTrigger, Tooltip, ListGroup, Modal} from 'react-bootstrap'
+import {OverlayTrigger, Tooltip, ListGroup, Modal, Image} from 'react-bootstrap'
 import {AddChannel} from './edit-channel-sections/index.js'
 import {Link} from 'react-router-dom'
 import {me} from '../store/user'
@@ -40,7 +40,7 @@ class Channels extends React.Component {
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <h1 className="ml-3">{this.props.user.userName}'s Channels</h1>
-            <img src={this.props.user.profilePicture} />
+            <Image src={this.props.user.profilePicture} roundedCircle />
           </div>
           <div>
             <OverlayTrigger
@@ -95,7 +95,7 @@ class Channels extends React.Component {
     )
   }
 }
-
+//
 const mapState = state => ({
   channels: state.channels,
   user: state.user
