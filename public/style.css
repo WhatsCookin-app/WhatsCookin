@@ -188,10 +188,6 @@ video {
   max-height: 70px;
 }
 
-footer {
-  background-color: #e63946;
-}
-
 .cursor:hover {
   cursor: pointer;
 }
