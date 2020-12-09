@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import axios from 'axios'
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
@@ -13,7 +14,7 @@ const AuthForm = props => {
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input name="email" type="text" id="email" />
         </div>
         <div>
           <label htmlFor="password">
@@ -23,6 +24,22 @@ const AuthForm = props => {
         </div>
         <div>
           <button type="submit">{displayName}</button>
+          <button
+            type="button"
+            onClick={async () => {
+              try {
+                const email = document.getElementById('email').value
+                await axios.post('/api/users/forgotpassword', {
+                  email
+                })
+                alert('Email Sent')
+              } catch (error) {
+                alert('No such email found')
+              }
+            }}
+          >
+            Forgot Password
+          </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
