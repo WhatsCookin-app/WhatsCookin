@@ -66,9 +66,7 @@ class NavCopy extends Component {
           className="border-bottom justify-content-between shadow-sm rounded"
           expand="sm"
         >
-          <BootstrapNavbar.Brand href="/home">
-            WhatsCookin
-          </BootstrapNavbar.Brand>
+          <BootstrapNavbar.Brand href="/home" />
           {/* <Nav> */}
           {this.props.isLoggedIn ? (
             <Nav>
