@@ -130,6 +130,22 @@ router.post('/:id/events', async (req, res, next) => {
   }
 })
 
+//id is for userId but this is for updating an event
+router.put('/events/:eventId', async (req, res, next) => {
+  try {
+    console.log(req.params.eventId)
+    let updatedEvent = await Event.update(req.body, {
+      where: {
+        id: req.params.eventId
+      },
+      returning: true
+    })
+    res.send(updatedEvent[1][0])
+  } catch (err) {
+    next(err)
+  }
+})
+
 //User is able to edit their userName & profilePicture
 
 router.put('/', async (req, res, next) => {
@@ -192,5 +208,25 @@ router.post('/forgotpassword', async (req, res, next) => {
     res.sendStatus(200)
   } catch (error) {
     next(error)
+  }
+})
+
+router.delete('/events/:eventId', async (req, res, next) => {
+  try {
+    const singleEvent = await Event.findByPk(req.params.eventId)
+    console.log(singleEvent)
+    if (
+      singleEvent.organizerId === req.user.id ||
+      singleEvent.guestId === req.user.id
+    ) {
+      await singleEvent.destroy()
+      res.json('Event deleted')
+    } else {
+      const err = new Error('Only the event participants can delete this event')
+      err.status = 401
+      return next(err)
+    }
+  } catch (err) {
+    next(err)
   }
 })

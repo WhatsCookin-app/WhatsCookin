@@ -87,56 +87,70 @@ async function seed() {
   const events = await Promise.all([
     Event.create({
       roomId: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
-      name: 'first event!',
-      description: 'here is the first cooking event!',
+      name: 'Thai Food Challenge',
+      description: 'Cooking your favorite thai dish!',
+      imageUrl:
+        'https://img.theculturetrip.com/1440x807/smart/wp-content/uploads/2020/04/2ambdxg.jpg',
       eventDate: '2020-11-30 22:15:00',
       organizerId: 1,
       guestId: 2
     }),
     Event.create({
       roomId: '3caf71e2-ea2e-4325-aec6-169dc358c285',
-      name: 'second event!',
-      description: 'here is the second cooking event!',
+      name: 'Pollo Guisado con Mami!',
+      description: "Mom's teaching us her special sauce",
+      imageUrl:
+        'https://belquistwist.com/wp-content/uploads/2020/04/pollo-guisado-dominicano-stewed-chicken.jpg',
       eventDate: '2020-12-11 09:20:00',
       organizerId: 1,
       guestId: 2
     }),
     Event.create({
       roomId: '248258bc-665c-410f-b3cd-64644777e15f',
-      name: 'third event!',
-      description: 'here is the third cooking event!',
+      name: 'Date Night!',
+      description: 'Cook your favorite dish ',
       eventDate: '2020-12-20 13:00:00',
+      imageUrl:
+        'https://cook.fnr.sndimg.com/content/dam/images/cook/fullset/2012/6/14/0/CC_Ana-Sofia-Pelaez-Bacon-Wrapped-Dates-Recipe_s4x3.jpg.rend.hgtvcom.826.620.suffix/1351635644774.jpeg',
       organizerId: 2,
       guestId: 1
     }),
     Event.create({
       roomId: 'bf2e5f0d-4b4a-48f5-a481-174de0dcfaab',
-      name: 'fourth event!',
-      description: 'here is the fourth cooking event!',
+      name: 'Kitchen Favorites',
+      description: 'Share your favorite meal of 2020',
+      imageUrl:
+        'https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_677,q_85,w_1280/v1/clients/raleigh/Aviatorki_wake_county_bbq_visit_raleigh_285_d28d21ce-db65-475e-91af-b236f09fecfa.jpg',
       eventDate: '2021-01-20 17:00:00',
       organizerId: 1,
       guestId: 2
     }),
     Event.create({
       roomId: '74d86f63-285d-4646-a46e-73b5382a3bce',
-      name: 'fifth event!',
-      description: 'here is the fifth cooking event!',
+      name: 'Tostones 101',
+      description: 'Master the double fry technique',
+      imageUrl:
+        'https://belquistwist.com/wp-content/uploads/2019/08/fried-green-yellow-plantains-maduros-tostones.jpg',
       eventDate: '2021-01-21 20:30:00',
       organizerId: 2,
       guestId: 1
     }),
     Event.create({
       roomId: 'd2145fbd-f72b-4d9a-a900-82ab6deb9073',
-      name: 'sixth event!',
-      description: 'here is the sixth cooking event!',
+      name: 'Jerk Sauce Challenge',
+      description: 'Bring your favorite jerk seasonings!',
+      imageUrl:
+        'https://i8.amplience.net/i/traeger/Traeger%20Jerk%20Shrimp_RE_HE_M?w=620&sm=aspect&aspect=5:3&scaleFit=poi&$poi2$&fmt=webp',
       eventDate: '2021-01-30 16:45:00',
       organizerId: 1,
       guestId: 2
     }),
     Event.create({
       roomId: '0d5dfe20-5311-41b0-be58-0eecc2667564',
-      name: 'seventh event!',
-      description: 'here is the seventh cooking event!',
+      name: 'Bake Off',
+      description: 'Create your best desert',
+      imageUrl:
+        'https://www.macheesmo.com/wp-content/uploads/2019/11/Supernatural-Fudge-Brownies.webp',
       eventDate: '2020-12-31 15:30:00',
       organizerId: 2,
       guestId: 1
