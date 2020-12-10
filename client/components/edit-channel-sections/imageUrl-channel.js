@@ -41,7 +41,6 @@ class ImageUrlChannel extends React.Component {
         <Form.Group controlId="imageUrl">
           <Form.Label>Channel Image</Form.Label>
           <br />
-          {/* edit images width and find a way to store it */}
           <Image
             src={this.state.imageUrl}
             style={{width: '180px', height: '171px'}}
