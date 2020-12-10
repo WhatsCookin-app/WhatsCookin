@@ -19,7 +19,7 @@ export const fetchEvents = userId => {
     try {
       const {data} = await axios.get(`/api/users/${userId}/events`)
       dispatch(setEvents(data))
-      socket.emit('create or join', data.roomId)
+      // socket.emit('create or join', data.roomId)
     } catch (error) {
       console.log(error)
     }

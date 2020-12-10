@@ -90,7 +90,6 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-
 //get a user's events
 router.get('/:id/events', async (req, res, next) => {
   try {
@@ -128,6 +127,20 @@ router.post('/:id/events', async (req, res, next) => {
   }
 })
 
+//id is for userId but this is for updating an event
+router.put('/:id/events', async (req, res, next) => {
+  try {
+    let updatedEvent = await Event.update(req.body, {
+      where: {
+        id: req.body.id
+      },
+      returning: true
+    })
+    res.send(updatedEvent[1][0])
+  } catch (err) {
+    next(err)
+  }
+})
 
 //User is able to edit their userName & profilePicture
 
