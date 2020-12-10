@@ -204,8 +204,8 @@ class SingleRecipe extends Component {
                 .split('\n')
                 .map((elm, index) => {
                   return (
-                    <div id="editButton">
-                      <Form.Check aria-label="option 1" key={index} />
+                    <div id="editButton" key={index}>
+                      <Form.Check aria-label="option 1" />
                       <p className="item-text">{elm}</p>
                     </div>
                   )

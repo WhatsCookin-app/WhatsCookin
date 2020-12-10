@@ -36,7 +36,6 @@ export const fetchEvents = userId => {
 export const postEvent = (newEvent, userId) => {
   return async dispatch => {
     try {
-      console.log(newEvent)
       const {data} = await axios.post(`/api/users/${userId}/events`, newEvent)
       dispatch(fetchEvents(userId))
     } catch (error) {

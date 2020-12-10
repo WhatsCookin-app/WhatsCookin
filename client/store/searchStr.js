@@ -17,6 +17,6 @@ export default function(state = defaultSearch, action) {
     case GET_SEARCH:
       return action.searchStr
     default:
-      return ''
+      return state
   }
 }
