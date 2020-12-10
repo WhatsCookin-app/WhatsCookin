@@ -8,7 +8,32 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="view">
+    <div className="area">
+      <ul className="circles">
+        <li>
+          <img src="/img/carrot.png" />
+        </li>
+        <li>
+          <img src="/img/chicken.png" />
+        </li>
+        <li>
+          <img src="/img/kale.png" />
+        </li>
+        <li>
+          <img src="/img/pasta.png" />
+        </li>
+        <li>
+          <img src="/img/pizza.png" />
+        </li>
+        <li>
+          <img src="/img/taco.png" />
+        </li>
+      </ul>
+      <div className="context">
+        <h1>
+          <img className="logo" src="/img/logo.png" height="200" width="200" />
+        </h1>
+      </div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email">
