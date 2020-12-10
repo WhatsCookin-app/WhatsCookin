@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchEvents} from '../store/events'
 import {Button} from 'react-bootstrap'
 import {VideoSession} from './index'
@@ -9,8 +10,11 @@ import {Modal} from 'react-bootstrap'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
 import AddEvent from './AddEvent'
-
+import Room from './Room'
+import socket from '../socket'
 import {Container, Row} from 'react-bootstrap'
+
+export let roomId
 class EventsPage extends React.Component {
   constructor() {
     super()
@@ -19,12 +23,15 @@ class EventsPage extends React.Component {
       show: false
     }
     this.handleClose = this.handleClose.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getEvents(this.props.user.id)
   }
-
+  handleClick(roomId) {
+    socket.emit('create or join', roomId)
+  }
   handleClose() {
     this.setState({show: false})
   }
@@ -70,17 +77,15 @@ class EventsPage extends React.Component {
                       </p>
                       <p> Organizer: {element.organizer.userName}</p>
                       <p> Guest: {element.guest.userName} </p>
-                      {this.state.move ? (
-                        <VideoSession room={element.roomId} />
-                      ) : (
+                      <Link to={`/home/get-cookin/${element.roomId}`}>
                         <Button
                           type="button"
                           variant="info"
-                          onClick={() => this.setState({move: true})}
+                          onClick={() => this.handleClick(element.roomId)}
                         >
                           Join Event
                         </Button>
-                      )}
+                      </Link>
                     </div>
                   </Row>
                 </Container>
