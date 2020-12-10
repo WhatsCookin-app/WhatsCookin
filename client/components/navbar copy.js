@@ -37,8 +37,7 @@ class NavCopy extends Component {
     this.props.getResults(this.state.keyWord)
     // this.props.history.push('/recipes/searchResult')
     this.props.history.push({
-      pathname: '/recipes/searchResult',
-      state: {searchStr: this.state.keyWord}
+      pathname: '/recipes/searchResult'
     })
     this.setState({keyWord: ''})
   }
@@ -50,8 +49,7 @@ class NavCopy extends Component {
       this.props.getResults(this.state.keyWord)
       // this.props.history.push('/recipes/searchResult')
       this.props.history.push({
-        pathname: '/recipes/searchResult',
-        state: {searchStr: this.state.keyWord}
+        pathname: '/recipes/searchResult'
       })
       this.setState({keyWord: ''})
     }
