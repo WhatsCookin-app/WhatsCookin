@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import store from './store'
 import {setMyVideo, setPartnerVideo} from './store/videos'
-
+import {roomId} from './components/Room'
 const socket = io(window.location.origin)
 let localStream
 let isCaller = false
@@ -28,7 +28,7 @@ async function onIceCandidate(event) {
       label: event.candidate.sdpMLineIndex,
       id: event.candidate.sdpMid,
       candidate: event.candidate.candidate,
-      room: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+      room: roomId
     })
   }
 }
@@ -46,6 +46,7 @@ socket.on('connect', () => {
 socket.on('created', async function(room) {
   //will run for the first person in the room
   try {
+    console.log('here')
     const stream = await navigator.mediaDevices.getUserMedia(constraints)
     localStream = stream
     isCaller = true
@@ -89,7 +90,7 @@ socket.on('ready', async function() {
       socket.emit('offer', {
         type: 'offer',
         sdp: eventDescription,
-        room: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+        room: roomId
       })
     } catch (error) {
       console.error(error)
@@ -115,7 +116,7 @@ socket.on('offer', async function(event) {
       socket.emit('answer', {
         type: 'answer',
         sdp: eventDescription,
-        room: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+        room: roomId
       })
     } catch (error) {
       console.error(error)
