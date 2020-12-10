@@ -220,7 +220,8 @@ body {
 .context {
   width: 100%;
   position: absolute;
-  top: 50vh;
+  top: 10vh;
+  z-index: 900;
 }
 
 .context h1 {
@@ -229,6 +230,12 @@ body {
   font-size: 50px;
 }
 
+.logo {
+  position: absolute;
+  top: 50vh;
+  text-align: center;
+  left: 45%;
+}
 .area {
   background: #fff7c0;
   background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
