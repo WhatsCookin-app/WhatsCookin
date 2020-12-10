@@ -211,7 +211,7 @@ router.post('/forgotpassword', async (req, res, next) => {
       port: 465,
       secure: true,
       auth: {
-        user: 'lidcruz03@gmail.com',
+        user: 'gh.whatscookin@gmail.com',
         pass: process.env.GOOGLE_ACCOUNT_PASSWORD
       }
     })
