@@ -40,6 +40,7 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            <Route exact path="/" component={BrowseChannels} />
             <Route exact path="/home" component={Channels} />
             <Route exact path="/home/get-cookin" component={EventsPage} />
             {/* <Route exact path="/home/get-cookin/:roomId" component={VideoSession} /> */}

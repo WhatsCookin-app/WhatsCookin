@@ -91,10 +91,13 @@ router.get('/:channelId/recipes', async (req, res, next) => {
           where: {
             id: req.params.channelId
           }
+        },
+        {
+          model: User,
+          as: 'owner'
         }
       ]
     })
-    console.log(recipes)
     res.json(recipes)
   } catch (err) {
     next(err)
