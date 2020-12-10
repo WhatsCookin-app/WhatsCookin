@@ -28,6 +28,7 @@ class EventsPage extends React.Component {
   handleClick(roomId) {
     socket.emit('create or join', roomId)
   }
+
   handleClose() {
     this.setState({show: false})
   }
