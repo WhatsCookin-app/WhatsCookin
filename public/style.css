@@ -135,6 +135,16 @@ video {
   height: 21.875rem;
 }
 
+.event-image {
+  width: 38rem;
+  height: 12.625rem;
+}
+
+.event-card {
+  width: 38rem;
+  height: 25rem;
+}
+
 @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
   .image {
     width: 10.6875rem;

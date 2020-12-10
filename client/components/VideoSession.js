@@ -24,6 +24,7 @@ const VideoSession = props => {
   })
   return (
     <div>
+
       <Room roomId={params.roomId} />
       <h1>Get Cooking with Friends at {params.roomId}</h1>
       <video autoPlay playsInline muted />

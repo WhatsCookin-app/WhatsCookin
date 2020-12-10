@@ -2,6 +2,7 @@ import axios from 'axios'
 import socket from '../socket'
 const GET_EVENTS = 'GET_EVENTS'
 const ADD_EVENTS = 'ADD_EVENTS'
+const DELETE_EVENT = 'DELETE_EVENT'
 
 ///two find all for when user id is guest and one where they are owner
 const setEvents = events => ({
@@ -13,6 +14,11 @@ const addEvents = newEvent => ({
   type: ADD_EVENTS,
   newEvent
 })
+
+const deleteSingleEvent = () => ({
+  type: DELETE_EVENT
+})
+
 //thunk creator
 export const fetchEvents = userId => {
   return async dispatch => {
@@ -39,6 +45,29 @@ export const postEvent = (newEvent, userId) => {
   }
 }
 
+export const updateEvent = (updatedEvent, userId) => {
+  return async dispatch => {
+    try {
+      await axios.put(`/api/users/events/${updatedEvent.id}`, updatedEvent)
+      dispatch(fetchEvents(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const deleteEvent = (eventId, userId) => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/users/events/${eventId}`)
+      // dispatch(removeChannel())
+      // history.push('/channels')
+      dispatch(fetchEvents(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 const defaultEvents = []
 // reducer
 export default function(state = defaultEvents, action) {
