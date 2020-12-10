@@ -15,18 +15,13 @@ class Channels extends React.Component {
     super()
     this.state = {
       show: false,
-      showAddOptions: false,
-      overlay: ''
+      showAddOptions: false
     }
   }
 
   componentDidMount() {
     this.props.getChannels()
     this.props.me()
-  }
-
-  handleOverlay() {
-    let overlay = 'test'
   }
 
   render() {
@@ -71,8 +66,8 @@ class Channels extends React.Component {
           </div>
         </div>
         <div className="all-channels">
-          <PrivateChannels channels={this.props.channels} />
-          <PublicChannels channels={this.props.channels} />
+          <PrivateChannels channels={channels} />
+          <PublicChannels channels={channels} />
         </div>
         {this.state.showAddOptions ? (
           <Modal
