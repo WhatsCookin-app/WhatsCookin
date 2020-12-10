@@ -143,7 +143,7 @@ router.post('/:id/events', async (req, res, next) => {
     console.log('here is event time: ', eventDate)
     console.log(
       'convert event time: ',
-      moment.utc(moment.tz(eventDate, current_tz)).format()
+      moment.utc(moment.tz(eventDate, 'America/New_York')).format()
     )
     const events = await Event.create({
       name,
