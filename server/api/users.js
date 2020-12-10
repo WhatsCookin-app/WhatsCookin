@@ -4,6 +4,8 @@ const isUserMiddleware = require('./isUserMiddleware')
 const Sequelize = require('sequelize')
 const nodemailer = require('nodemailer')
 const faker = require('faker')
+const moment = require('moment')
+const {faMonument} = require('@fortawesome/free-solid-svg-icons')
 
 // var sequelize = new Sequelize(connStr, {
 //   dialectOptions: {
@@ -96,7 +98,8 @@ router.post('/', async (req, res, next) => {
 //get a user's events
 router.get('/:id/events', async (req, res, next) => {
   try {
-    console.log('now: ', new Date())
+    console.log('now: ', moment())
+    console.log('now date', new Date())
     const events = await Event.findAll({
       where: {
         [Op.or]: [{organizerId: req.params.id}, {guestId: req.params.id}],
@@ -123,7 +126,25 @@ router.get('/:id/events', async (req, res, next) => {
 
 router.post('/:id/events', async (req, res, next) => {
   try {
-    const events = await Event.create(req.body)
+    const {
+      name,
+      description,
+      eventDate,
+      organizerId,
+      guestId,
+      roomId
+    } = req.body
+    const current_tz = moment.tz.guess()
+    // console.log('my current timezone: ', moment.tz.guess())
+    // console.log('example time: 2021-01-21 13:30:00: '  , moment.utc(moment.tz('2021-01-21 13:30:00', "America/New_York")).format())
+    const events = await Event.create({
+      name,
+      description,
+      eventDate: moment.utc(moment.tz(eventDate, current_tz)).format(),
+      organizerId,
+      guestId,
+      roomId
+    })
     res.json(events)
   } catch (err) {
     next(err)
