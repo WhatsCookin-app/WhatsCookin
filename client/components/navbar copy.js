@@ -67,7 +67,7 @@ class NavCopy extends Component {
           className="border-bottom justify-content-between shadow-sm rounded"
           expand="sm"
           style={
-            path === '/login'
+            path === '/login' || path === '/'
               ? {position: 'absolute', top: 0, zIndex: 9999, width: '100%'}
               : {}
           }
