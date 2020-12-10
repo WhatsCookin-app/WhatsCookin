@@ -2,19 +2,24 @@ import React, {useEffect, useState, useRef} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
+import {
+  Form,
+  Modal,
+  InputGroup,
+  Button,
+  OverlayTrigger,
+  Tooltip
+} from 'react-bootstrap'
+import {VideoSession, SingleEvent} from './index'
 import {Link} from 'react-router-dom'
 import {fetchEvents} from '../store/events'
 import {Button} from 'react-bootstrap'
-import {VideoSession} from './index'
-import {Modal} from 'react-bootstrap'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
 import AddEvent from './AddEvent'
 import Room from './Room'
 import socket from '../socket'
-import {Container, Row} from 'react-bootstrap'
 
-export let roomId
 class EventsPage extends React.Component {
   constructor() {
     super()
@@ -29,6 +34,7 @@ class EventsPage extends React.Component {
   componentDidMount() {
     this.props.getEvents(this.props.user.id)
   }
+
   handleClick(roomId) {
     socket.emit('create or join', roomId)
   }
@@ -37,19 +43,29 @@ class EventsPage extends React.Component {
   }
 
   render() {
-    console.log('render participant: ', this.state.participant)
-    // console.log('date: ', this.state.date)
-    // console.log('time: ', this.state.time)
-    // console.log('datetime: ',this.state.date+' '+this.state.time+':00')
-    // console.log('v4: ', uuidv4.v4())
     const events = this.props.events
     if (!this.props.events.length) return <h1>Loading</h1>
     return (
       <div className="view">
-        <FontAwesomeIcon
-          icon={faPlus}
-          onClick={() => this.setState({show: true})}
-        />
+
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip name="Tool Tip">Schedule an Event</Tooltip>}
+        >
+          <FontAwesomeIcon
+            icon={faPlus}
+            onClick={() => this.setState({show: true})}
+            className="cursor ml-5 mt-3 text-info"
+            size="lg"
+          />
+        </OverlayTrigger>
+        <div className="d-flex flex-wrap justify-content-center align-items-center">
+          {events &&
+            events.map(element => (
+              <SingleEvent key={element.id} event={element} />
+            ))}
+        </div>
+
         <div>
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
@@ -57,40 +73,16 @@ class EventsPage extends React.Component {
             </Modal.Header>
             <AddEvent close={this.handleClose} />
           </Modal>
-          {events &&
-            events.map(element => {
-              return (
-                <Container key={element.id}>
-                  <Row className="justify-content-md-center">
-                    <div id="single-recipe">
-                      <p> Event Name: {element.name}</p>
-                      <p> Description: {element.description}</p>
-                      <p>
-                        {' '}
-                        Scheduled Date:{' '}
-                        {new Date(element.eventDate).toLocaleDateString()}
-                      </p>
-                      <p>
-                        {' '}
-                        Scheduled Time:{' '}
-                        {new Date(element.eventDate).toLocaleTimeString()}
-                      </p>
-                      <p> Organizer: {element.organizer.userName}</p>
-                      <p> Guest: {element.guest.userName} </p>
-                      <Link to={`/home/get-cookin/${element.roomId}`}>
-                        <Button
-                          type="button"
-                          variant="info"
-                          onClick={() => this.handleClick(element.roomId)}
-                        >
-                          Join Event
-                        </Button>
-                      </Link>
-                    </div>
-                  </Row>
-                </Container>
-              )
-            })}
+//                       <Link to={`/home/get-cookin/${element.roomId}`}>
+//                         <Button
+//                           type="button"
+//                           variant="info"
+//                           onClick={() => this.handleClick(element.roomId)}
+//                         >
+//                           Join Event
+//                         </Button>
+//                       </Link>
+  
         </div>
       </div>
     )

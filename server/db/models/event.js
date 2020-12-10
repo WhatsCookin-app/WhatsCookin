@@ -15,6 +15,11 @@ const Event = db.define('event', {
   description: {
     type: Sequelize.STRING
   },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://media1.s-nbcnews.com/j/newscms/2019_50/3146046/191212-stock-kitchen-cooking-wok-ew-228p_02b448af054ee73a0103f9b0353a525f.fit-2000w.jpg'
+  },
   eventDate: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW,
