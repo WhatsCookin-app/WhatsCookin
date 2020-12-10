@@ -58,6 +58,7 @@ class NavCopy extends Component {
   }
 
   render() {
+    const path = this.props.location.pathname
     console.log('keyword: ', this.state.keyWord)
     return (
       <div id="nav-top">
@@ -65,6 +66,11 @@ class NavCopy extends Component {
           bg="info"
           className="border-bottom justify-content-between shadow-sm rounded"
           expand="sm"
+          style={
+            path === '/login'
+              ? {position: 'absolute', top: 0, zIndex: 9999, width: '100%'}
+              : {}
+          }
         >
           <BootstrapNavbar.Brand href="/home" />
           {/* <Nav> */}

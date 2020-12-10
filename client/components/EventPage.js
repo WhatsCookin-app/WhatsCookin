@@ -13,7 +13,6 @@ import {
 import {VideoSession, SingleEvent} from './index'
 import {Link} from 'react-router-dom'
 import {fetchEvents} from '../store/events'
-import {Button} from 'react-bootstrap'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
 import AddEvent from './AddEvent'
@@ -47,7 +46,6 @@ class EventsPage extends React.Component {
     if (!this.props.events.length) return <h1>Loading</h1>
     return (
       <div className="view">
-
         <OverlayTrigger
           placement="top"
           overlay={<Tooltip name="Tool Tip">Schedule an Event</Tooltip>}
@@ -73,21 +71,21 @@ class EventsPage extends React.Component {
             </Modal.Header>
             <AddEvent close={this.handleClose} />
           </Modal>
-//                       <Link to={`/home/get-cookin/${element.roomId}`}>
-//                         <Button
-//                           type="button"
-//                           variant="info"
-//                           onClick={() => this.handleClick(element.roomId)}
-//                         >
-//                           Join Event
-//                         </Button>
-//                       </Link>
-  
+          <Link to={`/home/get-cookin/${element.roomId}`}>
+            <Button
+              type="button"
+              variant="info"
+              onClick={() => this.handleClick(element.roomId)}
+            >
+              Join Event
+            </Button>
+          </Link>
         </div>
       </div>
     )
   }
 }
+
 const mapState = state => ({
   events: state.events,
   user: state.user,
