@@ -148,7 +148,7 @@ router.post('/:id/events', async (req, res, next) => {
     const events = await Event.create({
       name,
       description,
-      eventDate: moment.utc(moment.tz(eventDate, current_tz)).format(),
+      eventDate: moment.utc(moment.tz(eventDate, 'America/New_York')).format(),
       organizerId,
       guestId,
       roomId
