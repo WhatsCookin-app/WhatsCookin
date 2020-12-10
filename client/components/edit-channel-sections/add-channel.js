@@ -44,6 +44,7 @@ class AddChannel extends React.Component {
   }
 
   render() {
+    console.log('channel name state: ', this.state.name)
     let makePrivate = this.state.isPrivate
 
     return (
