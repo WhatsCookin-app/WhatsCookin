@@ -1,0 +1,21 @@
+{
+  "short_name": "WhatsCookin",
+  "name": "WhatsCookin",
+  "description": "Recipe Collaboration App",
+  "icons": [
+    {
+      "src": "/img/output-onlinepngtools.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3367D6",
+  "shortcuts": [
+
+  ]
+}
