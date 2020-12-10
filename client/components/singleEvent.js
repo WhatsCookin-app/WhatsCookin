@@ -1,11 +1,12 @@
 import {faWrench} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import React, {useState} from 'react'
-import {Card, Button, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap'
+import {Card, Button, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {UpdateEvent} from '.'
+import {Link} from 'react-router-dom'
 
-const SingleEvent = ({event, user}) => {
+const SingleEvent = ({event, user, handleClick}) => {
   const [move, setMove] = useState(false)
   const [edit, setEdit] = useState(false)
 
@@ -38,18 +39,16 @@ const SingleEvent = ({event, user}) => {
             ) : (
               ''
             )}
-            {move ? (
-              <p>Video coming</p>
-            ) : (
-              // <VideoSession room={element.roomId} />
+
+            <Link to={`/home/get-cookin/${event.roomId}`}>
               <Button
                 type="button"
                 variant="info"
-                onClick={() => setMove(true)}
+                onClick={() => handleClick(event.roomId)}
               >
                 Join Event
               </Button>
-            )}
+            </Link>
           </div>
         </Card.Title>
         <Card.Text>{event.description}</Card.Text>
