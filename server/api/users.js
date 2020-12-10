@@ -135,8 +135,16 @@ router.post('/:id/events', async (req, res, next) => {
       roomId
     } = req.body
     const current_tz = moment.tz.guess()
-    // console.log('my current timezone: ', moment.tz.guess())
-    // console.log('example time: 2021-01-21 13:30:00: '  , moment.utc(moment.tz('2021-01-21 13:30:00', "America/New_York")).format())
+    console.log('my current timezone: ', moment.tz.guess())
+    console.log(
+      'example time: 2021-01-21 13:30:00: ',
+      moment.utc(moment.tz('2021-01-21 13:30:00', 'America/New_York')).format()
+    )
+    console.log('here is event time: ', eventDate)
+    console.log(
+      'convert event time: ',
+      moment.utc(moment.tz(eventDate, current_tz)).format()
+    )
     const events = await Event.create({
       name,
       description,
