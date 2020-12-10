@@ -44,13 +44,6 @@ module.exports = io => {
       console.log('end of socket')
     })
 
-    // socket.on('closePartnerSession', function(roomId){
-    //   console.log('in index socket')
-    //   console.log('room id server:', roomId)
-    //   socket.broadcast.to(roomId).emit('closePartnerSession')
-    //   console.log('end of socket')
-    // })
-
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })

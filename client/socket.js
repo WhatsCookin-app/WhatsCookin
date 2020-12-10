@@ -136,13 +136,6 @@ socket.on('closeSession', function() {
   store.dispatch(resetVideo())
   console.log('end of client socket')
   window.location = '/home/get-cookin'
-  // socket.emit('closePartnerSession',roomId)
 })
-
-// socket.on('closePartnerSession', function(){
-//   store.dispatch(resetVideo())
-//   console.log('end of client socket')
-//   window.location = '/home/get-cookin'
-// })
 
 export default socket
