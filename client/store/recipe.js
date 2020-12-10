@@ -38,6 +38,7 @@ export const fetchRecipes = channelId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/channels/${channelId}/recipes`)
+
       dispatch(getRecipes(data))
     } catch (error) {
       console.log(error)

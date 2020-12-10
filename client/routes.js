@@ -45,42 +45,40 @@ class Routes extends Component {
             component={SingleRecipe}
           />
 
-          {isLoggedIn && (
-            <Switch>
-              {/* Routes placed here are only available after logging in */}
-              <Route exact path="/home" component={Channels} />
-              <Route exact path="/home/get-cookin" component={EventsPage} />
-              {/* <Route exact path="/home/get-cookin/:roomId" component={VideoSession} /> */}
-              <Route
-                exact
-                path="/home/get-cookin/:roomId"
-                component={() => <VideoSession />}
-              />
-              <Route
-                exact
-                path="/home/channels/:channelId"
-                component={Recipes}
-              />
-              <Route
-                exact
-                path="/home/recipes/:recipeId"
-                component={SingleRecipe}
-              />
-              <Route exact path="/channels" component={Channels} />
-              <Route exact path="/browse" component={BrowseChannels} />
-              <Route exact path="/notFound" component={NotFound} />
-              <Route
-                exact
-                path="/recipes/searchResult"
-                component={SearchResults}
-              />
-              <Route exact path="/editProfile" component={UserSettings} />
-            </Switch>
-          )}
-          {/* Displays our Login component as a fallback */}
-          <Route component={Login} />
-        </Switch>
-      </>
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route exact path="/" component={BrowseChannels} />
+            <Route exact path="/home" component={Channels} />
+            <Route exact path="/home/get-cookin" component={EventsPage} />
+            {/* <Route exact path="/home/get-cookin/:roomId" component={VideoSession} /> */}
+            <Route
+              exact
+              path="/home/get-cookin/:roomId"
+              component={() => <VideoSession />}
+            />
+            <Route exact path="/home/channels/:channelId" component={Recipes} />
+            <Route
+              exact
+              path="/home/recipes/:recipeId"
+              component={SingleRecipe}
+            />
+            <Route exact path="/channels" component={Channels} />
+            <Route exact path="/browse" component={BrowseChannels} />
+            <Route exact path="/notFound" component={NotFound} />
+            <Route
+              exact
+              path="/recipes/searchResult"
+              component={SearchResults}
+            />
+            <Route exact path="/editProfile" component={UserSettings} />
+          </Switch>
+        )}
+        {/* Displays our Login component as a fallback */}
+        <Route component={Login} />
+      </Switch>
+    </>
+
     )
   }
 }
