@@ -14,7 +14,8 @@ import {
   EventsPage,
   BrowseChannels,
   NotFound,
-  UserSettings
+  UserSettings,
+  NavCopy
 } from './components'
 import {me} from './store'
 
@@ -30,12 +31,19 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
+      <>
         <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/home/channels/:channelId" component={Recipes} />
-        <Route exact path="/home/recipes/:recipeId" component={SingleRecipe} />
+        <NavCopy />
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/home/channels/:channelId" component={Recipes} />
+          <Route
+            exact
+            path="/home/recipes/:recipeId"
+            component={SingleRecipe}
+          />
 
         {isLoggedIn && (
           <Switch>
@@ -69,6 +77,8 @@ class Routes extends Component {
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
+    </>
+
     )
   }
 }
