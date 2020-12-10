@@ -1,7 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react'
+import {useParams} from 'react-router'
+import {fetchVideo} from '../store/events'
 import {connect} from 'react-redux'
+// import {withRouter, Route, Switch} from 'react-router-dom'
 import socket from '../socket'
+import Room from './Room'
+
 const VideoSession = props => {
+  const params = useParams()
   const userVideo = useRef()
   const partnerVideo = useRef()
   useEffect(() => {
@@ -18,8 +24,10 @@ const VideoSession = props => {
   })
   return (
     <div>
-      <h1>Get Cooking with Friends at {props.room}</h1>
-      {/* <video autoPlay playsInline muted></video> */}
+
+      <Room roomId={params.roomId} />
+      <h1>Get Cooking with Friends at {params.roomId}</h1>
+      <video autoPlay playsInline muted />
       <video id="localVideo" autoPlay playsInline muted ref={userVideo} />
       <video id="remoteVideo" autoPlay playsInline muted ref={partnerVideo} />
     </div>
