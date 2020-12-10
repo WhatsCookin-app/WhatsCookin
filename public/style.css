@@ -74,6 +74,7 @@ video {
   border-style: solid;
   height: 270px;
   width: 300px;
+  max-width: 100%;
 }
 
 #recipe-info {
