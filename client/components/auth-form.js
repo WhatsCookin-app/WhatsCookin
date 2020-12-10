@@ -8,44 +8,71 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="view">
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" id="email" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-          <button
-            type="button"
-            onClick={async () => {
-              try {
-                const email = document.getElementById('email').value
-                await axios.post('/api/users/forgotpassword', {
-                  email
-                })
-                alert('Email Sent')
-              } catch (error) {
-                alert('No such email found')
-              }
-            }}
-          >
-            Forgot Password
-          </button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google" className="text-kade">
-        {displayName} with Google
-      </a>
+    <div>
+      <div className="area">
+        <ul className="circles">
+          <li>
+            <img src="/img/carrot.png" />
+          </li>
+          <li>
+            <img src="/img/chicken.png" />
+          </li>
+          <li>
+            <img src="/img/kale.png" />
+          </li>
+          <li>
+            <img src="/img/pasta.png" />
+          </li>
+          <li>
+            <img src="/img/pizza.png" />
+          </li>
+          <li>
+            <img src="/img/taco.png" />
+          </li>
+        </ul>
+      </div>
+
+      <img className="logo" src="/img/logo.png" height="200" width="200" />
+
+      <div className="context">
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" id="email" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  const email = document.getElementById('email').value
+                  await axios.post('/api/users/forgotpassword', {
+                    email
+                  })
+                  alert('Email Sent')
+                } catch (error) {
+                  alert('No such email found')
+                }
+              }}
+            >
+              Forgot Password
+            </button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href="/auth/google" className="text-kade">
+          {displayName} with Google
+        </a>
+      </div>
     </div>
   )
 }
