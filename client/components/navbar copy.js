@@ -15,7 +15,7 @@ import {
   NavItem
 } from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {faCog, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {withRouter} from 'react-router'
 
 class NavCopy extends Component {
@@ -79,7 +79,12 @@ class NavCopy extends Component {
                 </Link>
               </Nav.Item>
               <Link to="/editProfile">
-                <Nav.Item>Edit Profile</Nav.Item>
+                <FontAwesomeIcon
+                  icon={faCog}
+                  className="fas fa-cog"
+                  size="1x"
+                />
+                <Nav.Item />
               </Link>
 
               <Link to="/channels">

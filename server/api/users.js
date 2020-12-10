@@ -2,6 +2,9 @@ const router = require('express').Router()
 const {User, channelUser, Event} = require('../db/models')
 const isUserMiddleware = require('./isUserMiddleware')
 const Sequelize = require('sequelize')
+const nodemailer = require('nodemailer')
+const faker = require('faker')
+
 // var sequelize = new Sequelize(connStr, {
 //   dialectOptions: {
 //       useUTC: false //for reading from database
@@ -166,6 +169,42 @@ router.post('/add', isUserMiddleware, async (req, res, next) => {
     })
 
     res.json('success')
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/forgotpassword', async (req, res, next) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'lidcruz03@gmail.com',
+        pass: process.env.GOOGLE_ACCOUNT_PASSWORD
+      }
+    })
+    const user = await User.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+    if (!user) {
+      return res.sendStatus(401)
+    }
+    const password = faker.internet.password()
+    await user.update({
+      password
+    })
+    await transporter.sendMail({
+      from: '<no-reply@whatscookin.herokuapp.com>', // sender address
+      to: req.body.email, // list of receivers
+      subject: 'Reset Password', // Subject line
+      text: `Your new password: ${password}`, // plain text body
+      html: `<b>Your new password: ${password}</b>` // html body
+    })
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }
