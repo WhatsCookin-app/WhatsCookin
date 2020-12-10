@@ -72,6 +72,7 @@ class EventsPage extends React.Component {
     )
   }
 }
+
 const mapState = state => ({
   events: state.events,
   user: state.user,
