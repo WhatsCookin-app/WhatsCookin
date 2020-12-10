@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
 import {withRouter} from 'react-router'
+import searchStr from '../store/searchStr.js'
 
 class SearchResults extends React.Component {
   // constructor() {
@@ -15,6 +16,8 @@ class SearchResults extends React.Component {
   //   }
   // }
   componentDidMount() {
+    // this.setState({searchStr: this.props.location.state.searchStr})
+    console.log('in componentDidMount!')
     console.log('searchStr: ', this.props.searchStr)
     this.props.getResults(this.props.searchStr)
   }

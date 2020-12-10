@@ -14,7 +14,7 @@ class BrowseChannels extends React.Component {
   render() {
     const browseChannels = this.props.browseChannels
     return (
-      <div id="flex">
+      <div id="flex" className="view">
         <div className="d-flex justify-content-between align-items-center">
           <h1 className="ml-3">Browse Channels</h1>
         </div>

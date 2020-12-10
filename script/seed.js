@@ -98,7 +98,7 @@ async function seed() {
     Event.create({
       roomId: '3caf71e2-ea2e-4325-aec6-169dc358c285',
       name: 'Pollo Guisado con Mami!',
-      description: 'Moms teaching us her special sauce',
+      description: "Mom's teaching us her special sauce",
       imageUrl:
         'https://belquistwist.com/wp-content/uploads/2020/04/pollo-guisado-dominicano-stewed-chicken.jpg',
       eventDate: '2020-12-11 09:20:00',
@@ -128,7 +128,7 @@ async function seed() {
     Event.create({
       roomId: '74d86f63-285d-4646-a46e-73b5382a3bce',
       name: 'Tostones 101',
-      description: 'Maaster the double fry technique',
+      description: 'Master the double fry technique',
       imageUrl:
         'https://belquistwist.com/wp-content/uploads/2019/08/fried-green-yellow-plantains-maduros-tostones.jpg',
       eventDate: '2021-01-21 20:30:00',
@@ -221,19 +221,19 @@ async function seed() {
     {
       name: 'Desserts',
       imageUrl: '/img/pexels-arminas-raudys-808941.jpg',
-      description: `Everyone/s Guilty Pleasure`,
+      description: "Everyone's Guilty Pleasure",
       isPrivate: false
     },
     {
       name: 'Keto',
-      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
+      imageUrl: '/img/pexels-ella-olsson-1640770.jpg',
       description:
         'Balanced diet nutrition keto concept. Assortment of healthy ketogenic low carb food ingredients for cooking on a kitchen table.',
       isPrivate: false
     },
     {
       name: 'Pescatarian',
-      imageUrl: '/img/pexels-ronit-hanegby-5463882.jpg',
+      imageUrl: 'img/pexels-cottonbro-3298057.jpg',
       description:
         'Involves eating fish, as a main source of protein, alongside vegetables and other plant-based foods',
       isPrivate: false

@@ -9,9 +9,9 @@ const setEvents = events => ({
   events
 })
 
-const addEvents = events => ({
+const addEvents = newEvent => ({
   type: ADD_EVENTS,
-  events
+  newEvent
 })
 //thunk creator
 export const fetchEvents = userId => {
@@ -30,8 +30,9 @@ export const fetchEvents = userId => {
 export const postEvent = (newEvent, userId) => {
   return async dispatch => {
     try {
+      console.log(newEvent)
       const {data} = await axios.post(`/api/users/${userId}/events`, newEvent)
-      dispatch(addEvents(data))
+      dispatch(fetchEvents(userId))
     } catch (error) {
       console.log(error)
     }
@@ -45,7 +46,7 @@ export default function(state = defaultEvents, action) {
     case GET_EVENTS:
       return action.events
     case ADD_EVENTS:
-      return [...state, action.events]
+      return [...state, action.newEvent]
     default:
       return state
   }
