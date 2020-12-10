@@ -7,6 +7,7 @@ import {Button} from 'react-bootstrap'
 import {VideoSession} from './index'
 import {v4 as uuidv4} from 'uuid'
 import {moment} from 'moment'
+import {SingleEvent} from './index'
 
 import {Container, Row} from 'react-bootstrap'
 class EventsPage extends React.Component {
@@ -26,43 +27,11 @@ class EventsPage extends React.Component {
     return (
       <div className="view">
         <FontAwesomeIcon icon={faPlus} />
-        <div>
+        <div className="d-flex flex-wrap justify-content-center align-items-center">
           {events &&
-            events.map(element => {
-              return (
-                <Container>
-                  <Row className="justify-content-md-center">
-                    <div key={element.id} id="single-recipe">
-                      <p> Event Name: {element.name}</p>
-                      <p> Description: {element.description}</p>
-                      <p>
-                        {' '}
-                        Scheduled Date:{' '}
-                        {new Date(element.eventDate).toLocaleDateString()}
-                      </p>
-                      <p>
-                        {' '}
-                        Scheduled Time:{' '}
-                        {new Date(element.eventDate).toLocaleTimeString()}
-                      </p>
-                      <p> Organizer: {element.organizer.userName}</p>
-                      <p> Guest: {element.guest.userName} </p>
-                      {this.state.move ? (
-                        <VideoSession room={element.roomId} />
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="info"
-                          onClick={() => this.setState({move: true})}
-                        >
-                          Join Event
-                        </Button>
-                      )}
-                    </div>
-                  </Row>
-                </Container>
-              )
-            })}
+            events.map(element => (
+              <SingleEvent key={element.id} event={element} />
+            ))}
         </div>
       </div>
     )
