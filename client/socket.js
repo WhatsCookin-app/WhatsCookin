@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import store from './store'
-import {setMyVideo, setPartnerVideo} from './store/videos'
+import {setMyVideo, setPartnerVideo, resetVideo} from './store/videos'
 import {roomId} from './components/Room'
 const socket = io(window.location.origin)
 let localStream
@@ -46,7 +46,7 @@ socket.on('connect', () => {
 socket.on('created', async function(room) {
   //will run for the first person in the room
   try {
-    console.log('here')
+    console.log('created!!!!!!')
     const stream = await navigator.mediaDevices.getUserMedia(constraints)
     localStream = stream
     isCaller = true
@@ -129,6 +129,13 @@ socket.on('answer', function(event) {
     new RTCSessionDescription(event)
   )
   console.log('remote description: ', description)
+})
+
+socket.on('closeSession', function() {
+  console.log('in client close session')
+  store.dispatch(resetVideo())
+  console.log('end of client socket')
+  window.location = '/home/get-cookin'
 })
 
 export default socket

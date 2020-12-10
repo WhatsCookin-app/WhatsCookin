@@ -37,6 +37,13 @@ module.exports = io => {
       socket.broadcast.to(event.room).emit('answer', event.sdp)
     })
 
+    socket.on('closeSession', function() {
+      console.log('in index socket')
+
+      socket.emit('closeSession')
+      console.log('end of socket')
+    })
+
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })

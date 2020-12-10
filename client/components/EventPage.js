@@ -1,22 +1,13 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
-import {
-  Form,
-  Modal,
-  InputGroup,
-  Button,
-  OverlayTrigger,
-  Tooltip
-} from 'react-bootstrap'
-import {VideoSession, SingleEvent} from './index'
-import {Link} from 'react-router-dom'
+import {Modal, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import {SingleEvent} from './index'
 import {fetchEvents} from '../store/events'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
 import AddEvent from './AddEvent'
-import Room from './Room'
 import socket from '../socket'
 
 class EventsPage extends React.Component {
@@ -37,6 +28,7 @@ class EventsPage extends React.Component {
   handleClick(roomId) {
     socket.emit('create or join', roomId)
   }
+
   handleClose() {
     this.setState({show: false})
   }
@@ -60,7 +52,11 @@ class EventsPage extends React.Component {
         <div className="d-flex flex-wrap justify-content-center align-items-center">
           {events &&
             events.map(element => (
-              <SingleEvent key={element.id} event={element} />
+              <SingleEvent
+                key={element.id}
+                event={element}
+                handleClick={this.handleClick}
+              />
             ))}
         </div>
 
@@ -71,15 +67,6 @@ class EventsPage extends React.Component {
             </Modal.Header>
             <AddEvent close={this.handleClose} />
           </Modal>
-          <Link to={`/home/get-cookin/${element.roomId}`}>
-            <Button
-              type="button"
-              variant="info"
-              onClick={() => this.handleClick(element.roomId)}
-            >
-              Join Event
-            </Button>
-          </Link>
         </div>
       </div>
     )
