@@ -42,6 +42,12 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={Channels} />
             <Route exact path="/home/get-cookin" component={EventsPage} />
+            {/* <Route exact path="/home/get-cookin/:roomId" component={VideoSession} /> */}
+            <Route
+              exact
+              path="/home/get-cookin/:roomId"
+              component={() => <VideoSession />}
+            />
             <Route exact path="/home/channels/:channelId" component={Recipes} />
             <Route
               exact
