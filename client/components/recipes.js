@@ -80,7 +80,6 @@ class Recipes extends React.Component {
         <div className="d-flex flex-wrap justify-content-center align-items-center ">
           {recipes &&
             recipes.map(element => {
-              console.log('element: ', element)
               return (
                 <Card
                   key={element.id}
@@ -88,19 +87,33 @@ class Recipes extends React.Component {
                   bg="transparent"
                 >
                   <Link
-                    to={`/home/channels/${this.props.match.params.channelId}/${
-                      element.id
-                    }`}
+                    to={{
+                      pathname: `/home/recipes/${element.id}`,
+                      state: {
+                        source: 'channels',
+                        channelId: this.props.match.params.channelId
+                      }
+                    }}
                   >
                     <Card.Img
                       src={element.imageUrl}
                       className="recipe-image rounded"
                     />
                   </Link>
-                  <Link
-                    to={`/home/channels/${this.props.match.params.channelId}/${
+                  {/* <Link
+                    to={`/home/recipes/${
                       element.id
                     }`}
+                    className="text-info mt-1"
+                  > */}
+                  <Link
+                    to={{
+                      pathname: `/home/recipes/${element.id}`,
+                      state: {
+                        source: 'channels',
+                        channelId: this.props.match.params.channelId
+                      }
+                    }}
                     className="text-info mt-1"
                   >
                     <Card.Title>
