@@ -1,12 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react'
-import {useParams} from 'react-router'
+import {useParams, useLocation} from 'react-router'
 import {connect} from 'react-redux'
 import socket from '../socket'
 import Room from './Room'
 import {Button} from 'react-bootstrap'
 
 const VideoSession = props => {
+  console.log('pros: ', props)
   const params = useParams()
+  const location = useLocation()
+  console.log('location hook: ', location)
   const userVideo = useRef()
   const partnerVideo = useRef()
 
@@ -31,7 +34,8 @@ const VideoSession = props => {
   return (
     <div>
       <Room roomId={params.roomId} />
-      <h1>Get Cooking with Friends at {params.roomId}</h1>
+      <h1>{location.state.name}</h1>
+      <h5>{location.state.description}</h5>
       <video autoPlay playsInline muted />
       <video id="localVideo" autoPlay playsInline muted ref={userVideo} />
       <video id="remoteVideo" autoPlay playsInline muted ref={partnerVideo} />

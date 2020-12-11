@@ -35,7 +35,43 @@ class EventsPage extends React.Component {
 
   render() {
     const events = this.props.events
-    if (!this.props.events.length) return <h1>Loading</h1>
+    if (!this.props.events.length) {
+      return (
+        <div className="view">
+          <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip name="Tool Tip">Schedule an Event</Tooltip>}
+          >
+            <FontAwesomeIcon
+              icon={faPlus}
+              onClick={() => this.setState({show: true})}
+              className="cursor ml-5 mt-3 text-info"
+              size="lg"
+            />
+          </OverlayTrigger>
+          <div />
+          <div>
+            <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Create a Cooking Event</Modal.Title>
+              </Modal.Header>
+              <AddEvent close={this.handleClose} />
+            </Modal>
+          </div>
+          <h3
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '40'
+            }}
+          >
+            No Upcoming Event
+          </h3>
+          <img className="logo" src="/img/logo.png" height="200" width="200" />
+        </div>
+      )
+    }
     return (
       <div className="view">
         <OverlayTrigger
