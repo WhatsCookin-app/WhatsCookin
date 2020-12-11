@@ -39,8 +39,12 @@ const SingleEvent = ({event, user, handleClick}) => {
             ) : (
               ''
             )}
-
-            <Link to={`/home/get-cookin/${event.roomId}`}>
+            <Link
+              to={{
+                pathname: `/home/get-cookin/${event.roomId}`,
+                state: {name: event.name, description: event.description}
+              }}
+            >
               <Button
                 type="button"
                 variant="info"
