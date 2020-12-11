@@ -60,6 +60,8 @@ class NavCopy extends Component {
   render() {
     const path = this.props.location.pathname
     console.log('keyword: ', this.state.keyWord)
+    if (this.props.videos.myVideo && this.props.videos.myVideo.id)
+      return <div />
     return (
       <div id="nav-top">
         <BootstrapNavbar
@@ -149,7 +151,8 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     recipes: state.recipe,
-    searchStr: state.searchStr
+    searchStr: state.searchStr,
+    videos: state.videos
   }
 }
 

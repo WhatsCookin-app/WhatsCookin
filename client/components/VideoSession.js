@@ -24,6 +24,9 @@ const VideoSession = props => {
     ) {
       partnerVideo.current.srcObject = props.videos.partnersVideo
     }
+    //   else if(partnerVideo.current && props.videos.partnersVideo && !props.videos.partnersVideo.id) {
+    //     partnerVideo.current= {}
+    //   }
   })
 
   function handleClick() {
@@ -34,7 +37,7 @@ const VideoSession = props => {
   return (
     <div className="view">
       <Room roomId={params.roomId} />
-     <h1>{location.state.name}</h1>
+      <h1>{location.state.name}</h1>
       <h5>{location.state.description}</h5>
       <div className="d-flex flex-row justify-content-around mb-5">
         <div className="d-flex flex-column">
@@ -54,13 +57,18 @@ const VideoSession = props => {
         </div>
         <div>
           <div>
-            <video
-              id="remoteVideo"
-              autoPlay
-              playsInline
-              muted
-              ref={partnerVideo}
-            />
+            {/* remove muted */}
+            {props.videos.partnersVideo && props.videos.partnersVideo.id ? (
+              <video
+                id="remoteVideo"
+                autoPlay
+                playsInline
+                muted
+                ref={partnerVideo}
+              />
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
