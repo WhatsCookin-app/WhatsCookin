@@ -99,6 +99,7 @@ class EventsPage extends React.Component {
               start.
             </p>
           </div>
+
           <div>
             <Modal show={this.state.show} onHide={this.handleClose}>
               <Modal.Header closeButton>
@@ -109,6 +110,7 @@ class EventsPage extends React.Component {
           </div>
         </div>
       )
+
     return (
       <div className="view">
         <div className="d-flex justify-content-center">
