@@ -32,16 +32,38 @@ const VideoSession = props => {
     socket.emit('closeSession', params.roomId)
   }
   return (
-    <div>
+    <div className="view">
       <Room roomId={params.roomId} />
-      <h1>{location.state.name}</h1>
+     <h1>{location.state.name}</h1>
       <h5>{location.state.description}</h5>
-      <video autoPlay playsInline muted />
-      <video id="localVideo" autoPlay playsInline muted ref={userVideo} />
-      <video id="remoteVideo" autoPlay playsInline muted ref={partnerVideo} />
-      <Button type="button" variant="info" onClick={() => handleClick()}>
-        Hang Up
-      </Button>
+      <div className="d-flex flex-row justify-content-around mb-5">
+        <div className="d-flex flex-column">
+          <div>
+            <video id="localVideo" autoPlay playsInline muted ref={userVideo} />
+          </div>
+          <div className="d-flex justify-content-end">
+            <Button
+              type="button"
+              variant="info"
+              onClick={() => handleClick()}
+              className="mt-3"
+            >
+              Hang Up
+            </Button>
+          </div>
+        </div>
+        <div>
+          <div>
+            <video
+              id="remoteVideo"
+              autoPlay
+              playsInline
+              muted
+              ref={partnerVideo}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

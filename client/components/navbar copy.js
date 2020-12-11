@@ -64,7 +64,7 @@ class NavCopy extends Component {
       <div id="nav-top">
         <BootstrapNavbar
           bg="info"
-          className="border-bottom justify-content-between shadow-sm rounded"
+          className="border-bottom justify-content-between shadow-sm"
           expand="sm"
           style={
             path === '/login' || path === '/'

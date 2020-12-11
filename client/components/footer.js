@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="footer mt-auto py-3 bg-info">
+    <footer className="footer mt-auto py-3 bg-kade">
       <div className="">
         <a href="#nav-top">
           <div className="text-center">
