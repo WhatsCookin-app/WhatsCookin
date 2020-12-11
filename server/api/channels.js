@@ -82,6 +82,19 @@ router.get('/:channelId', async (req, res, next) => {
 })
 
 // get all recipes of a channel
+// watchout for bug!!!!! include:
+// include: [
+//   {
+//     model: Channel,
+//     where: {
+//       id: req.params.channelId
+//     }
+//   },
+//   {
+//     model: User,
+//     as: 'owner'
+//   }
+// ]
 router.get('/:channelId/recipes', async (req, res, next) => {
   try {
     const recipes = await Recipe.findAll({
