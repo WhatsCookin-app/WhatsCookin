@@ -36,7 +36,7 @@ class Channels extends React.Component {
           <div className="d-flex flex-row align-items-center">
             <Image
               src={this.props.user.profilePicture}
-              className="profilepic"
+              className="profilepic ml-3"
               roundedCircle
             />
             <span>

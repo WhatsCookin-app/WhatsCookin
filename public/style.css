@@ -124,7 +124,7 @@ video {
 }
 
 .filter {
-  filter: brightness(70%);
+  filter: brightness(60%);
 }
 .recipe-image {
   width: 18.75rem;
@@ -205,6 +205,11 @@ video {
 .profilepic {
   width: 3rem;
   height: 3rem;
+}
+
+.banner {
+  width: 52.5625rem;
+  height: 19.71875rem;
 }
 /* 300 x 270 */
 

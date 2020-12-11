@@ -6,6 +6,7 @@ const socket = io(window.location.origin)
 let localStream
 let isCaller = false
 let rtcPeerConnection
+const users = {}
 
 const iceServers = {
   iceServers: [
