@@ -1,9 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchEvents} from '../store/events'
-import {Button} from 'react-bootstrap'
 import {v4 as uuidv4} from 'uuid'
-import {Form, ListGroup, OverlayTrigger, Tooltip, Row} from 'react-bootstrap'
+import {Form, ListGroup, OverlayTrigger, Tooltip, Button} from 'react-bootstrap'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
 
@@ -53,6 +52,7 @@ class AddEvent extends React.Component {
       this.props.user.id
     )
     this.props.close()
+    this.props.removeUsers()
   }
   render() {
     return (
@@ -124,25 +124,24 @@ class AddEvent extends React.Component {
         {this.props.profiles.length ? (
           <ListGroup>
             {this.props.profiles.map(profile => (
-              <Row key={profile.id}>
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip name="Tool Tip">
-                      Click to add {profile.firstName}
-                    </Tooltip>
-                  }
+              <OverlayTrigger
+                placement="right"
+                overlay={
+                  <Tooltip name="Tool Tip">
+                    Click to add {profile.firstName}
+                  </Tooltip>
+                }
+                key={profile.id}
+              >
+                <ListGroup.Item
+                  action
+                  onClick={() => this.clickProfile(profile)}
+                  type="submit"
+                  variant="light"
                 >
-                  <ListGroup.Item
-                    action
-                    onClick={() => this.clickProfile(profile)}
-                    type="submit"
-                    variant="light"
-                  >
-                    {profile.firstName} {profile.lastName} | {profile.userName}
-                  </ListGroup.Item>
-                </OverlayTrigger>
-              </Row>
+                  {profile.firstName} {profile.lastName} | {profile.userName}
+                </ListGroup.Item>
+              </OverlayTrigger>
             ))}
           </ListGroup>
         ) : (
