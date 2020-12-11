@@ -67,16 +67,6 @@ class SingleRecipe extends Component {
       this.props.location.state.source,
       this.props.location.state.channelId
     )
-    // if (this.props.location.state.source === 'channels')
-    // {
-    //   this.props.history.push(`/home/channels/${this.props.location.state.channelId}`)
-    // }
-    // if (this.props.location.state.source === 'search'){
-    //   this.props.history.push({
-    //     pathname: '/recipes/searchResults',
-    //     state: { searchStr: this.props.location.state.searchStr}
-    //   })
-    // }
   }
 
   async handleSubmitName(event) {
