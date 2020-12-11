@@ -31,7 +31,7 @@ class Channels extends React.Component {
     //if (!channels.length) return <h1>Loading</h1>
 
     return (
-      <div id="flex view">
+      <div id="flex" className="view">
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex flex-row align-items-center">
             <Image
