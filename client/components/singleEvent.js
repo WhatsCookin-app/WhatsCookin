@@ -41,14 +41,15 @@ const SingleEvent = ({event, user, handleClick}) => {
             )}
             <Link
               to={{
-                pathname: `/home/get-cookin/${event.roomId}`,
+                pathname: `/home/get-cookin/${event.roomId}/${event.id}`,
                 state: {name: event.name, description: event.description}
               }}
+              target="_blank"
             >
               <Button
                 type="button"
                 variant="info"
-                onClick={() => handleClick(event.roomId)}
+                // onClick={() => handleClick(event.roomId)}
               >
                 Join Event
               </Button>

@@ -18,16 +18,16 @@ class EventsPage extends React.Component {
       show: false
     }
     this.handleClose = this.handleClose.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getEvents(this.props.user.id)
   }
 
-  handleClick(roomId) {
-    socket.emit('create or join', roomId)
-  }
+  // handleClick(roomId) {
+  //   socket.emit('create or join', roomId)
+  // }
 
   handleClose() {
     this.setState({show: false})
@@ -169,7 +169,7 @@ class EventsPage extends React.Component {
               <SingleEvent
                 key={element.id}
                 event={element}
-                handleClick={this.handleClick}
+                // handleClick={this.handleClick}
               />
             ))}
         </div>
