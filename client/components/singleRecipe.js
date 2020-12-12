@@ -126,14 +126,13 @@ class SingleRecipe extends Component {
           this.props.user.id === this.props.singleRecipe.ownerId ? (
             <FontAwesomeIcon
               icon={faEdit}
+              className="cursor mr-3"
               style={{color: 'blue'}}
               onClick={() => {
                 this.setState({nameEdit: true})
               }}
             />
-          ) : (
-            <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
-          )}
+          ) : null}
         </div>
         <Modal show={this.state.nameEdit} onHide={this.handleClose}>
           <Modal.Header closeButton />
@@ -167,7 +166,10 @@ class SingleRecipe extends Component {
           </h5>
 
           <h5 className="authorline">
-            Recipe created by: {this.props.singleRecipe.owner.userName}
+            Recipe created by:{' '}
+            <span className="text-info font-weight-bold">
+              @{this.props.singleRecipe.owner.userName}
+            </span>
           </h5>
         </div>
         <img src={this.props.singleRecipe.imageUrl} id="img" />
@@ -180,14 +182,13 @@ class SingleRecipe extends Component {
               this.props.user.id === this.props.singleRecipe.ownerId ? (
                 <FontAwesomeIcon
                   icon={faEdit}
+                  className="cursor mr-3"
                   style={{color: 'blue'}}
                   onClick={() => {
                     this.setState({ingredientEdit: true})
                   }}
                 />
-              ) : (
-                <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
-              )}
+              ) : null}
             </div>
             <h5>
               {this.props.singleRecipe.ingredients
@@ -232,14 +233,13 @@ class SingleRecipe extends Component {
             this.props.user.id === this.props.singleRecipe.ownerId ? (
               <FontAwesomeIcon
                 icon={faEdit}
+                className="cursor mr-3"
                 style={{color: 'blue'}}
                 onClick={() => {
                   this.setState({instructionEdit: true})
                 }}
               />
-            ) : (
-              <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
-            )}
+            ) : null}
           </div>
           <h5>
             {this.props.singleRecipe.instructions
@@ -287,11 +287,7 @@ class SingleRecipe extends Component {
           >
             Delete recipe
           </Button>
-        ) : (
-          <Button variant="danger" type="submit" size="sm" disabled>
-            Delete recipe
-          </Button>
-        )}
+        ) : null}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title />
