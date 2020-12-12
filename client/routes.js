@@ -15,7 +15,8 @@ import {
   BrowseChannels,
   NotFound,
   UserSettings,
-  NavCopy
+  NavCopy,
+  VideoSessionCopy
 } from './components'
 import {me} from './store'
 
@@ -53,9 +54,8 @@ class Routes extends Component {
               <Route exact path="/home/get-cookin" component={EventsPage} />
               {/* <Route exact path="/home/get-cookin/:roomId" component={VideoSession} /> */}
               <Route
-                exact
                 path="/home/get-cookin/:roomId"
-                component={() => <VideoSession />}
+                component={VideoSessionCopy}
               />
               <Route
                 exact

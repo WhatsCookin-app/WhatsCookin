@@ -124,6 +124,8 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
+//we have to mount it on state
+// router.get('/:id/events/:eventId', async)
 router.post('/:id/events', async (req, res, next) => {
   try {
     const {
