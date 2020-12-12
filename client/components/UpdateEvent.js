@@ -23,13 +23,26 @@ class UpdateEvent extends React.Component {
   }
 
   componentDidMount() {
+    let newTime = new Date(this.props.event.eventDate).toLocaleTimeString()
+    if (newTime.slice(-2) === 'AM') {
+      newTime = newTime.slice(0, -3)
+    } else if (newTime.slice(-2) === 'PM') {
+      if (newTime.slice(2, 3) === ':') {
+        newTime = (
+          String(Number(newTime.slice(0, 2)) + 12) + newTime.slice(2)
+        ).slice(0, -3)
+      } else if (newTime.slice(1, 2) === ':') {
+        newTime = (
+          String(Number(newTime.slice(0, 1)) + 12) + newTime.slice(1)
+        ).slice(0, -3)
+      }
+    }
     this.setState({
       id: this.props.event.id,
       name: this.props.event.name,
       description: this.props.event.description,
-      date: new Date(this.props.event.eventDate).toLocaleDateString(),
-      // date: this.props.eventDate,
-      time: new Date(this.props.event.eventDate).toLocaleTimeString(),
+      date: new Date(this.props.event.eventDate).toISOString().split('T')[0],
+      time: newTime,
       imageUrl: this.props.event.imageUrl
     })
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -47,6 +60,9 @@ class UpdateEvent extends React.Component {
   }
 
   handleChange(event) {
+    console.log('target field: ', event.target.name)
+    console.log('target value: ', event.target.value)
+    console.log('convert: ', event.target.value + ':00')
     this.setState({[event.target.name]: event.target.value})
   }
 
@@ -60,8 +76,11 @@ class UpdateEvent extends React.Component {
         name: this.state.name,
         description: this.state.description,
         eventDate:
-          this.state.date + ' ' + this.state.time + ':00' ||
-          this.props.event.eventDate,
+          this.state.date.slice(5) +
+          '-' +
+          this.state.date.slice(0, 4) +
+          ' ' +
+          this.state.time,
         imageUrl: this.state.imageUrl,
         organizerId: this.props.event.organizerId
       },
@@ -138,8 +157,10 @@ class UpdateEvent extends React.Component {
             <br />{' '}
           </Form.Group>
           <div className="d-flex justify-content-end">
-            {this.state.name &&
-            this.state.description &&
+            {this.state.name ||
+            this.state.date ||
+            this.state.time ||
+            this.state.description ||
             this.state.imageUrl ? (
               // &&
               // this.state.date &&

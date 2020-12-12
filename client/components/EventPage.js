@@ -165,13 +165,17 @@ class EventsPage extends React.Component {
         </OverlayTrigger>
         <div className="d-flex flex-wrap justify-content-center align-items-center">
           {events &&
-            events.map(element => (
-              <SingleEvent
-                key={element.id}
-                event={element}
-                // handleClick={this.handleClick}
-              />
-            ))}
+            events
+              .sort(function(a, b) {
+                return a - b
+              })
+              .map(element => (
+                <SingleEvent
+                  key={element.id}
+                  event={element}
+                  handleClick={this.handleClick}
+                />
+              ))}
         </div>
 
         <div>
