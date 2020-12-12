@@ -12,6 +12,8 @@ export {default as SingleRecipe} from './singleRecipe'
 export {default as Channels} from './channels'
 export {default as SingleChannel} from './single-channel'
 export {default as VideoSession} from './VideoSession'
+export {default as VideoSessionCopy} from './VideoSessionCopy'
+
 export {default as SearchResults} from './searchResults'
 export {default as EventsPage} from './EventPage'
 export {default as SearchUsers} from './SearchUsers'

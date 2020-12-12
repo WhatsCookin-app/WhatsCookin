@@ -37,11 +37,18 @@ module.exports = io => {
       socket.broadcast.to(event.room).emit('answer', event.sdp)
     })
 
-    socket.on('closeSession', function() {
+    socket.on('closeSession', function(roomId) {
       console.log('in index socket')
 
-      socket.emit('closeSession')
+      socket.emit('closeSession', roomId)
       console.log('end of socket')
+    })
+
+    socket.on('remove video', function(roomId) {
+      console.log('in remove video server socket')
+
+      socket.broadcast.to(roomId).emit('remove video', roomId)
+      console.log('end of remove video on server')
     })
 
     socket.on('disconnect', () => {

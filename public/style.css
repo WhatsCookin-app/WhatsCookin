@@ -28,11 +28,13 @@ nav a {
   display: inline-block;
   margin: 1em;
   color: whitesmoke;
+  border-bottom: 2px solid transparent;
 }
 
 nav a:hover {
-  color: #e63946;
-  text-decoration: none;
+  color: whitesmoke;
+  border-bottom-color: whitesmoke;
+
   /* font-weight: bold; */
 }
 
