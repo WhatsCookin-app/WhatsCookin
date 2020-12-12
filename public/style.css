@@ -27,12 +27,14 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
-  color: #e24e42;
+  color: whitesmoke;
+  border-bottom: 2px solid transparent;
 }
 
 nav a:hover {
-  color: #e24e42;
-  text-decoration: italic;
+  color: whitesmoke;
+  border-bottom-color: whitesmoke;
+
   /* font-weight: bold; */
 }
 

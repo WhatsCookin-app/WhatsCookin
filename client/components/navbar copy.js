@@ -65,7 +65,7 @@ class NavCopy extends Component {
     return (
       <div id="nav-top">
         <BootstrapNavbar
-          bg="info"
+          bg="navbar"
           className="border-bottom justify-content-between shadow-sm"
           expand="sm"
           style={

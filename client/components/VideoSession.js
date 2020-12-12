@@ -12,6 +12,7 @@ const VideoSession = props => {
   console.log('location hook: ', location)
   const userVideo = useRef()
   const partnerVideo = useRef()
+  socket.emit('create or join', params.roomId)
 
   useEffect(() => {
     if (userVideo.current && props.videos.myVideo.id) {
@@ -37,8 +38,8 @@ const VideoSession = props => {
   return (
     <div className="view">
       <Room roomId={params.roomId} />
-      <h1>{location.state.name}</h1>
-      <h5>{location.state.description}</h5>
+      {/* <h1>{location.state.name}</h1>
+      <h5>{location.state.description}</h5> */}
       <div className="d-flex flex-row justify-content-around mb-5">
         <div className="d-flex flex-column">
           <div>
