@@ -27,8 +27,9 @@ class UpdateEvent extends React.Component {
       id: this.props.event.id,
       name: this.props.event.name,
       description: this.props.event.description,
-      // date: new Date(this.props.event.eventDate).toLocaleDateString(),
-      // time: new Date(this.props.event.eventDate).toLocaleTimeString(),
+      date: new Date(this.props.event.eventDate).toLocaleDateString(),
+      // date: this.props.eventDate,
+      time: new Date(this.props.event.eventDate).toLocaleTimeString(),
       imageUrl: this.props.event.imageUrl
     })
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -51,14 +52,18 @@ class UpdateEvent extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    console.log(this.state.date + ' ' + this.state.time + ':00')
+    // let date = this.state.date && this.state.time ? (this.state.date + ' ' + this.state.time + ':00') : this.state.date ? (this.state.date + ' '
     this.props.updateEvent(
       {
         id: this.state.id,
         name: this.state.name,
         description: this.state.description,
-        // eventDate: this.state.date + ' ' + this.state.time + ':00',
-        imageUrl: this.state.imageUrl
-        // organizerId: this.props.event.organizerId,
+        eventDate:
+          this.state.date + ' ' + this.state.time + ':00' ||
+          this.props.event.eventDate,
+        imageUrl: this.state.imageUrl,
+        organizerId: this.props.event.organizerId
       },
 
       this.props.user.id
