@@ -70,12 +70,6 @@ class Recipes extends React.Component {
                       className="recipe-image rounded"
                     />
                   </Link>
-                  {/* <Link
-                    to={`/home/recipes/${
-                      element.id
-                    }`}
-                    className="text-info mt-1"
-                  > */}
                   <Link
                     to={{
                       pathname: `/home/recipes/${element.id}`,

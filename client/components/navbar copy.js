@@ -103,10 +103,10 @@ class NavCopy extends Component {
               </Link>
 
               <Link to="/channels">
-                <Nav.Item>Channels</Nav.Item>
+                <Nav.Item>My Channels</Nav.Item>
               </Link>
               <Link to="/home/get-cookin">
-                <Nav.Item>GetCookin</Nav.Item>
+                <Nav.Item>Live Cooking</Nav.Item>
               </Link>
 
               <Link to="/" onClick={this.props.handleClick}>
