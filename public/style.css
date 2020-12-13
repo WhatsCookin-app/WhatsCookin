@@ -5,8 +5,6 @@ body {
 .view {
   min-height: 100vh;
   margin-bottom: 1rem;
-  /* margin: 0rem; */
-  /* margin-left: 0.625rem; */
 }
 
 div a {
@@ -35,31 +33,71 @@ nav a {
 nav a:hover {
   color: whitesmoke;
   border-bottom-color: whitesmoke;
+}
 
-  /* font-weight: bold; */
+#profile-dropdown {
+  color: whitesmoke;
+}
+
+#edit-profile {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#edit-profile:hover {
+  border-bottom-color: black;
+}
+
+#logout {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#logout:hover {
+  border-bottom-color: black;
+}
+
+#live-cooking {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#live-cooking:hover {
+  border-bottom-color: black;
+}
+
+#channels-dropdown {
+  color: whitesmoke;
+}
+
+#browse {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#browse:hover {
+  border-bottom-color: black;
+}
+
+#my-channels {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#my-channels:hover {
+  border-bottom-color: black;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
 }
-/*
-#all-recipes {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-} */
-/*
-#single-recipe {
-  padding: 20px;
-} */
 
-#single-recipe a {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 400;
-  color: green;
-}
 video {
   max-width: 100%;
   width: 320px;
