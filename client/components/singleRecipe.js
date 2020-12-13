@@ -28,6 +28,7 @@ class SingleRecipe extends Component {
       ingredients: '',
       instructions: '',
       likes: 0,
+      liked: false,
       show: false
     }
     this.handleClose = this.handleClose.bind(this)
@@ -53,11 +54,14 @@ class SingleRecipe extends Component {
   }
 
   async handleClick() {
-    const newLikes = this.state.likes + 1
-    this.setState({likes: newLikes})
-    await this.props.updateRecipe(this.props.match.params.recipeId, {
-      likes: newLikes
-    })
+    if (!this.state.liked) {
+      console.log('not liked')
+      const newLikes = this.state.likes + 1
+      this.setState({likes: newLikes, liked: true})
+      await this.props.updateRecipe(this.props.match.params.recipeId, {
+        likes: newLikes
+      })
+    }
   }
 
   handleDelete() {
