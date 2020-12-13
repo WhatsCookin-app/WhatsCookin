@@ -18,16 +18,23 @@ class SearchResults extends React.Component {
     const recipes = this.props.recipes
     console.log('recipes props: ', this.props.recipes)
     if (!recipes.length) {
-      return <h1>No results for your search, try a different key word</h1>
+      return (
+        <div className="view d-flex justify-content-center align-items-center">
+          <h1>No results for your search, try a different key word</h1>
+        </div>
+      )
     }
     return (
-      <div className="d-flex flex-wrap justify-content-center align-items-center view">
-        {recipes &&
-          recipes.map(element => {
+      <div className="d-flex flex-column view">
+        <p className="ml-3 mt-3">
+          Showing {recipes.length} {recipes.length > 1 ? 'results:' : 'result:'}
+        </p>
+        <div className="d-flex flex-wrap justify-content-center align-items-center">
+          {recipes.map(element => {
             return (
               <Card
                 key={element.id}
-                className="recipe-card m-2 border-light"
+                className="search-card m-2 border-light"
                 bg="transparent"
               >
                 <Link
@@ -42,13 +49,24 @@ class SearchResults extends React.Component {
                     src={element.imageUrl}
                     className="recipe-image rounded"
                   />
-                  <Card.Title className="text-info mt-1">
-                    {element.name}
-                  </Card.Title>
                 </Link>
+
+                <Card.Title className="text-info mt-1 mb-0">
+                  {element.name}
+                </Card.Title>
+                <Card.Text className="text-info mb-0">
+                  by {element.owner.firstName} {element.owner.lastName} |{' '}
+                  <span className="text-kade font-weight-bold">
+                    @{element.owner.userName}
+                  </span>{' '}
+                </Card.Text>
+                <Card.Text className="text-info">
+                  From the {element.channels[0].name} Channel
+                </Card.Text>
               </Card>
             )
           })}
+        </div>
       </div>
     )
   }
@@ -64,7 +82,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     // getStateRecipes: () => dispatch(fetchStateRecipes()),
-    getResults: searchStr => dispatch(fetchResults(searchStr))
+    getResults: str => dispatch(fetchResults(str))
   }
 }
 
