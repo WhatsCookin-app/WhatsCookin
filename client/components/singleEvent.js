@@ -48,7 +48,7 @@ const SingleEvent = ({event, user, handleClick}) => {
             >
               <Button
                 type="button"
-                variant="info"
+                variant="success"
                 // onClick={() => handleClick(event.roomId)}
               >
                 Join Event

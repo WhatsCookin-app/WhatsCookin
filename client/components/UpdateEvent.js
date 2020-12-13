@@ -157,32 +157,9 @@ class UpdateEvent extends React.Component {
             <br />{' '}
           </Form.Group>
           <div className="d-flex justify-content-end">
-            {this.state.name ||
-            this.state.date ||
-            this.state.time ||
-            this.state.description ||
-            this.state.imageUrl ? (
-              // &&
-              // this.state.date &&
-              // this.state.time
-              <Button
-                variant="success"
-                active
-                type="submit"
-                // style={{
-                //   marginLeft: '400px',
-                //   marginBottom: '30px'
-                // }}
-                className="m-1"
-              >
-                Update
-              </Button>
-            ) : (
-              <Button variant="success" disabled type="submit" className="m-1">
-                Update
-              </Button>
-            )}
-
+            <Button variant="success" active type="submit" className="m-1">
+              Update
+            </Button>
             <Button
               variant="danger"
               onClick={this.handleDelete}
