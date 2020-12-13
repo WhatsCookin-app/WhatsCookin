@@ -74,7 +74,16 @@ class NavCopy extends Component {
               : {}
           }
         >
-          <BootstrapNavbar.Brand href="/home" />
+          <BootstrapNavbar.Brand href="/home" className="m-0">
+            <img
+              src="/img/brand-white.png"
+              width="150"
+              // height="30"
+              className=""
+              alt="React Bootstrap logo"
+            />
+          </BootstrapNavbar.Brand>
+          <BootstrapNavbar.Brand />
           {/* <Nav> */}
           {this.props.isLoggedIn ? (
             <Nav>
