@@ -117,6 +117,7 @@ class NavCopy extends Component {
                   type="text"
                   placeholder="Search for a recipe"
                   value={this.state.keyWord}
+                  id="small"
                   className="mr-sm-2 bg-light"
                   onChange={event => this.handleChange(event)}
                   onKeyDown={this.handleKeyPress}
