@@ -165,6 +165,10 @@ router.post('/:id/events', async (req, res, next) => {
 router.put('/events/:eventId', async (req, res, next) => {
   try {
     console.log(req.params.eventId)
+    console.log('req body: ', req.body)
+    req.body.eventDate = moment
+      .utc(moment.tz(req.body.eventDate, 'America/New_York'))
+      .format()
     let updatedEvent = await Event.update(req.body, {
       where: {
         id: req.params.eventId
