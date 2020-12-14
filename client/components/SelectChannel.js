@@ -3,7 +3,13 @@ import {Form} from 'react-bootstrap'
 import {connect} from 'react-redux'
 
 const SelectChannel = props => {
-  if (!props.channels.length) return <p>Looking for Channels</p>
+  if (!props.channels.length)
+    return (
+      <p>
+        Sorry, you currently have no channels so you won't be able to upload a
+        recipe at this time.
+      </p>
+    )
   return (
     <Form className="flex-end">
       <Form.Group controlId="campus">
