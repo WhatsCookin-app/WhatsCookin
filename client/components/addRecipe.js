@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Form} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {postRecipe} from '../store/recipe.js'
+import axios from 'axios'
 
 class AddRecipe extends React.Component {
   constructor() {

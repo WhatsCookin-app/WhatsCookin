@@ -9,6 +9,7 @@ import {OverlayTrigger, Tooltip, ListGroup, Modal, Image} from 'react-bootstrap'
 import {AddChannel} from './edit-channel-sections/index.js'
 import {Link} from 'react-router-dom'
 import {me} from '../store/user'
+//import {Redirect} from 'react-router-dom'
 
 class Channels extends React.Component {
   constructor() {
@@ -27,8 +28,9 @@ class Channels extends React.Component {
   render() {
     const channels = this.props.channels
     const bool = this.state.showAddOptions
-
-    //if (!channels.length) return <h1>Loading</h1>
+    // if(!this.props.channels.length) {
+    //     return <Redirect to="/browse" />
+    //   }
 
     return (
       <div id="flex view">
