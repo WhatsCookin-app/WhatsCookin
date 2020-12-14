@@ -166,6 +166,11 @@ router.put('/events/:eventId', async (req, res, next) => {
   try {
     console.log(req.params.eventId)
     console.log('req body: ', req.body)
+    console.log('original time: ', req.body.eventDate)
+    console.log(
+      'converted time update: ',
+      moment.utc(moment.tz(req.body.eventDate, 'America/New_York')).format()
+    )
     req.body.eventDate = moment
       .utc(moment.tz(req.body.eventDate, 'America/New_York'))
       .format()
