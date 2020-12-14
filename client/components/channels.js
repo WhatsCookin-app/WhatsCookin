@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchChannels} from '../store/channel.js'
-import PublicChannels from './public-channels'
-import PrivateChannels from './private-channels'
+import {ChannelsCarousel, PrivateChannels, PublicChannels} from './index'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {OverlayTrigger, Tooltip, ListGroup, Modal, Image} from 'react-bootstrap'
@@ -32,6 +31,7 @@ class Channels extends React.Component {
 
     return (
       <div id="flex" className="view">
+        <ChannelsCarousel />
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex flex-row align-items-center">
             <Image
