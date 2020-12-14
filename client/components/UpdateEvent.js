@@ -68,6 +68,8 @@ class UpdateEvent extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    console.log(this.state.date + ' ' + this.state.time + ':00')
+    // let date = this.state.date && this.state.time ? (this.state.date + ' ' + this.state.time + ':00') : this.state.date ? (this.state.date + ' '
     this.props.updateEvent(
       {
         id: this.state.id,
