@@ -275,3 +275,26 @@ router.get('/:id/recipes', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:roomId/video/event', async (req, res, next) => {
+  try {
+    const event = await Event.findOne({
+      where: {
+        roomId: req.params.roomId
+      },
+      include: [
+        {
+          model: User,
+          as: 'organizer'
+        },
+        {
+          model: User,
+          as: 'guest'
+        }
+      ]
+    })
+    res.json(event)
+  } catch (err) {
+    next(err)
+  }
+})

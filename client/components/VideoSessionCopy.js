@@ -5,6 +5,7 @@ import socket from '../socket'
 import Room from './Room'
 import {Button} from 'react-bootstrap'
 import {render} from 'enzyme'
+import {fetchVideoEvent} from '../store/videoEvent'
 
 class VideoSession extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class VideoSession extends React.Component {
 
   componentDidMount() {
     socket.emit('create or join', this.props.match.params.roomId)
+    this.props.getEvent(this.props.match.params.roomId)
   }
 
   componentDidUpdate() {
@@ -36,13 +38,28 @@ class VideoSession extends React.Component {
   }
 
   render() {
+    if (!this.props.videoEvent.id) {
+      return null
+    }
     return (
       <div className="view mt-5">
         <Room roomId={this.props.match.params.roomId} />
-        {/* <h1>{location.state.name}</h1>
-      <h5>{location.state.description}</h5> */}
-        <div className="d-flex flex-column align-items-center justify-content-center">
-          <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
+
+        <div className="m-3">
+          <h1>{this.props.videoEvent.name}</h1>
+          <h5>{this.props.videoEvent.description}</h5>
+          Participants:{' '}
+          <span className="text-kade font-weight-bold">
+            @{this.props.videoEvent.organizer.userName}{' '}
+          </span>{' '}
+          and{' '}
+          <span className="text-kade font-weight-bold">
+            @{this.props.videoEvent.guest.userName}
+          </span>{' '}
+        </div>
+      <div className="d-flex flex-column align-items-center justify-content-center">
+        <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
+          <div className="d-flex flex-column">
             <div>
               <video
                 id="localVideo"
@@ -86,8 +103,13 @@ class VideoSession extends React.Component {
 
 const mapState = state => {
   return {
-    videos: state.videos
+    videos: state.videos,
+    videoEvent: state.videoEvent
   }
 }
 
-export default connect(mapState)(VideoSession)
+const mapDispatch = dispatch => ({
+  getEvent: roomId => dispatch(fetchVideoEvent(roomId))
+})
+
+export default connect(mapState, mapDispatch)(VideoSession)
