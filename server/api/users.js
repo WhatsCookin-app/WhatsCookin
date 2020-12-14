@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, channelUser, Event} = require('../db/models')
+const {User, channelUser, Event, Recipe} = require('../db/models')
 const isUserMiddleware = require('./isUserMiddleware')
 const Sequelize = require('sequelize')
 const nodemailer = require('nodemailer')
@@ -257,6 +257,20 @@ router.delete('/events/:eventId', async (req, res, next) => {
       err.status = 401
       return next(err)
     }
+  } catch (err) {
+    next(err)
+  }
+})
+
+//get a user's recipes
+router.get('/:id/recipes', async (req, res, next) => {
+  try {
+    const recipes = await Recipe.findAll({
+      where: {
+        ownerId: req.params.id
+      }
+    })
+    res.json(recipes)
   } catch (err) {
     next(err)
   }

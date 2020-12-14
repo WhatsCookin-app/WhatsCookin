@@ -16,6 +16,7 @@ import {
   NotFound,
   UserSettings,
   NavCopy,
+  MyRecipes,
   VideoSessionCopy
 } from './components'
 import {me} from './store'
@@ -62,6 +63,7 @@ class Routes extends Component {
                 path="/home/channels/:channelId"
                 component={Recipes}
               />
+              <Route exact path="/home/myRecipes" component={MyRecipes} />
               <Route
                 exact
                 path="/home/recipes/:recipeId"
