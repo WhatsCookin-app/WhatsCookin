@@ -246,6 +246,12 @@ form div {
   .channels-banner {
     max-width: 374px;
   }
+
+  #profilePicture {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 410px;
+  }
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
@@ -272,6 +278,12 @@ form div {
   }
 
   .channels-banner {
+    max-width: 370px;
+  }
+
+  profilePicture {
+    display: flex;
+    flex-wrap: wrap;
     max-width: 370px;
   }
 }
@@ -324,7 +336,7 @@ body {
 .context {
   width: 100%;
   position: absolute;
-  top: 10vh;
+  top: 20vh;
   z-index: 900;
 }
 
@@ -341,8 +353,8 @@ body {
   left: 45%;
 }
 .area {
-  background: #fff7c0;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  /* background-color: #; */
+  /* background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8); */
   width: 100%;
   height: 85vh;
 }
