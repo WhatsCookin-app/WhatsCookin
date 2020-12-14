@@ -48,7 +48,7 @@ const SingleEvent = ({event, user, handleClick}) => {
             >
               <Button
                 type="button"
-                variant="info"
+                variant="success"
                 // onClick={() => handleClick(event.roomId)}
               >
                 Join Event
@@ -63,11 +63,11 @@ const SingleEvent = ({event, user, handleClick}) => {
           {new Date(event.eventDate).toLocaleTimeString()}
         </Card.Text>
         <Card.Text>
-          with{' '}
+          Hosted by{' '}
           <span className="text-kade font-weight-bold">
             @{event.organizer.userName}{' '}
           </span>{' '}
-          and{' '}
+          with{' '}
           <span className="text-kade font-weight-bold">
             @{event.guest.userName}
           </span>{' '}
