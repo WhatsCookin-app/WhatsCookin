@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchMyRecipes} from '../store/recipe.js'
+import {fetchMyRecipes} from '../store/myRecipe.js'
 import {
   deleteChannel,
   fetchChannel,
@@ -34,7 +34,7 @@ class MyRecipes extends React.Component {
   }
 
   render() {
-    const recipes = this.props.recipes
+    const recipes = this.props.myRecipes
     return (
       <div className="flex-column view">
         <div className="d-flex align-items-center justify-content-between mr-5">
@@ -129,7 +129,7 @@ class MyRecipes extends React.Component {
 
 const mapState = state => {
   return {
-    recipes: state.recipe,
+    myRecipes: state.myRecipes,
     channel: state.singleChannel.channel,
     user: state.user
   }

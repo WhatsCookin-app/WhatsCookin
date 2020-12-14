@@ -118,7 +118,9 @@ class AddEvent extends React.Component {
           </Form.Group>
         ) : (
           <p style={{marginLeft: '15px'}}>
-            Invited User:&nbsp;&nbsp;&nbsp;{this.state.participant}
+            Invited User:&nbsp;&nbsp;<div className="text-kade font-weight-bold">
+              @{this.state.participant}
+            </div>
           </p>
         )}
         {this.props.profiles.length ? (
