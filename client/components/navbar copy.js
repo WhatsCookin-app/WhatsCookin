@@ -94,6 +94,9 @@ class NavCopy extends Component {
             <Nav className="d-flex justify-content-center align-items-center">
               {/* The navbar will show these links after you log in */}
               <NavDropdown title="Profile" id="profile-dropdown">
+                <Link to="/home/myRecipes" id="my-recipes">
+                  My Recipes
+                </Link>
                 <Link to="/editProfile" id="edit-profile">
                   Edit Profile
                 </Link>

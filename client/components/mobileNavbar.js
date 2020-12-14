@@ -60,6 +60,9 @@ class NavCopy extends Component {
               <Link to="/home/get-cookin" id="live-cooking">
                 Live Cooking
               </Link>
+              <Link to="/home/myRecipes" id="my-recipes">
+                My Recipes
+              </Link>
               <Link to="/editProfile" id="edit-profile">
                 Edit Profile
               </Link>
