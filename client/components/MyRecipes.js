@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchRecipes} from '../store/recipe.js'
+import {fetchMyRecipes} from '../store/recipe.js'
 import {
   deleteChannel,
   fetchChannel,
@@ -12,7 +12,7 @@ import {faHeart} from '@fortawesome/free-solid-svg-icons'
 import {Modal, Card} from 'react-bootstrap'
 import {SingleChannel, AddRecipe} from './index'
 
-class Recipes extends React.Component {
+class MyRecipes extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,7 +22,7 @@ class Recipes extends React.Component {
     this.handleAddRecipe = this.handleAddRecipe.bind(this)
   }
   componentDidMount() {
-    this.props.getAllRecipes(this.props.match.params.channelId)
+    this.props.getMyRecipes(this.props.user.id)
   }
 
   handleClose() {
@@ -37,16 +37,7 @@ class Recipes extends React.Component {
     const recipes = this.props.recipes
     return (
       <div id="all-recipes" className="flex-column view">
-        <div>
-          <SingleChannel
-            channelId={this.props.match.params.channelId}
-            updateChannel={this.props.updateChannel}
-            getChannel={this.props.getChannel}
-            channel={this.props.channel}
-            deleteChannel={this.props.deleteChannel}
-            handleAddRecipe={this.handleAddRecipe}
-          />
-        </div>
+        <h1>My Recipes</h1>
         <div className="d-flex flex-wrap justify-content-center align-items-center ">
           {recipes &&
             recipes.map(element => {
@@ -60,7 +51,7 @@ class Recipes extends React.Component {
                     to={{
                       pathname: `/home/recipes/${element.id}`,
                       state: {
-                        source: 'channels',
+                        source: 'myRecipes',
                         channelId: this.props.match.params.channelId
                       }
                     }}
@@ -80,7 +71,7 @@ class Recipes extends React.Component {
                     to={{
                       pathname: `/home/recipes/${element.id}`,
                       state: {
-                        source: 'channels',
+                        source: 'myRecipes',
                         channelId: this.props.match.params.channelId
                       }
                     }}
@@ -95,12 +86,6 @@ class Recipes extends React.Component {
                       <span className="text-secondary">{element.likes}</span>
                     </Card.Title>
                   </Link>
-                  <Card.Text>
-                    by {element.owner.firstName} {element.owner.lastName} |{' '}
-                    <span className="text-kade font-weight-bold">
-                      @{element.owner.userName}
-                    </span>{' '}
-                  </Card.Text>
                 </Card>
               )
             })}
@@ -125,17 +110,18 @@ class Recipes extends React.Component {
 const mapState = state => {
   return {
     recipes: state.recipe,
-    channel: state.singleChannel.channel
+    channel: state.singleChannel.channel,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    getAllRecipes: channelId => dispatch(fetchRecipes(channelId)),
+    getMyRecipes: userId => dispatch(fetchMyRecipes(userId)),
     getChannel: channelId => dispatch(fetchChannel(channelId)),
     updateChannel: channel => dispatch(updateChannel(channel)),
     deleteChannel: channelId => dispatch(deleteChannel(channelId))
   }
 }
 
-export default connect(mapState, mapDispatch)(Recipes)
+export default connect(mapState, mapDispatch)(MyRecipes)

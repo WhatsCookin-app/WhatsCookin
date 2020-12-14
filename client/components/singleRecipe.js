@@ -176,7 +176,7 @@ class SingleRecipe extends Component {
             </span>
           </h5>
         </div>
-        <img src={this.props.singleRecipe.imageUrl} id="img" />
+        <img src={this.props.singleRecipe.imageUrl} id="single_recipe_img" />
 
         <div>
           <div>

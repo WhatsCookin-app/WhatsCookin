@@ -31,7 +31,7 @@ class SearchResults extends React.Component {
       return <h1>No results for your search, try a different key word</h1>
     }
     return (
-      <div>
+      <div className="view">
         {recipes &&
           recipes.map(element => {
             return (

@@ -116,25 +116,7 @@ router.get('/:channelId/recipes', async (req, res, next) => {
     next(err)
   }
 })
-// Get a single a User's Channels with the Channel eager loaded
-// This will only get a single channel the user is in
-// router.get('/:channelId', async (req, res, next) => {
-//   try {
-//     const user = req.user.id
-//     const channel = await channelUser.findOne({
-//       where: {
-//         userId: user,
-//         channelId: req.params.channelId,
-//       },
-//       include: Channel,
-//     })
-//     res.json(channel)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
-//Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
   try {
     const {name, description, imageUrl, isPrivate} = req.body
