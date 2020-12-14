@@ -49,7 +49,9 @@ const AuthForm = props => {
           />
         </Form.Group>
         <div>
-          <Button type="submit">{displayName}</Button>
+          <Button type="submit" className="mr-1">
+            {displayName}
+          </Button>
           <Button
             type="button"
             onClick={async () => {
