@@ -3,6 +3,7 @@ import {Modal, Form, Button} from 'react-bootstrap'
 import axios from 'axios'
 import {deleteEvent, updateEvent} from '../store/events'
 import {connect} from 'react-redux'
+import moment from 'moment'
 
 class UpdateEvent extends React.Component {
   constructor(props) {
@@ -25,7 +26,10 @@ class UpdateEvent extends React.Component {
   componentDidMount() {
     let newTime = new Date(this.props.event.eventDate).toLocaleTimeString()
     if (newTime.slice(-2) === 'AM') {
-      newTime = newTime.slice(0, -3)
+      newTime = newTime.slice(0, -6)
+      if (newTime.length === 4) {
+        newTime = '0' + newTime
+      }
     } else if (newTime.slice(-2) === 'PM') {
       if (newTime.slice(2, 3) === ':') {
         newTime = (
@@ -41,7 +45,10 @@ class UpdateEvent extends React.Component {
       id: this.props.event.id,
       name: this.props.event.name,
       description: this.props.event.description,
-      date: new Date(this.props.event.eventDate).toISOString().split('T')[0],
+      //date: new Date(this.props.event.eventDate).toISOString().split('T')[0],
+      date: moment(new Date(this.props.event.eventDate).toLocaleDateString())
+        .format()
+        .slice(0, 10),
       time: newTime,
       imageUrl: this.props.event.imageUrl
     })
@@ -99,6 +106,7 @@ class UpdateEvent extends React.Component {
   render() {
     console.log('state date: ', this.state.date)
     console.log('state time: ', this.state.time)
+    console.log('try moment: ', moment('09/24/2019').format())
     return (
       <Modal show={this.props.show} onHide={this.props.handleClose}>
         <Modal.Header closeButton>
@@ -138,7 +146,7 @@ class UpdateEvent extends React.Component {
             />
           </Form.Group>
           <Form.Group controlId="time">
-            <Form.Label>Event Date</Form.Label>
+            <Form.Label>Event Time</Form.Label>
             <Form.Control
               name="time"
               type="time"
