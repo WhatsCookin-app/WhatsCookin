@@ -36,11 +36,20 @@ class Channels extends React.Component {
         <ChannelsCarousel />
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex flex-row align-items-center">
-            <Image
-              src={this.props.user.profilePicture}
-              className="profilepic ml-3"
-              roundedCircle
-            />
+            {this.props.user.profilePicture ? (
+              <Image
+                src={this.props.user.profilePicture}
+                className="profilepic ml-3"
+                roundedCircle
+              />
+            ) : (
+              <Image
+                src="/img/chef.png"
+                className="profilepic ml-3"
+                roundedCircle
+              />
+            )}
+
             <span>
               <h1 className="ml-3">{this.props.user.userName}'s Channels</h1>
             </span>

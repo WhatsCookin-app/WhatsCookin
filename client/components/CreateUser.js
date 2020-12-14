@@ -54,15 +54,12 @@ class CreateUser extends Component {
         </div>
         <div>
           <Form>
-            <Form.Group
-              controlId="formBasicEmail"
-              onChange={this.handleChange}
-              name="signup"
-            >
+            <Form.Group controlId="formBasicEmail" name="signup">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 name="email"
                 type="email"
+                onChange={this.handleChange}
                 placeholder="Enter email"
               />
             </Form.Group>
@@ -72,6 +69,7 @@ class CreateUser extends Component {
                 name="firstName"
                 type="firstName"
                 placeholder="First Name"
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group controlId="lastName">
@@ -80,6 +78,7 @@ class CreateUser extends Component {
                 name="lastName"
                 type="lastName"
                 placeholder="Last Name"
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group controlId="userName">
@@ -88,6 +87,7 @@ class CreateUser extends Component {
                 name="userName"
                 type="userName"
                 placeholder="User Name"
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group controlId="password">
@@ -96,6 +96,7 @@ class CreateUser extends Component {
                 name="password"
                 type="password"
                 placeholder="Password"
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group controlId="Upload Image">
