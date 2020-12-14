@@ -9,7 +9,7 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="mt-2">
       <div className="area">
         <ul className="circles">
           <li>
@@ -33,7 +33,12 @@ const AuthForm = props => {
         </ul>
       </div>
 
-      <img className="logo" src="/img/logo.png" height="200" width="200" />
+      <img
+        className="logo"
+        src="/img/WhatsCooking_Logo-Red-removebg-preview.png"
+        height="200"
+        width="200"
+      />
 
       <Form onSubmit={handleSubmit} name={name} className="context">
         <Form.Group controlId="formBasicEmail">
@@ -49,7 +54,9 @@ const AuthForm = props => {
           />
         </Form.Group>
         <div>
-          <Button type="submit">{displayName}</Button>
+          <Button type="submit" className="mr-1">
+            {displayName}
+          </Button>
           <Button
             type="button"
             onClick={async () => {

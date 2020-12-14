@@ -9,6 +9,9 @@ import {Button} from 'react-bootstrap'
 import {Toast} from 'react-bootstrap'
 import {Row} from 'react-bootstrap'
 import {Col} from 'react-bootstrap'
+import check from '../mobileCheck'
+
+window.mobileCheck = check
 
 class BrowseChannels extends React.Component {
   constructor() {
@@ -37,7 +40,7 @@ class BrowseChannels extends React.Component {
       } channel, you now have access to browse ${channel.name} recipes`
     )
     setTimeout(() => {
-      this.props.history.push('/home')
+      this.props.history.push('/channels')
     }, 500)
   }
 
@@ -95,17 +98,21 @@ class BrowseChannels extends React.Component {
                         <FontAwesomeIcon icon={faGlobeAmericas} />
                       </Card.Title>
 
-                      <Card.Text>{currChannel.description}</Card.Text>
-                    </div>
-                    <div>
-                      <Button
-                        type="button"
-                        data-dismiss="alert"
-                        aria-label="Close"
-                        onClick={() => this.timeOut(currChannel)}
-                      >
-                        Join Public Channel
-                      </Button>
+                      {check() ? (
+                        ''
+                      ) : (
+                        <Card.Text>{currChannel.description}</Card.Text>
+                      )}
+                      <div>
+                        <Button
+                          type="button"
+                          data-dismiss="alert"
+                          aria-label="Close"
+                          onClick={() => this.timeOut(currChannel)}
+                        >
+                          Join Public Channel
+                        </Button>
+                      </div>
                     </div>
                   </Card.ImgOverlay>
                 </div>
