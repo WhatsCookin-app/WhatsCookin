@@ -169,7 +169,7 @@ class AddEvent extends React.Component {
           </Button>
         ) : (
           <Button
-            variant="success"
+            variant="primary"
             disabled
             type="submit"
             style={{
