@@ -11,6 +11,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart} from '@fortawesome/free-solid-svg-icons'
 import {Modal, Card} from 'react-bootstrap'
 import {SingleChannel, AddRecipe} from './index'
+import NotFound from './notFound.js'
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -35,6 +36,9 @@ class Recipes extends React.Component {
 
   render() {
     const recipes = this.props.recipes
+    if (!recipes.length) {
+      return <NotFound />
+    }
     return (
       <div id="all-recipes" className="flex-column view">
         <div>

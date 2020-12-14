@@ -16,6 +16,7 @@ import {Button, Form, Modal} from 'react-bootstrap'
 import NotFound from './notFound'
 import channel from '../store/channel.js'
 import {withRouter} from 'react-router-dom'
+import EditRecipeImg from './EditRecipeImg'
 
 class SingleRecipe extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class SingleRecipe extends Component {
       nameEdit: false,
       ingredientEdit: false,
       instructionEdit: false,
+      imgEdit: false,
       name: '',
       ingredients: '',
       instructions: '',
@@ -49,7 +51,8 @@ class SingleRecipe extends Component {
       show: false,
       nameEdit: false,
       ingredientEdit: false,
-      instructionEdit: false
+      instructionEdit: false,
+      imgEdit: false
     })
   }
 
@@ -139,7 +142,9 @@ class SingleRecipe extends Component {
           ) : null}
         </div>
         <Modal show={this.state.nameEdit} onHide={this.handleClose}>
-          <Modal.Header closeButton />
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Name</Modal.Title>
+          </Modal.Header>
           <Form>
             <Form.Group controlId="name">
               <Form.Label>Recipe Name</Form.Label>
@@ -176,7 +181,32 @@ class SingleRecipe extends Component {
             </span>
           </h5>
         </div>
-        <img src={this.props.singleRecipe.imageUrl} id="single_recipe_img" />
+
+        <div id="editButton">
+          <img src={this.props.singleRecipe.imageUrl} id="single_recipe_img" />
+
+          {this.props.user.id &&
+          this.props.user.id === this.props.singleRecipe.ownerId ? (
+            <FontAwesomeIcon
+              icon={faEdit}
+              className="cursor mr-3"
+              style={{color: 'blue'}}
+              onClick={() => {
+                this.setState({imgEdit: true})
+              }}
+            />
+          ) : null}
+        </div>
+        <Modal show={this.state.imgEdit} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Image</Modal.Title>
+          </Modal.Header>
+          <EditRecipeImg
+            updateRecipe={this.props.updateRecipe}
+            singleRecipe={this.props.singleRecipe}
+            handleClose={this.handleClose}
+          />
+        </Modal>
 
         <div>
           <div>
@@ -208,7 +238,9 @@ class SingleRecipe extends Component {
             </h5>
           </div>
           <Modal show={this.state.ingredientEdit} onHide={this.handleClose}>
-            <Modal.Header closeButton />
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Ingredients</Modal.Title>
+            </Modal.Header>
             <Form>
               <Form.Group controlId="ingredients">
                 <Form.Label>Ingredients</Form.Label>
@@ -258,7 +290,9 @@ class SingleRecipe extends Component {
           </h5>
         </div>
         <Modal show={this.state.instructionEdit} onHide={this.handleClose}>
-          <Modal.Header closeButton />
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Instructions</Modal.Title>
+          </Modal.Header>
           <Form>
             <Form.Group controlId="instructions">
               <Form.Label>Instructions</Form.Label>
