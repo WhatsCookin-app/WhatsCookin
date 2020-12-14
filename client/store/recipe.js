@@ -47,6 +47,19 @@ export const fetchRecipes = channelId => {
 }
 
 //thunk creator
+export const fetchMyRecipes = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/${userId}/recipes`)
+
+      dispatch(getRecipes(data))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+//thunk creator
 export const fetchResults = searchStr => {
   return async dispatch => {
     try {

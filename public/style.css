@@ -106,10 +106,18 @@ form div {
 }
 #img {
   border-radius: 13px;
-  border-color: rgb(219, 247, 211);
+  border-color: #fdfcfc;
   border-style: solid;
   height: 270px;
   width: 300px;
+  max-width: 100%;
+}
+#single_recipe_img {
+  border-radius: 13px;
+  border-color: #fdfcfc;
+  border-style: solid;
+  height: 570px;
+  width: 600px;
   max-width: 100%;
 }
 
