@@ -5,7 +5,7 @@ import {leaveChannel} from '../store/channel'
 
 const LeaveChannel = ({channelId, leave}) => {
   return (
-    <div>
+    <div className="ml-1">
       <Button variant="danger" onClick={() => leave(channelId)}>
         Leave Channel
       </Button>

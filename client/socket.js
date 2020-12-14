@@ -8,11 +8,10 @@ import {
 } from './store/videos'
 import {roomId} from './components/Room'
 import {fetchEvents} from './store/events'
-const socket = io(window.location.origin)
+const socket = io(window.location.origin) //looks for the url
 let localStream
 let isCaller = false
 let rtcPeerConnection
-const users = {}
 
 const iceServers = {
   iceServers: [
@@ -49,6 +48,10 @@ function onAddStream(event) {
 socket.on('connect', () => {
   console.log('Connected!')
 })
+socket.on('added event', function(userId) {
+  store.dispatch(fetchEvents(userId))
+})
+
 socket.on('added event', function(userId) {
   store.dispatch(fetchEvents(userId))
 })

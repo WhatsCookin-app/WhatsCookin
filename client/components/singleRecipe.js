@@ -11,7 +11,7 @@ import {
 } from '../store/singleRecipe.js'
 import Loader from 'react-loader-spinner'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faEdit} from '@fortawesome/free-solid-svg-icons'
+import {faEdit, faHeart} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
 import NotFound from './notFound'
 import channel from '../store/channel.js'
@@ -124,8 +124,11 @@ class SingleRecipe extends Component {
       )
     }
     return (
-      <div className="m-3">
-        <div id="editButton">
+      <div className="d-flex flex-column justify-content-center align-items-center m-5">
+        <div
+          id="editButton"
+          className="d-flex justify-content-center align-items-center"
+        >
           <h5 className="headline">
             {this.props.singleRecipe.name}&nbsp;&nbsp;
           </h5>
@@ -163,23 +166,23 @@ class SingleRecipe extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <div id="editButton">
-          <i
-            className="fas fa-heart cursor"
-            style={{color: 'red'}}
-            onClick={this.handleClick}
-          />
+        <div className="d-flex justify-content-center align-items-center">
+          <div>
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="cursor text-navbar mb-2 mr-1"
+              onClick={this.handleClick}
+            />
+          </div>
 
-          <h5 className="authorline">
-            &nbsp;likes:{this.state.likes}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </h5>
+          <p className="text-muted">{this.state.likes}</p>
 
-          <h5 className="authorline">
+          <h3 className="authorline">
             Recipe created by:{' '}
-            <span className="text-info font-weight-bold">
+            <span className="text-navbar font-weight-bold">
               @{this.props.singleRecipe.owner.userName}
             </span>
-          </h5>
+          </h3>
         </div>
 
         <div id="editButton">
