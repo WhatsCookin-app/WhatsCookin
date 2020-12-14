@@ -157,7 +157,7 @@ class AddEvent extends React.Component {
         this.state.date &&
         this.state.time ? (
           <Button
-            variant="success"
+            variant="primary"
             active
             type="submit"
             style={{
