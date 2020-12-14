@@ -52,6 +52,8 @@ module.exports = io => {
     })
 
     socket.on('disconnect', () => {
+      socket.broadcast.emit('remove video')
+
       console.log(`Connection ${socket.id} has left the building`)
     })
   })

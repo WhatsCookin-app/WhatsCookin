@@ -42,8 +42,9 @@ class VideoSession extends React.Component {
       return null
     }
     return (
-      <div className="view">
+      <div className="view mt-5">
         <Room roomId={this.props.match.params.roomId} />
+
         <div className="m-3">
           <h1>{this.props.videoEvent.name}</h1>
           <h5>{this.props.videoEvent.description}</h5>
@@ -56,6 +57,7 @@ class VideoSession extends React.Component {
             @{this.props.videoEvent.guest.userName}
           </span>{' '}
         </div>
+      <div className="d-flex flex-column align-items-center justify-content-center">
         <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
           <div className="d-flex flex-column">
             <div>
@@ -67,18 +69,6 @@ class VideoSession extends React.Component {
                 ref={this.userVideo}
               />
             </div>
-            <div className="d-flex justify-content-end">
-              <Button
-                type="button"
-                variant="info"
-                onClick={() => this.handleClick()}
-                className="mt-3"
-              >
-                Hang Up
-              </Button>
-            </div>
-          </div>
-          <div>
             <div>
               {/* remove muted */}
               {this.props.videos.partnersVideo &&
@@ -94,6 +84,16 @@ class VideoSession extends React.Component {
                 ''
               )}
             </div>
+          </div>
+          <div className="d-flex justify-conter-center">
+            <Button
+              type="button"
+              variant="danger"
+              onClick={() => this.handleClick()}
+              className="mt-3"
+            >
+              Leave Meeting
+            </Button>
           </div>
         </div>
       </div>

@@ -204,6 +204,16 @@ form div {
   height: 23.125rem;
 }
 
+.banner {
+  width: 52.5625rem;
+  height: 19.71875rem;
+}
+
+.channels-banner {
+  width: 45rem;
+  height: 15rem;
+}
+
 @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
   .image {
     width: 10.6875rem;
@@ -224,8 +234,13 @@ form div {
     width: 10.6875rem;
     height: 23.125rem;
   }
+
+  .channels-banner {
+    max-width: 374px;
+  }
 }
-@media only screen and (min-device-width: 376px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
   .image {
     width: 10.6875rem;
     height: 10.6875rem;
@@ -244,6 +259,10 @@ form div {
   .recipe-card {
     width: 10.6875rem;
     height: 20.875rem;
+  }
+
+  .channels-banner {
+    max-width: 370px;
   }
 }
 
@@ -280,15 +299,6 @@ form div {
   height: 3rem;
 }
 
-.banner {
-  width: 52.5625rem;
-  height: 19.71875rem;
-}
-
-.channels-banner {
-  width: 45rem;
-  height: 15rem;
-}
 /* 300 x 270 */
 
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
