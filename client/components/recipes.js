@@ -82,7 +82,7 @@ class Recipes extends React.Component {
                         channelId: this.props.match.params.channelId
                       }
                     }}
-                    className="text-recipe-name mt-1"
+                    className="text-info mt-1"
                   >
                     <Card.Title>
                       {element.name}{' '}
