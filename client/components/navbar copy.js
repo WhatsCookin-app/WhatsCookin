@@ -12,11 +12,16 @@ import {
   Form,
   FormControl,
   Button,
+  NavDropdown,
   NavItem
 } from 'react-bootstrap'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCog, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {withRouter} from 'react-router'
+import check from '../mobileCheck'
+import MobileNavbar from './mobileNavbar'
+
+window.mobileCheck = check
 
 class NavCopy extends Component {
   constructor() {
@@ -25,7 +30,7 @@ class NavCopy extends Component {
       keyWord: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleClick = this.handleClickSearch.bind(this)
+    this.handleClickSearch = this.handleClickSearch.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
@@ -48,7 +53,6 @@ class NavCopy extends Component {
       event.preventDefault()
       this.props.fetchSearch(this.state.keyWord)
       this.props.getResults(this.state.keyWord)
-      // this.props.history.push('/recipes/searchResult')
       this.props.history.push({
         pathname: '/recipes/searchResult',
         state: {searchStr: this.state.keyWord}
@@ -62,6 +66,8 @@ class NavCopy extends Component {
     console.log('keyword: ', this.state.keyWord)
     if (this.props.videos.myVideo && this.props.videos.myVideo.id)
       return <div />
+
+    if (check()) return <MobileNavbar />
     return (
       <div id="nav-top">
         <BootstrapNavbar
@@ -73,52 +79,59 @@ class NavCopy extends Component {
               ? {position: 'absolute', top: 0, zIndex: 9999, width: '100%'}
               : {}
           }
+          sticky="top"
         >
-          <BootstrapNavbar.Brand href="/home" />
-          {/* <Nav> */}
+          <BootstrapNavbar.Brand href="/home" className="m-0">
+            <img
+              src="/img/brand-white.png"
+              width="150"
+              // height="30"
+              className=""
+              alt="React Bootstrap logo"
+            />
+          </BootstrapNavbar.Brand>
           {this.props.isLoggedIn ? (
-            <Nav>
+            <Nav className="d-flex justify-content-center align-items-center">
               {/* The navbar will show these links after you log in */}
-              <Nav.Item>
-                <Link to="/home" bg="kade">
-                  Home
+              <NavDropdown title="Profile" id="profile-dropdown">
+                <Link to="/home/myRecipes" id="my-recipes">
+                  My Recipes
                 </Link>
-              </Nav.Item>
-              <Link to="/editProfile">
-                <FontAwesomeIcon
-                  icon={faCog}
-                  className="fas fa-cog"
-                  size="1x"
-                />
-                <Nav.Item />
-              </Link>
+                <Link to="/editProfile" id="edit-profile">
+                  Edit Profile
+                </Link>
+                <Link to="/" onClick={this.props.handleClick} id="logout">
+                  Logout
+                </Link>
+              </NavDropdown>
+              <NavDropdown title="Channels" id="channels-dropdown">
+                <Link to="/channels" id="my-channels">
+                  My Channels
+                </Link>
+                <Link to="/browse" id="browse">
+                  Browse
+                </Link>
+              </NavDropdown>
 
-              <Link to="/channels">
-                <Nav.Item>Channels</Nav.Item>
-              </Link>
-              <Link to="/home/get-cookin">
-                <Nav.Item>GetCookin</Nav.Item>
-              </Link>
+              <Link to="/home/get-cookin">Live Cooking</Link>
 
-              <Link to="/" onClick={this.props.handleClick}>
-                Logout
-              </Link>
               <Form inline>
                 <FormControl
                   type="text"
                   placeholder="Search for a recipe"
                   value={this.state.keyWord}
+                  id="small"
                   className="mr-sm-2 bg-light"
                   onChange={event => this.handleChange(event)}
                   onKeyDown={this.handleKeyPress}
                 />
                 {this.state.keyWord === '' ? (
-                  <Button variant="outline-kade">
+                  <Button variant="outline-light">
                     <FontAwesomeIcon icon={faSearch} />
                   </Button>
                 ) : (
                   <Button
-                    variant="outline-kade"
+                    variant="outline-light"
                     onClick={() => {
                       this.handleClickSearch()
                     }}
@@ -135,9 +148,6 @@ class NavCopy extends Component {
               <Link to="/signup">Sign Up</Link>
             </Nav>
           )}
-
-          {/* </Nav> */}
-          {/* <hr /> */}
         </BootstrapNavbar>
       </div>
     )

@@ -36,10 +36,13 @@ class MyRecipes extends React.Component {
   render() {
     const recipes = this.props.recipes
     return (
-      <div id="all-recipes" className="flex-column view">
+      <div className="flex-column view">
         <div className="d-flex align-items-center justify-content-between mr-5">
           <div>
-            <h1>My Recipes</h1>
+            <h1 className="ml-3">
+              You have {recipes.length}{' '}
+              {recipes.length > 1 ? 'recipes:' : 'recipe:'}
+            </h1>
           </div>
 
           <div className="d-flex flex-wrap justify-content-center align-items-center ">

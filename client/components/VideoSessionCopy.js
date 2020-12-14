@@ -41,7 +41,7 @@ class VideoSession extends React.Component {
         <Room roomId={this.props.match.params.roomId} />
         {/* <h1>{location.state.name}</h1>
       <h5>{location.state.description}</h5> */}
-        <div className="d-flex flex-row justify-content-around mb-5">
+        <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
           <div className="d-flex flex-column">
             <div>
               <video
