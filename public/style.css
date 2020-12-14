@@ -167,10 +167,13 @@ form div {
   font-family: 'Source Sans Pro', Times, serif;
   font-size: 16px;
 }
-/*
-#imageUpload {
-  ="position-relative"
-} */
+
+@media only screen and (min-device-width: 376px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  #navtop {
+    box-sizing: border-box;
+  }
+}
+
 .image {
   width: 33.25rem;
   height: 33.25rem;
@@ -182,6 +185,7 @@ form div {
 .recipe-image {
   width: 18.75rem;
   height: 16.875rem;
+  box-sizing: border-box;
 }
 
 .recipe-card {
@@ -192,6 +196,7 @@ form div {
 .event-image {
   width: 38rem;
   height: 12.625rem;
+  box-sizing: border-box;
 }
 
 .event-card {
@@ -218,15 +223,18 @@ form div {
   .image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .recipe-image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .recipe-card {
     width: 10.6875rem;
+    box-sizing: border-box;
     height: 20.875rem;
   }
 
@@ -244,11 +252,13 @@ form div {
   .image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .recipe-image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .search-card {

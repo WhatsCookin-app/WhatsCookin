@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../store'
 import UploadImage from './UploadImage'
+import {Button, Form} from 'react-bootstrap'
 
 class CreateUser extends Component {
   constructor() {
@@ -43,54 +44,62 @@ class CreateUser extends Component {
       profilePicture: path
     })
   }
+
   render() {
     const {error} = this.props
     return (
-      <div className="sign-up view">
-        <form
+      <Form>
+        <Form.Group
+          controlId="formBasicEmail"
+          className="view"
           onChange={this.handleChange}
-          onSubmit={this.handleSubmit}
           name="signup"
         >
-          <div>
-            <label htmlFor="email">
-              <small>Email</small>
-            </label>
-            <input name="email" type="text" />
-          </div>
-          <div>
-            <label htmlFor="firstName">
-              <small>First Name</small>
-            </label>
-            <input name="firstName" type="text" />
-          </div>
-          <div>
-            <label htmlFor="lastName">
-              <small>Last Name</small>
-            </label>
-            <input name="lastName" type="text" />
-          </div>
-          <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
-          </div>
-          <div>
-            <label htmlFor="profilePicture" />
-            <UploadImage setImageUrl={this.setProfilePicture} />
-          </div>
-          <div>
-            <label htmlFor="userName">
-              <small>User Name</small>
-            </label>
-            <input name="userName" type="text" />
-          </div>
-          <div>
-            <button type="submit">Sign Up</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
+          <Form.Label>Email address</Form.Label>
+          <Form.Control name="email" type="email" placeholder="Enter email" />
+        </Form.Group>
+        <Form.Group controlId="firstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control
+            name="firstName"
+            type="firstName"
+            placeholder="First Name"
+          />
+        </Form.Group>
+        <Form.Group controlId="lastName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            name="lastName"
+            type="lastName"
+            placeholder="Last Name"
+          />
+        </Form.Group>
+        <Form.Group controlId="userName">
+          <Form.Label>User Name </Form.Label>
+          <Form.Control
+            name="userName"
+            type="userName"
+            placeholder="User Name"
+          />
+        </Form.Group>
+        <Form.Group controlId="password">
+          <Form.Label>Password </Form.Label>
+          <Form.Control
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Group>
+        <Form.Group controlId="Upload Image">
+          <Form.Label>Profile Picture </Form.Label>
+          <UploadImage setImageUrl={this.setProfilePicture} />
+        </Form.Group>
+        <div>
+          <Button type="submit" onClick={this.handleSubmit}>
+            Sign Up
+          </Button>
+        </div>
+        {error && error.response && <div> {error.response.data} </div>}
         <a href="/auth/google" className="text-kade">
           Sign Up with Google
         </a>
@@ -100,10 +109,11 @@ class CreateUser extends Component {
             Login here!
           </a>
         </p>
-      </div>
+      </Form>
     )
   }
 }
+
 const mapSignup = state => {
   return {
     name: 'signup',
