@@ -10,19 +10,23 @@ import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHeart, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {Modal, Card, OverlayTrigger, Tooltip} from 'react-bootstrap'
-import {SingleChannel, AddRecipe} from './index'
+import {SelectChannel, AddRecipe} from './index'
+import {fetchChannels} from '../store/channel'
 
 class MyRecipes extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      show: false
+      show: false,
+      channelId: ''
     }
+    this.handleChange = this.handleChange.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleAddRecipe = this.handleAddRecipe.bind(this)
   }
   componentDidMount() {
     this.props.getMyRecipes(this.props.user.id)
+    this.props.getChannels()
   }
 
   handleClose() {
@@ -31,6 +35,9 @@ class MyRecipes extends React.Component {
 
   handleAddRecipe() {
     this.setState({show: true})
+  }
+  handleChange(event) {
+    this.setState({channelId: event.target.value})
   }
 
   render() {
@@ -111,9 +118,15 @@ class MyRecipes extends React.Component {
             <Modal.Header closeButton>
               <Modal.Title>Upload a Recipe</Modal.Title>
             </Modal.Header>
+            <SelectChannel
+              channels={this.props.channels}
+              handleChange={this.handleChange}
+            />
             <AddRecipe
               close={this.handleClose}
-              channelId={this.props.match.params.channelId}
+              channelId={this.state.channelId}
+              source="myRecipes"
+              userId={this.props.user.id}
             />
           </Modal>
         </div>
@@ -126,7 +139,8 @@ const mapState = state => {
   return {
     myRecipes: state.myRecipes,
     channel: state.singleChannel.channel,
-    user: state.user
+    user: state.user,
+    channels: state.channels
   }
 }
 
@@ -135,7 +149,8 @@ const mapDispatch = dispatch => {
     getMyRecipes: userId => dispatch(fetchMyRecipes(userId)),
     getChannel: channelId => dispatch(fetchChannel(channelId)),
     updateChannel: channel => dispatch(updateChannel(channel)),
-    deleteChannel: channelId => dispatch(deleteChannel(channelId))
+    deleteChannel: channelId => dispatch(deleteChannel(channelId)),
+    getChannels: () => dispatch(fetchChannels())
   }
 }
 

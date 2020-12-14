@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Form} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {postRecipe} from '../store/recipe.js'
+import {postMyRecipe} from '../store/myRecipe.js'
 import axios from 'axios'
 import socket from '../socket.js'
 
@@ -37,13 +38,34 @@ class AddRecipe extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.addRecipe({
-      name: this.state.name,
-      ingredients: this.state.ingredients,
-      instructions: this.state.instructions,
-      channels: [this.props.channelId],
-      imageUrl: this.state.imageUrl
-    })
+    console.log('source: ', this.props.source)
+    console.log('user: ', this.props.userId)
+    if (this.props.source === 'channel') {
+      this.props.addRecipe(
+        {
+          name: this.state.name,
+          ingredients: this.state.ingredients,
+          instructions: this.state.instructions,
+          channels: [this.props.channelId],
+          imageUrl: this.state.imageUrl
+        },
+        this.props.userId,
+        this.props.source
+      )
+    }
+    if (this.props.source === 'myRecipes') {
+      this.props.addMyRecipe(
+        {
+          name: this.state.name,
+          ingredients: this.state.ingredients,
+          instructions: this.state.instructions,
+          channels: [this.props.channelId],
+          imageUrl: this.state.imageUrl
+        },
+        this.props.userId
+      )
+    }
+
     this.props.close()
   }
 
@@ -149,7 +171,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    addRecipe: newRecipe => dispatch(postRecipe(newRecipe))
+    addRecipe: newRecipe => dispatch(postRecipe(newRecipe)),
+    addMyRecipe: (newRecipe, userId) =>
+      dispatch(postMyRecipe(newRecipe, userId))
   }
 }
 
