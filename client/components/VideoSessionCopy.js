@@ -3,7 +3,7 @@ import {useParams, useLocation} from 'react-router'
 import {connect} from 'react-redux'
 import socket from '../socket'
 import Room from './Room'
-import {Button} from 'react-bootstrap'
+import {Button, Card} from 'react-bootstrap'
 import {render} from 'enzyme'
 import {fetchVideoEvent} from '../store/videoEvent'
 
@@ -42,58 +42,65 @@ class VideoSession extends React.Component {
       return null
     }
     return (
-      <div className="view mt-5">
+      <div className="view bg-dark">
         <Room roomId={this.props.match.params.roomId} />
 
-        <div className="m-3">
-          <h1>{this.props.videoEvent.name}</h1>
-          <h5>{this.props.videoEvent.description}</h5>
-          Participants:{' '}
-          <span className="text-kade font-weight-bold">
-            @{this.props.videoEvent.organizer.userName}{' '}
-          </span>{' '}
-          and{' '}
-          <span className="text-kade font-weight-bold">
-            @{this.props.videoEvent.guest.userName}
-          </span>{' '}
+        <div className="d-flex">
+          <div className="m-5">
+            <Card className="sm ng-light">
+              <Card.Title>{this.props.videoEvent.name}</Card.Title>
+              <Card.Text>{this.props.videoEvent.description}</Card.Text>
+              <Card.Text>
+                Participants:{' '}
+                <span className="text-dark font-weight-bold">
+                  @{this.props.videoEvent.organizer.userName}{' '}
+                </span>{' '}
+                and{' '}
+                <span className="text-dark font-weight-bold">
+                  @{this.props.videoEvent.guest.userName}
+                </span>{' '}
+              </Card.Text>
+            </Card>
+          </div>
         </div>
-      <div className="d-flex flex-column align-items-center justify-content-center">
-        <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
+        <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex flex-column">
-            <div>
-              <video
-                id="localVideo"
-                autoPlay
-                playsInline
-                muted
-                ref={this.userVideo}
-              />
-            </div>
-            <div>
-              {/* remove muted */}
-              {this.props.videos.partnersVideo &&
-              this.props.videos.partnersVideo.id ? (
+            <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
+              <div>
                 <video
-                  id="remoteVideo"
+                  id="localVideo"
                   autoPlay
                   playsInline
                   muted
-                  ref={this.partnerVideo}
+                  ref={this.userVideo}
                 />
-              ) : (
-                ''
-              )}
+              </div>
+              <div>
+                {/* remove muted */}
+                {this.props.videos.partnersVideo &&
+                this.props.videos.partnersVideo.id ? (
+                  <video
+                    id="remoteVideo"
+                    autoPlay
+                    playsInline
+                    muted
+                    ref={this.partnerVideo}
+                  />
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
-          </div>
-          <div className="d-flex justify-conter-center">
-            <Button
-              type="button"
-              variant="danger"
-              onClick={() => this.handleClick()}
-              className="mt-3"
-            >
-              Leave Meeting
-            </Button>
+            <div className="d-flex justify-conter-center">
+              <Button
+                type="button"
+                variant="danger"
+                onClick={() => this.handleClick()}
+                className="mt-3"
+              >
+                Leave Meeting
+              </Button>
+            </div>
           </div>
         </div>
       </div>

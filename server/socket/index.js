@@ -24,6 +24,10 @@ module.exports = io => {
       }
     })
 
+    socket.on('add event', function(userId) {
+      socket.broadcast.emit('added event', userId)
+    })
+
     socket.on('ready', function(room) {
       socket.broadcast.to(room).emit('ready')
     })
