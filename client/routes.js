@@ -34,18 +34,13 @@ class Routes extends Component {
 
     return (
       <>
-        <Route exact path="/login" component={Login} />
         <NavCopy />
+        <Route exact path="/login" component={Login} />
+
         <Switch>
           {/* Routes placed here are available to all visitors */}
 
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/home/channels/:channelId" component={Recipes} />
-          <Route
-            exact
-            path="/home/recipes/:recipeId"
-            component={SingleRecipe}
-          />
 
           {isLoggedIn && (
             <Switch>
