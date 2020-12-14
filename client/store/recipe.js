@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {fetchMyRecipes} from './myRecipe.js'
 // action type
 const GET_RECIPES = 'GET_RECIPES'
 const GET_RESULTS = 'GET_RESULTS'
