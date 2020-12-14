@@ -41,25 +41,24 @@ export const me = () => async dispatch => {
 }
 
 export const auth = userObj => async dispatch => {
-  let res
   try {
+    let res
     if (userObj.method === 'signup') {
       res = await axios.post(`/auth/${userObj.method}`, {
         ...userObj
       })
+      dispatch(getUser(res.data))
+      history.push('/browse')
     } else if (userObj.method === 'login') {
       res = await axios.post(`/auth/${userObj.method}`, {
         ...userObj
       })
+      dispatch(getUser(res.data))
+      history.push('/home')
     }
   } catch (authError) {
+    //console.error(dispatchOrHistoryErr)
     return dispatch(getUser({error: authError}))
-  }
-  try {
-    dispatch(getUser(res.data))
-    history.push('/channels')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
   }
 }
 
