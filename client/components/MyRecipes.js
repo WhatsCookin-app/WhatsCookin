@@ -81,12 +81,7 @@ class MyRecipes extends React.Component {
                       className="recipe-image rounded"
                     />
                   </Link>
-                  {/* <Link
-                    to={`/home/recipes/${
-                      element.id
-                    }`}
-                    className="text-info mt-1"
-                  > */}
+
                   <Link
                     to={{
                       pathname: `/home/recipes/${element.id}`,
@@ -95,7 +90,7 @@ class MyRecipes extends React.Component {
                         channelId: this.props.match.params.channelId
                       }
                     }}
-                    className="text-recipe-name mt-1"
+                    className="text-info mt-1"
                   >
                     <Card.Title>
                       {element.name}{' '}
