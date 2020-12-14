@@ -77,42 +77,44 @@ class SingleChannel extends React.Component {
     const thisChannel = this.props.channel || []
     return (
       <>
-        <div className="d-flex align-items-center justify-content-between mr-5">
+        <div className="d-flex align-items-center justify-content-between">
           <div>
-            <h1>{thisChannel.name} Recipes</h1>
-          </div>
+            <div className="ml-3 mt-3">
+              <h1>{thisChannel.name} Recipes</h1>
+            </div>
 
-          {/* <div> */}
+            <div className="d-flex align-items-center mt-3 ml-4">
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip name="Tool Tip">Add a Recipe</Tooltip>}
+              >
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  onClick={this.props.handleAddRecipe}
+                  className="cursor mr-3"
+                />
+              </OverlayTrigger>
 
-          <div className="d-flex align-items-center">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip name="Tool Tip">Add a Recipe</Tooltip>}
-            >
-              <FontAwesomeIcon
-                icon={faPlus}
-                onClick={this.props.handleAddRecipe}
-                className="cursor mr-3"
+              <AddUser
+                search={this.state.search}
+                handleCloseModal={this.handleCloseModal}
+                handleSearch={this.handleSearch}
               />
-            </OverlayTrigger>
-
-            <AddUser
-              search={this.state.search}
-              handleCloseModal={this.handleCloseModal}
-              handleSearch={this.handleSearch}
-            />
-            {this.props.user === thisChannel.userId ? (
-              <FontAwesomeIcon
-                icon={faInfoCircle}
-                onClick={this.handleClick}
-                className="cursor"
-              />
-            ) : (
-              ''
-            )}
+              {this.props.user === thisChannel.userId ? (
+                <div>
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    onClick={this.handleClick}
+                    className="cursor"
+                  />
+                </div>
+              ) : (
+                ''
+              )}
+            </div>
           </div>
           {this.state.show ? (
-            <div>
+            <div className="mr-3">
               <div className="d-flex justify-content-between align-items-center">
                 <h1>Edit</h1>
                 <FontAwesomeIcon
@@ -125,6 +127,7 @@ class SingleChannel extends React.Component {
                 variant="warning"
                 onClick={this.handleShow}
                 name="Rename Channel"
+                className="mr-1 mb-1"
               >
                 Rename Channel
               </Button>{' '}
@@ -132,6 +135,7 @@ class SingleChannel extends React.Component {
                 variant="warning"
                 onClick={this.handleShow}
                 name="Edit Description"
+                className="mr-1 mb-1"
               >
                 Edit Description
               </Button>{' '}
@@ -139,6 +143,7 @@ class SingleChannel extends React.Component {
                 variant="warning"
                 onClick={this.handleShow}
                 name="Edit Image"
+                className="mr-1 mb-1"
               >
                 Edit Image
               </Button>{' '}
@@ -146,6 +151,7 @@ class SingleChannel extends React.Component {
                 variant="danger"
                 onClick={this.handleDelete}
                 name="Delete Channel"
+                className="mr-1 mb-1"
               >
                 <FontAwesomeIcon
                   icon={faTrash}
