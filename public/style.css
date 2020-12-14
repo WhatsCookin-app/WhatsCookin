@@ -284,6 +284,11 @@ form div {
   width: 52.5625rem;
   height: 19.71875rem;
 }
+
+.channels-banner {
+  width: 45rem;
+  height: 15rem;
+}
 /* 300 x 270 */
 
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
