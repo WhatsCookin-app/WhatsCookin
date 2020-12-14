@@ -2,8 +2,8 @@ import React from 'react'
 
 const NotFound = props => {
   return (
-    <div>
-      {props.check ? <h1>Recipe not found</h1> : <h1> Not checked </h1>}
+    <div className="view d-flex justify-content-center align-items-center">
+      <h1>There are no recipes</h1>
     </div>
   )
 }
