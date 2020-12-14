@@ -336,7 +336,7 @@ body {
 .context {
   width: 100%;
   position: absolute;
-  top: 10vh;
+  top: 20vh;
   z-index: 900;
 }
 
@@ -353,8 +353,8 @@ body {
   left: 45%;
 }
 .area {
-  background: #fff7c0;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  /* background-color: #; */
+  /* background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8); */
   width: 100%;
   height: 85vh;
 }

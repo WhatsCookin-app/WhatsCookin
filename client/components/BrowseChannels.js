@@ -40,7 +40,7 @@ class BrowseChannels extends React.Component {
       } channel, you now have access to browse ${channel.name} recipes`
     )
     setTimeout(() => {
-      this.props.history.push('/home')
+      this.props.history.push('/channels')
     }, 500)
   }
 
