@@ -55,6 +55,10 @@ module.exports = io => {
       console.log('end of remove video on server')
     })
 
+    socket.on('change input', inputObj => {
+      socket.broadcast.emit('new input', inputObj)
+    })
+
     socket.on('disconnect', () => {
       socket.broadcast.emit('remove video')
 
