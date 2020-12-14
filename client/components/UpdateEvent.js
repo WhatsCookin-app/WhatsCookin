@@ -82,12 +82,13 @@ class UpdateEvent extends React.Component {
         id: this.state.id,
         name: this.state.name,
         description: this.state.description,
-        eventDate:
-          this.state.date.slice(5) +
-          '-' +
-          this.state.date.slice(0, 4) +
-          ' ' +
-          this.state.time,
+        // eventDate:
+        //   this.state.date.slice(5) +
+        //   '-' +
+        //   this.state.date.slice(0, 4) +
+        //   ' ' +
+        //   this.state.time +':00',
+        eventDate: this.state.date + ' ' + this.state.time + ':00',
         imageUrl: this.state.imageUrl,
         organizerId: this.props.event.organizerId
       },
