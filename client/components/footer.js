@@ -1,6 +1,12 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 
-const Footer = () => {
+const Footer = ({change}) => {
+  let history = useHistory()
+  if (history.location.pathname.includes('get-cookin')) {
+    history.location.pathname.match('[0-9]$') ? change(true) : change(false)
+  }
+
   return (
     <footer className="footer mt-auto py-3 bg-dark">
       <div className="">
