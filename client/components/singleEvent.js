@@ -41,14 +41,15 @@ const SingleEvent = ({event, user, handleClick}) => {
             )}
             <Link
               to={{
-                pathname: `/home/get-cookin/${event.roomId}`,
+                pathname: `/home/get-cookin/${event.roomId}/${event.id}`,
                 state: {name: event.name, description: event.description}
               }}
+              target="_blank"
             >
               <Button
                 type="button"
-                variant="info"
-                onClick={() => handleClick(event.roomId)}
+                variant="primary"
+                // onClick={() => handleClick(event.roomId)}
               >
                 Join Event
               </Button>
@@ -62,11 +63,11 @@ const SingleEvent = ({event, user, handleClick}) => {
           {new Date(event.eventDate).toLocaleTimeString()}
         </Card.Text>
         <Card.Text>
-          with{' '}
+          Hosted by{' '}
           <span className="text-kade font-weight-bold">
             @{event.organizer.userName}{' '}
           </span>{' '}
-          and{' '}
+          with{' '}
           <span className="text-kade font-weight-bold">
             @{event.guest.userName}
           </span>{' '}

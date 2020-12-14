@@ -1,11 +1,10 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .view {
   min-height: 100vh;
-  /* margin: 0rem; */
-  /* margin-left: 0.625rem; */
+  margin-bottom: 1rem;
 }
 
 div a {
@@ -28,38 +27,84 @@ nav a {
   display: inline-block;
   margin: 1em;
   color: whitesmoke;
+  border-bottom: 2px solid transparent;
 }
 
 nav a:hover {
-  color: #e63946;
-  text-decoration: none;
-  /* font-weight: bold; */
+  color: whitesmoke;
+  border-bottom-color: whitesmoke;
+}
+
+#profile-dropdown {
+  color: whitesmoke;
+}
+
+#edit-profile {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#edit-profile:hover {
+  border-bottom-color: black;
+}
+
+#my-recipes {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#my-recipes:hover {
+  border-bottom-color: black;
+}
+#logout {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#logout:hover {
+  border-bottom-color: black;
+}
+
+#live-cooking {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#live-cooking:hover {
+  border-bottom-color: black;
+}
+
+#channels-dropdown {
+  color: whitesmoke;
+}
+
+#browse {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#browse:hover {
+  border-bottom-color: black;
+}
+
+#my-channels {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#my-channels:hover {
+  border-bottom-color: black;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
-}
-/*
-#all-recipes {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-} */
-/*
-#single-recipe {
-  padding: 20px;
-} */
-
-#single-recipe a {
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 400;
-  color: green;
-}
-video {
-  max-width: 100%;
-  width: 320px;
 }
 
 #single-recipe a:hover {
@@ -70,10 +115,18 @@ video {
 }
 #img {
   border-radius: 13px;
-  border-color: rgb(219, 247, 211);
+  border-color: #fdfcfc;
   border-style: solid;
   height: 270px;
   width: 300px;
+  max-width: 100%;
+}
+#single_recipe_img {
+  border-radius: 13px;
+  border-color: #fdfcfc;
+  border-style: solid;
+  height: 570px;
+  width: 600px;
   max-width: 100%;
 }
 
@@ -151,6 +204,21 @@ video {
   height: 25rem;
 }
 
+.search-card {
+  width: 18.75rem;
+  height: 23.125rem;
+}
+
+.banner {
+  width: 52.5625rem;
+  height: 19.71875rem;
+}
+
+.channels-banner {
+  width: 45rem;
+  height: 15rem;
+}
+
 @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
   .image {
     width: 10.6875rem;
@@ -166,11 +234,21 @@ video {
 
   .recipe-card {
     width: 10.6875rem;
-    height: 16.875rem;
     box-sizing: border-box;
+    height: 20.875rem;
+  }
+
+  .search-card {
+    width: 10.6875rem;
+    height: 23.125rem;
+  }
+
+  .channels-banner {
+    max-width: 374px;
   }
 }
-@media only screen and (min-device-width: 376px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
   .image {
     width: 10.6875rem;
     height: 10.6875rem;
@@ -181,6 +259,20 @@ video {
     width: 10.6875rem;
     height: 10.6875rem;
     box-sizing: border-box;
+  }
+
+  .search-card {
+    width: 10.6875rem;
+    height: 23.125rem;
+  }
+
+  .recipe-card {
+    width: 10.6875rem;
+    height: 20.875rem;
+  }
+
+  .channels-banner {
+    max-width: 370px;
   }
 }
 
@@ -217,10 +309,6 @@ video {
   height: 3rem;
 }
 
-.banner {
-  width: 52.5625rem;
-  height: 19.71875rem;
-}
 /* 300 x 270 */
 
 @import url('https://fonts.googleapis.com/css?family=Exo:400,700');
@@ -335,4 +423,12 @@ body {
     opacity: 0;
     border-radius: 50%;
   }
+}
+
+#small {
+  width: 75%;
+}
+
+video {
+  max-width: 100%;
 }

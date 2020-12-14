@@ -1,12 +1,17 @@
 import io from 'socket.io-client'
 import store from './store'
-import {setMyVideo, setPartnerVideo, resetVideo} from './store/videos'
+import {
+  setMyVideo,
+  setPartnerVideo,
+  resetVideo,
+  removePartnerVideo
+} from './store/videos'
 import {roomId} from './components/Room'
-const socket = io(window.location.origin)
+import {fetchEvents} from './store/events'
+const socket = io(window.location.origin) //looks for the url
 let localStream
 let isCaller = false
 let rtcPeerConnection
-const users = {}
 
 const iceServers = {
   iceServers: [
@@ -42,6 +47,13 @@ function onAddStream(event) {
 
 socket.on('connect', () => {
   console.log('Connected!')
+})
+socket.on('added event', function(userId) {
+  store.dispatch(fetchEvents(userId))
+})
+
+socket.on('added event', function(userId) {
+  store.dispatch(fetchEvents(userId))
 })
 
 socket.on('created', async function(room) {
@@ -132,11 +144,20 @@ socket.on('answer', function(event) {
   console.log('remote description: ', description)
 })
 
-socket.on('closeSession', function() {
+socket.on('closeSession', function(room) {
   console.log('in client close session')
   store.dispatch(resetVideo())
   console.log('end of client socket')
+  //watch out for room
+  socket.emit('remove video', room)
+
   window.location = '/home/get-cookin'
+})
+
+socket.on('remove video', function(room) {
+  console.log('made it to client side remove video socket')
+  store.dispatch(removePartnerVideo())
+  console.log('after client side remove video socket')
 })
 
 export default socket

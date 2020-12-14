@@ -3,6 +3,8 @@ import {Button, Form} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {postRecipe} from '../store/recipe.js'
 import axios from 'axios'
+import socket from '../socket.js'
+
 
 class AddRecipe extends React.Component {
   constructor() {
@@ -16,8 +18,21 @@ class AddRecipe extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleImage = this.handleImage.bind(this)
   }
+
+  componentDidMount() {
+    socket.on('new input', inputObj => {
+      this.setState({[inputObj.name]: inputObj.value})
+    })
+  }
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+
+    console.log('target name', event.target.name)
+    console.log('target value', event.target.value)
+    const target = event.target.name
+    const value = event.target.value
+
+    socket.emit('change input', {name: target, value: value})
   }
 
   handleSubmit(event) {

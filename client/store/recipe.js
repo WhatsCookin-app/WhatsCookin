@@ -3,16 +3,11 @@ import axios from 'axios'
 // action type
 const GET_RECIPES = 'GET_RECIPES'
 const GET_RESULTS = 'GET_RESULTS'
-const GET_STATE_RECIPES = 'GET_STATE_RECIPES'
 
 const ADD_RECIPE = 'ADD_RECIPE'
 
 // initial state
 const defaultRecipe = []
-
-const getStateRecipes = () => ({
-  type: GET_STATE_RECIPES
-})
 
 // action creator
 const getRecipes = recipes => ({
@@ -83,8 +78,6 @@ export const postRecipe = newRecipe => {
 // reducer
 export default function(state = defaultRecipe, action) {
   switch (action.type) {
-    case GET_STATE_RECIPES:
-      return state.recipes
     case GET_RECIPES:
       return action.recipes
     case GET_RESULTS:

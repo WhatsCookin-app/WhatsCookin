@@ -2,7 +2,7 @@ import React from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {connect} from 'react-redux'
-import {Modal, OverlayTrigger, Tooltip, Carousel} from 'react-bootstrap'
+import {Modal, OverlayTrigger, Tooltip, Carousel, Button} from 'react-bootstrap'
 import {SingleEvent} from './index'
 import {fetchEvents} from '../store/events'
 import {postEvent} from '../store/events.js'
@@ -18,16 +18,16 @@ class EventsPage extends React.Component {
       show: false
     }
     this.handleClose = this.handleClose.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getEvents(this.props.user.id)
   }
 
-  handleClick(roomId) {
-    socket.emit('create or join', roomId)
-  }
+  // handleClick(roomId) {
+  //   socket.emit('create or join', roomId)
+  // }
 
   handleClose() {
     this.setState({show: false})
@@ -81,22 +81,20 @@ class EventsPage extends React.Component {
             <h1 className="mr-3">
               GetCookin by inviting friends to a video chat virtual meet up!
             </h1>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip name="Tool Tip">Schedule an Event</Tooltip>}
-            >
-              <FontAwesomeIcon
-                icon={faPlus}
+            <div className="d-flex justify-content-end ">
+              <Button
                 onClick={() => this.setState({show: true})}
-                className="cursor ml-5 mt-3 text-info"
-                size="lg"
-              />
-            </OverlayTrigger>
+                className=""
+                variant="success"
+              >
+                Schedule an Event
+              </Button>
+            </div>
           </div>
           <div className="text-center mt-5">
             <p>
-              You currently have no events scheduled. Click the plus icon to
-              start.
+              You currently have no events scheduled. Click the Schedule an
+              Event button to start.
             </p>
           </div>
 
@@ -152,26 +150,34 @@ class EventsPage extends React.Component {
             </Carousel.Item>
           </Carousel>
         </div>
-        <OverlayTrigger
-          placement="top"
-          overlay={<Tooltip name="Tool Tip">Schedule an Event</Tooltip>}
-        >
-          <FontAwesomeIcon
-            icon={faPlus}
-            onClick={() => this.setState({show: true})}
-            className="cursor ml-5 mt-3 text-info"
-            size="lg"
-          />
-        </OverlayTrigger>
+        <div className="d-flex m-3 justify-content-between">
+          <h1>
+            You have {events.length} upcoming live cooking{' '}
+            {events.length === 1 ? 'event' : 'events'}:{' '}
+          </h1>
+          <div className="d-flex justify-content-end ">
+            <Button
+              onClick={() => this.setState({show: true})}
+              className=""
+              variant="success"
+            >
+              Schedule an Event
+            </Button>
+          </div>
+        </div>
         <div className="d-flex flex-wrap justify-content-center align-items-center">
           {events &&
-            events.map(element => (
-              <SingleEvent
-                key={element.id}
-                event={element}
-                handleClick={this.handleClick}
-              />
-            ))}
+            events
+              .sort(function(a, b) {
+                return a - b
+              })
+              .map(element => (
+                <SingleEvent
+                  key={element.id}
+                  event={element}
+                  handleClick={this.handleClick}
+                />
+              ))}
         </div>
 
         <div>
