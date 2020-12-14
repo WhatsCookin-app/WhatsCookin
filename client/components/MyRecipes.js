@@ -8,8 +8,8 @@ import {
 } from '../store/single-channel'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faHeart} from '@fortawesome/free-solid-svg-icons'
-import {Modal, Card} from 'react-bootstrap'
+import {faHeart, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {Modal, Card, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {SingleChannel, AddRecipe} from './index'
 
 class MyRecipes extends React.Component {
@@ -37,7 +37,24 @@ class MyRecipes extends React.Component {
     const recipes = this.props.recipes
     return (
       <div id="all-recipes" className="flex-column view">
-        <h1>My Recipes</h1>
+        <div className="d-flex align-items-center justify-content-between mr-5">
+          <div>
+            <h1>My Recipes</h1>
+          </div>
+
+          <div className="d-flex flex-wrap justify-content-center align-items-center ">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip name="Tool Tip">Add a Recipe</Tooltip>}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                onClick={this.handleAddRecipe}
+                className="cursor mr-3"
+              />
+            </OverlayTrigger>
+          </div>
+        </div>
         <div className="d-flex flex-wrap justify-content-center align-items-center ">
           {recipes &&
             recipes.map(element => {
