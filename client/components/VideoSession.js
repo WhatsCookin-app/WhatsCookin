@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef} from 'react'
 import {useParams, useLocation} from 'react-router'
 import {connect} from 'react-redux'
 import socket from '../socket'

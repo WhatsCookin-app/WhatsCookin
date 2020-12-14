@@ -49,6 +49,15 @@ nav a:hover {
   border-bottom-color: black;
 }
 
+#my-recipes {
+  color: black;
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+}
+
+#my-recipes:hover {
+  border-bottom-color: black;
+}
 #logout {
   color: black;
   margin-top: 0.125rem;
