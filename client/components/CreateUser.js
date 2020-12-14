@@ -48,68 +48,78 @@ class CreateUser extends Component {
   render() {
     const {error} = this.props
     return (
-      <Form>
-        <Form.Group
-          controlId="formBasicEmail"
-          className="view"
-          onChange={this.handleChange}
-          name="signup"
-        >
-          <Form.Label>Email address</Form.Label>
-          <Form.Control name="email" type="email" placeholder="Enter email" />
-        </Form.Group>
-        <Form.Group controlId="firstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            name="firstName"
-            type="firstName"
-            placeholder="First Name"
-          />
-        </Form.Group>
-        <Form.Group controlId="lastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            name="lastName"
-            type="lastName"
-            placeholder="Last Name"
-          />
-        </Form.Group>
-        <Form.Group controlId="userName">
-          <Form.Label>User Name </Form.Label>
-          <Form.Control
-            name="userName"
-            type="userName"
-            placeholder="User Name"
-          />
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password </Form.Label>
-          <Form.Control
-            name="password"
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Group>
-        <Form.Group controlId="Upload Image">
-          <Form.Label>Profile Picture </Form.Label>
-          <UploadImage setImageUrl={this.setProfilePicture} />
-        </Form.Group>
+      <div className="m-5 view d-flex flex-column">
         <div>
-          <Button type="submit" onClick={this.handleSubmit}>
-            Sign Up
-          </Button>
+          <h1> Sign up for WhatsCookin below: </h1>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
-        <a href="/auth/google" className="text-kade">
-          Sign Up with Google
-        </a>
-        <p>
-          Already have an account?{' '}
-          <a href="/login" className="text-kade">
-            Login here!
-          </a>
-        </p>
-      </Form>
+        <div>
+          <Form>
+            <Form.Group
+              controlId="formBasicEmail"
+              onChange={this.handleChange}
+              name="signup"
+            >
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+              />
+            </Form.Group>
+            <Form.Group controlId="firstName">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                name="firstName"
+                type="firstName"
+                placeholder="First Name"
+              />
+            </Form.Group>
+            <Form.Group controlId="lastName">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                name="lastName"
+                type="lastName"
+                placeholder="Last Name"
+              />
+            </Form.Group>
+            <Form.Group controlId="userName">
+              <Form.Label>User Name </Form.Label>
+              <Form.Control
+                name="userName"
+                type="userName"
+                placeholder="User Name"
+              />
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Password </Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Group>
+            <Form.Group controlId="Upload Image">
+              <Form.Label>Profile Picture </Form.Label>
+              <UploadImage setImageUrl={this.setProfilePicture} />
+            </Form.Group>
+            <div>
+              <Button type="submit" onClick={this.handleSubmit}>
+                Sign Up
+              </Button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+            <a href="/auth/google" className="text-kade">
+              Sign Up with Google
+            </a>
+            <p>
+              Already have an account?{' '}
+              <a href="/login" className="text-kade">
+                Login here!
+              </a>
+            </p>
+          </Form>
+        </div>
+      </div>
     )
   }
 }
