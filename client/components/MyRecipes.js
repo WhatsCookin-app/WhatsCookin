@@ -125,6 +125,8 @@ class MyRecipes extends React.Component {
             <AddRecipe
               close={this.handleClose}
               channelId={this.state.channelId}
+              source="myRecipes"
+              userId={this.props.user.id}
             />
           </Modal>
         </div>
