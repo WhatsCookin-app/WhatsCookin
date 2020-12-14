@@ -14,7 +14,7 @@ import {
   faTimesCircle,
   faPlus
 } from '@fortawesome/free-solid-svg-icons'
-import {AddUser} from './index'
+import {AddUser, LeaveChannel} from './index'
 import {removeUsers} from '../store/profiles'
 
 //would be great to allow users to upload their own images here from their devices for image url
@@ -111,6 +111,7 @@ class SingleChannel extends React.Component {
               ) : (
                 ''
               )}
+              <LeaveChannel channelId={thisChannel.id} />
             </div>
           </div>
           {this.state.show ? (

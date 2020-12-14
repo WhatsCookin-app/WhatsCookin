@@ -4,6 +4,7 @@ const {channelUser, Channel, Recipe} = require('../db/models')
 module.exports = router
 const Sequelize = require('sequelize')
 const User = require('../db/models/user')
+const isUserMiddleware = require('./isUserMiddleware')
 
 //Get all of a User's Channels with the Channel eager loaded
 //likely dont need the isUserMiddleware
@@ -186,6 +187,22 @@ router.put('/join/:channelId', async (req, res, next) => {
 // })
 
 // delete a channel
+
+router.delete('/leave/:channelId', async (req, res, next) => {
+  try {
+    const channel = await channelUser.findOne({
+      where: {
+        userId: req.user.id,
+        channelId: req.params.channelId
+      }
+    })
+
+    await channel.destroy()
+    res.json('Channel deleted')
+  } catch (err) {
+    next(err)
+  }
+})
 router.delete('/:channelId', async (req, res, next) => {
   try {
     const userId = req.user.id
