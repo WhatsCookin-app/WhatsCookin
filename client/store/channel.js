@@ -1,9 +1,10 @@
 import axios from 'axios'
+import history from '../history'
 
 // action type
 const GET_CHANNELS = 'GET_CHANNELS'
 const GET_RESULTS_CHANNEL = 'GET_RESULTS_CHANNEL'
-
+const LEAVE_CHANNEL = 'LEAVE_CHANNEL'
 const ADD_CHANNEL = 'ADD_CHANNEL'
 
 // initial state
@@ -49,6 +50,18 @@ export const createChannel = channel => {
     try {
       await axios.post(`/api/channels`, channel)
       dispatch(fetchChannels())
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const leaveChannel = channelId => {
+  return async dispatch => {
+    try {
+      await axios.delete(`/api/channels/leave/${channelId}`)
+      dispatch({type: LEAVE_CHANNEL})
+      history.push('/channels')
     } catch (error) {
       console.log(error)
     }
