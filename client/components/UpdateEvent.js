@@ -97,6 +97,8 @@ class UpdateEvent extends React.Component {
   }
 
   render() {
+    console.log('state date: ', this.state.date)
+    console.log('state time: ', this.state.time)
     return (
       <Modal show={this.props.show} onHide={this.props.handleClose}>
         <Modal.Header closeButton>
