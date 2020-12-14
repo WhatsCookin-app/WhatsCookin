@@ -112,6 +112,7 @@ class Recipes extends React.Component {
             <AddRecipe
               close={this.handleClose}
               channelId={this.props.match.params.channelId}
+              source="channel"
             />
           </Modal>
         </div>

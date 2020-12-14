@@ -17,6 +17,17 @@ export const fetchMyRecipes = userId => {
     }
   }
 }
+
+export const postMyRecipe = (newRecipe, userId) => {
+  return async dispatch => {
+    try {
+      await axios.post('/api/recipes', newRecipe)
+      dispatch(fetchMyRecipes(userId))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 const defaultRecipe = []
 
 // reducer
