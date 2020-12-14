@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Footer} from './components'
 import Routes from './routes'
 import '../public/App.scss'
 
 const App = () => {
+  const [background, setBackground] = useState(false)
   return (
-    <div className="bg-light">
+    <div className={!background ? 'bg-light' : 'bg-dark'}>
       <Routes />
-      <Footer />
+      <Footer change={setBackground} />
     </div>
   )
 }
