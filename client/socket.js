@@ -7,6 +7,7 @@ import {
   removePartnerVideo
 } from './store/videos'
 import {roomId} from './components/Room'
+import {fetchEvents} from './store/events'
 const socket = io(window.location.origin)
 let localStream
 let isCaller = false
@@ -47,6 +48,9 @@ function onAddStream(event) {
 
 socket.on('connect', () => {
   console.log('Connected!')
+})
+socket.on('added event', function(userId) {
+  store.dispatch(fetchEvents(userId))
 })
 
 socket.on('created', async function(room) {

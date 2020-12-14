@@ -19,7 +19,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCog, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {withRouter} from 'react-router'
 import check from '../mobileCheck'
-import MobileNavbar from './mobileNavbar'
+import {MobileNavbar, VideoNavbar} from './index'
 
 window.mobileCheck = check
 
@@ -65,7 +65,7 @@ class NavCopy extends Component {
     const path = this.props.location.pathname
     console.log('keyword: ', this.state.keyWord)
     if (this.props.videos.myVideo && this.props.videos.myVideo.id)
-      return <div />
+      return <VideoNavbar />
 
     if (check()) return <MobileNavbar />
     return (
