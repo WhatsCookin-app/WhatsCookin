@@ -122,13 +122,12 @@ class VideoSession extends React.Component {
                 <h1>Upload a Recipe Together</h1>
                 <p className="m-0">
                   Feel free to collaborate on writting a recipe together. When
-                  submitting, make sure that each of you chooses asigns a
-                  channel for this recipe if you both wish to upload it to your
-                  personal channels, or have one person submit. If you want to
-                  upload an image as well, make sure to upload your own images
-                  and submit individually. You can always leave the photo blank,
-                  and edit your masterpiece later under your profile's My
-                  Recipes view.
+                  submitting, make sure that each of you choose a channel for
+                  this recipe if you both wish to upload it to your personal
+                  channels, or have one person submit. If you want to upload an
+                  image as well, make sure to upload your own images and submit
+                  individually. You can always leave the photo blank, and edit
+                  your masterpiece later under your profile's My Recipes view.
                 </p>
                 <SelectChannel
                   channels={this.props.channels}
