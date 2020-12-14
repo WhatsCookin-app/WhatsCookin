@@ -3,8 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import axios from 'axios'
-import {Form} from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
