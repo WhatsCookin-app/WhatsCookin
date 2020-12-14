@@ -1,3 +1,5 @@
+import Axios from 'axios'
+
 const initialVideo = {
   myVideo: {},
   partnersVideo: {},
