@@ -4,38 +4,39 @@ import {fetchStateRecipes, fetchResults} from '../store/recipe.js'
 import {Link} from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
-import {Button, Form, Modal} from 'react-bootstrap'
+import {Button, Form, Modal, Card} from 'react-bootstrap'
 import {withRouter} from 'react-router'
 import searchStr from '../store/searchStr.js'
 
 class SearchResults extends React.Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     searchstr: ''
-  //   }
-  // }
   componentDidMount() {
-    // this.setState({searchStr: this.props.location.state.searchStr})
     console.log('in componentDidMount!')
     console.log('searchStr: ', this.props.searchStr)
     this.props.getResults(this.props.searchStr)
   }
   render() {
-    // const recipes = this.state.recipes
     const recipes = this.props.recipes
-    // console.log('history searchstr: ',this.props.history.location.state.searchStr)
     console.log('recipes props: ', this.props.recipes)
-    // console.log('recipes state: ', this.state.recipes)
     if (!recipes.length) {
-      return <h1>No results for your search, try a different key word</h1>
+      return (
+        <div className="view d-flex justify-content-center align-items-center">
+          <h1>No results for your search, try a different key word</h1>
+        </div>
+      )
     }
     return (
-      <div>
-        {recipes &&
-          recipes.map(element => {
+      <div className="d-flex flex-column view">
+        <p className="ml-3 mt-3">
+          Showing {recipes.length} {recipes.length > 1 ? 'results:' : 'result:'}
+        </p>
+        <div className="d-flex flex-wrap justify-content-center align-items-center">
+          {recipes.map(element => {
             return (
-              <div key={element.id} id="single-recipe">
+              <Card
+                key={element.id}
+                className="search-card m-2 border-light"
+                bg="transparent"
+              >
                 <Link
                   to={{
                     pathname: `/home/recipes/${element.id}`,
@@ -44,12 +45,28 @@ class SearchResults extends React.Component {
                     }
                   }}
                 >
-                  <img src={element.imageUrl} id="img" />
-                  <div id="recipe-info">{element.name}</div>
+                  <Card.Img
+                    src={element.imageUrl}
+                    className="recipe-image rounded"
+                  />
                 </Link>
-              </div>
+
+                <Card.Title className="text-info mt-1 mb-0">
+                  {element.name}
+                </Card.Title>
+                <Card.Text className="text-info mb-0">
+                  by {element.owner.firstName} {element.owner.lastName} |{' '}
+                  <span className="text-kade font-weight-bold">
+                    @{element.owner.userName}
+                  </span>{' '}
+                </Card.Text>
+                <Card.Text className="text-info">
+                  From the {element.channels[0].name} Channel
+                </Card.Text>
+              </Card>
             )
           })}
+        </div>
       </div>
     )
   }
@@ -65,7 +82,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     // getStateRecipes: () => dispatch(fetchStateRecipes()),
-    getResults: searchStr => dispatch(fetchResults(searchStr))
+    getResults: str => dispatch(fetchResults(str))
   }
 }
 

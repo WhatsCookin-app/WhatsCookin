@@ -11,11 +11,12 @@ import {
 } from '../store/singleRecipe.js'
 import Loader from 'react-loader-spinner'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faEdit} from '@fortawesome/free-solid-svg-icons'
+import {faEdit, faHeart} from '@fortawesome/free-solid-svg-icons'
 import {Button, Form, Modal} from 'react-bootstrap'
 import NotFound from './notFound'
 import channel from '../store/channel.js'
 import {withRouter} from 'react-router-dom'
+import EditRecipeImg from './EditRecipeImg'
 
 class SingleRecipe extends Component {
   constructor(props) {
@@ -24,10 +25,12 @@ class SingleRecipe extends Component {
       nameEdit: false,
       ingredientEdit: false,
       instructionEdit: false,
+      imgEdit: false,
       name: '',
       ingredients: '',
       instructions: '',
       likes: 0,
+      liked: false,
       show: false
     }
     this.handleClose = this.handleClose.bind(this)
@@ -48,16 +51,20 @@ class SingleRecipe extends Component {
       show: false,
       nameEdit: false,
       ingredientEdit: false,
-      instructionEdit: false
+      instructionEdit: false,
+      imgEdit: false
     })
   }
 
   async handleClick() {
-    const newLikes = this.state.likes + 1
-    this.setState({likes: newLikes})
-    await this.props.updateRecipe(this.props.match.params.recipeId, {
-      likes: newLikes
-    })
+    if (!this.state.liked) {
+      console.log('not liked')
+      const newLikes = this.state.likes + 1
+      this.setState({likes: newLikes, liked: true})
+      await this.props.updateRecipe(this.props.match.params.recipeId, {
+        likes: newLikes
+      })
+    }
   }
 
   handleDelete() {
@@ -117,8 +124,11 @@ class SingleRecipe extends Component {
       )
     }
     return (
-      <div className="m-3">
-        <div id="editButton">
+      <div className="d-flex flex-column justify-content-center align-items-center m-5">
+        <div
+          id="editButton"
+          className="d-flex justify-content-center align-items-center"
+        >
           <h5 className="headline">
             {this.props.singleRecipe.name}&nbsp;&nbsp;
           </h5>
@@ -126,17 +136,18 @@ class SingleRecipe extends Component {
           this.props.user.id === this.props.singleRecipe.ownerId ? (
             <FontAwesomeIcon
               icon={faEdit}
+              className="cursor mr-3"
               style={{color: 'blue'}}
               onClick={() => {
                 this.setState({nameEdit: true})
               }}
             />
-          ) : (
-            <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
-          )}
+          ) : null}
         </div>
         <Modal show={this.state.nameEdit} onHide={this.handleClose}>
-          <Modal.Header closeButton />
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Name</Modal.Title>
+          </Modal.Header>
           <Form>
             <Form.Group controlId="name">
               <Form.Label>Recipe Name</Form.Label>
@@ -155,22 +166,50 @@ class SingleRecipe extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <div id="editButton">
-          <i
-            className="fas fa-heart cursor"
-            style={{color: 'red'}}
-            onClick={this.handleClick}
-          />
+        <div className="d-flex justify-content-center align-items-center">
+          <div>
+            <FontAwesomeIcon
+              icon={faHeart}
+              className="cursor text-navbar mb-2 mr-1"
+              onClick={this.handleClick}
+            />
+          </div>
 
-          <h5 className="authorline">
-            &nbsp;likes:{this.state.likes}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </h5>
+          <p className="text-muted">{this.state.likes}</p>
 
-          <h5 className="authorline">
-            Recipe created by: {this.props.singleRecipe.owner.userName}
-          </h5>
+          <h3 className="authorline">
+            Recipe created by:{' '}
+            <span className="text-navbar font-weight-bold">
+              @{this.props.singleRecipe.owner.userName}
+            </span>
+          </h3>
         </div>
-        <img src={this.props.singleRecipe.imageUrl} id="img" />
+
+        <div id="editButton">
+          <img src={this.props.singleRecipe.imageUrl} id="single_recipe_img" />
+
+          {this.props.user.id &&
+          this.props.user.id === this.props.singleRecipe.ownerId ? (
+            <FontAwesomeIcon
+              icon={faEdit}
+              className="cursor mr-3"
+              style={{color: 'blue'}}
+              onClick={() => {
+                this.setState({imgEdit: true})
+              }}
+            />
+          ) : null}
+        </div>
+        <Modal show={this.state.imgEdit} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Image</Modal.Title>
+          </Modal.Header>
+          <EditRecipeImg
+            updateRecipe={this.props.updateRecipe}
+            singleRecipe={this.props.singleRecipe}
+            handleClose={this.handleClose}
+          />
+        </Modal>
 
         <div>
           <div>
@@ -180,14 +219,13 @@ class SingleRecipe extends Component {
               this.props.user.id === this.props.singleRecipe.ownerId ? (
                 <FontAwesomeIcon
                   icon={faEdit}
+                  className="cursor mr-3"
                   style={{color: 'blue'}}
                   onClick={() => {
                     this.setState({ingredientEdit: true})
                   }}
                 />
-              ) : (
-                <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
-              )}
+              ) : null}
             </div>
             <h5>
               {this.props.singleRecipe.ingredients
@@ -203,7 +241,9 @@ class SingleRecipe extends Component {
             </h5>
           </div>
           <Modal show={this.state.ingredientEdit} onHide={this.handleClose}>
-            <Modal.Header closeButton />
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Ingredients</Modal.Title>
+            </Modal.Header>
             <Form>
               <Form.Group controlId="ingredients">
                 <Form.Label>Ingredients</Form.Label>
@@ -232,14 +272,13 @@ class SingleRecipe extends Component {
             this.props.user.id === this.props.singleRecipe.ownerId ? (
               <FontAwesomeIcon
                 icon={faEdit}
+                className="cursor mr-3"
                 style={{color: 'blue'}}
                 onClick={() => {
                   this.setState({instructionEdit: true})
                 }}
               />
-            ) : (
-              <FontAwesomeIcon icon={faEdit} style={{color: 'grey'}} />
-            )}
+            ) : null}
           </div>
           <h5>
             {this.props.singleRecipe.instructions
@@ -254,7 +293,9 @@ class SingleRecipe extends Component {
           </h5>
         </div>
         <Modal show={this.state.instructionEdit} onHide={this.handleClose}>
-          <Modal.Header closeButton />
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Instructions</Modal.Title>
+          </Modal.Header>
           <Form>
             <Form.Group controlId="instructions">
               <Form.Label>Instructions</Form.Label>
@@ -287,11 +328,7 @@ class SingleRecipe extends Component {
           >
             Delete recipe
           </Button>
-        ) : (
-          <Button variant="danger" type="submit" size="sm" disabled>
-            Delete recipe
-          </Button>
-        )}
+        ) : null}
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title />

@@ -27,12 +27,18 @@ router.get('/search', async (req, res, next) => {
           }
         ]
       },
-      include: {
-        model: Channel,
-        where: {
-          isPrivate: false
+      include: [
+        {
+          model: Channel,
+          where: {
+            isPrivate: false
+          }
+        },
+        {
+          model: User,
+          as: 'owner'
         }
-      }
+      ]
     })
     res.json(recipes)
   } catch (err) {

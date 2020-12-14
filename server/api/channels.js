@@ -4,6 +4,7 @@ const {channelUser, Channel, Recipe} = require('../db/models')
 module.exports = router
 const Sequelize = require('sequelize')
 const User = require('../db/models/user')
+const isUserMiddleware = require('./isUserMiddleware')
 
 //Get all of a User's Channels with the Channel eager loaded
 //likely dont need the isUserMiddleware
@@ -82,6 +83,19 @@ router.get('/:channelId', async (req, res, next) => {
 })
 
 // get all recipes of a channel
+// watchout for bug!!!!! include:
+// include: [
+//   {
+//     model: Channel,
+//     where: {
+//       id: req.params.channelId
+//     }
+//   },
+//   {
+//     model: User,
+//     as: 'owner'
+//   }
+// ]
 router.get('/:channelId/recipes', async (req, res, next) => {
   try {
     const recipes = await Recipe.findAll({
@@ -103,25 +117,7 @@ router.get('/:channelId/recipes', async (req, res, next) => {
     next(err)
   }
 })
-// Get a single a User's Channels with the Channel eager loaded
-// This will only get a single channel the user is in
-// router.get('/:channelId', async (req, res, next) => {
-//   try {
-//     const user = req.user.id
-//     const channel = await channelUser.findOne({
-//       where: {
-//         userId: user,
-//         channelId: req.params.channelId,
-//       },
-//       include: Channel,
-//     })
-//     res.json(channel)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
-//Create a new channel and new channelUser associated with this channel
 router.post('/', async (req, res, next) => {
   try {
     const {name, description, imageUrl, isPrivate} = req.body
@@ -191,6 +187,22 @@ router.put('/join/:channelId', async (req, res, next) => {
 // })
 
 // delete a channel
+
+router.delete('/leave/:channelId', async (req, res, next) => {
+  try {
+    const channel = await channelUser.findOne({
+      where: {
+        userId: req.user.id,
+        channelId: req.params.channelId
+      }
+    })
+
+    await channel.destroy()
+    res.json('Channel deleted')
+  } catch (err) {
+    next(err)
+  }
+})
 router.delete('/:channelId', async (req, res, next) => {
   try {
     const userId = req.user.id

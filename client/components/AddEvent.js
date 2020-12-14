@@ -5,6 +5,7 @@ import {v4 as uuidv4} from 'uuid'
 import {Form, ListGroup, OverlayTrigger, Tooltip, Button} from 'react-bootstrap'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
+import socket from '../socket'
 
 class AddEvent extends React.Component {
   constructor() {
@@ -51,6 +52,8 @@ class AddEvent extends React.Component {
       },
       this.props.user.id
     )
+    let guest = this.props.profiles[0].id
+    socket.emit('add event', guest)
     this.props.close()
     this.props.removeUsers()
   }
@@ -118,7 +121,9 @@ class AddEvent extends React.Component {
           </Form.Group>
         ) : (
           <p style={{marginLeft: '15px'}}>
-            Invited User:&nbsp;&nbsp;&nbsp;{this.state.participant}
+            Invited User:&nbsp;&nbsp;<span className="text-kade font-weight-bold">
+              @{this.state.participant}
+            </span>
           </p>
         )}
         {this.props.profiles.length ? (
@@ -152,7 +157,7 @@ class AddEvent extends React.Component {
         this.state.date &&
         this.state.time ? (
           <Button
-            variant="success"
+            variant="primary"
             active
             type="submit"
             style={{

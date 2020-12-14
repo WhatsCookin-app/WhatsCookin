@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, channelUser, Event} = require('../db/models')
+const {User, channelUser, Event, Recipe} = require('../db/models')
 const isUserMiddleware = require('./isUserMiddleware')
 const Sequelize = require('sequelize')
 const nodemailer = require('nodemailer')
@@ -124,6 +124,8 @@ router.get('/:id/events', async (req, res, next) => {
   }
 })
 
+//we have to mount it on state
+// router.get('/:id/events/:eventId', async)
 router.post('/:id/events', async (req, res, next) => {
   try {
     const {
@@ -163,6 +165,15 @@ router.post('/:id/events', async (req, res, next) => {
 router.put('/events/:eventId', async (req, res, next) => {
   try {
     console.log(req.params.eventId)
+    console.log('req body: ', req.body)
+    console.log('original time: ', req.body.eventDate)
+    console.log(
+      'converted time update: ',
+      moment.utc(moment.tz(req.body.eventDate, 'America/New_York')).format()
+    )
+    req.body.eventDate = moment
+      .utc(moment.tz(req.body.eventDate, 'America/New_York'))
+      .format()
     let updatedEvent = await Event.update(req.body, {
       where: {
         id: req.params.eventId
@@ -255,6 +266,43 @@ router.delete('/events/:eventId', async (req, res, next) => {
       err.status = 401
       return next(err)
     }
+  } catch (err) {
+    next(err)
+  }
+})
+
+//get a user's recipes
+router.get('/:id/recipes', async (req, res, next) => {
+  try {
+    const recipes = await Recipe.findAll({
+      where: {
+        ownerId: req.params.id
+      }
+    })
+    res.json(recipes)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:roomId/video/event', async (req, res, next) => {
+  try {
+    const event = await Event.findOne({
+      where: {
+        roomId: req.params.roomId
+      },
+      include: [
+        {
+          model: User,
+          as: 'organizer'
+        },
+        {
+          model: User,
+          as: 'guest'
+        }
+      ]
+    })
+    res.json(event)
   } catch (err) {
     next(err)
   }
