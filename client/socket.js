@@ -21,7 +21,7 @@ const iceServers = {
 }
 
 const constraints = {
-  video: {facingMode: 'user'},
+  video: true,
   // Uncomment to enable audio
   audio: true
 }
@@ -59,7 +59,7 @@ socket.on('added event', function(userId) {
 socket.on('created', async function(room) {
   //will run for the first person in the room
   try {
-    console.log('created!!!!!!')
+    console.log('created!!!!!!', constraints)
     const stream = await navigator.mediaDevices.getUserMedia(constraints)
     localStream = stream
     isCaller = true
