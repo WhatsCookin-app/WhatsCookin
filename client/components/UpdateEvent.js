@@ -79,6 +79,7 @@ class UpdateEvent extends React.Component {
     // let date = this.state.date && this.state.time ? (this.state.date + ' ' + this.state.time + ':00') : this.state.date ? (this.state.date + ' '
     let eventDate = this.state.date + ' ' + this.state.time + ':00'
     eventDate = eventDate.slice(0, 19)
+
     this.props.updateEvent(
       {
         id: this.state.id,

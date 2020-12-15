@@ -21,13 +21,13 @@ async function seed() {
       email: 'becoming@hotmail.com',
       password: 'barack'
     },
-    {
-      firstName: 'Kade',
-      lastName: 'Cahe',
-      userName: 'Kadecahe',
-      email: 'kade@gmail.com',
-      password: '1234567'
-    },
+    // {
+    //   firstName: 'Kade',
+    //   lastName: 'Cahe',
+    //   userName: 'Kadecahe',
+    //   email: 'kade@gmail.com',
+    //   password: '1234567'
+    // },
     {
       firstName: 'Mikyla',
       lastName: 'Zhang',

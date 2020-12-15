@@ -1,5 +1,4 @@
 import axios from 'axios'
-import channel from './channel'
 
 //action types
 const GOT_BROWSE_CHANNELS = 'GOT_BROWSE_CHANNELS'

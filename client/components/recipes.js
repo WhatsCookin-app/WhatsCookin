@@ -51,7 +51,7 @@ class Recipes extends React.Component {
             handleAddRecipe={this.handleAddRecipe}
           />
         </div>
-        <div className="d-flex flex-wrap justify-content-center align-items-center ">
+        <div className="d-flex flex-wrap justify-content-center align-items-center">
           {recipes &&
             recipes.map(element => {
               return (
@@ -112,6 +112,7 @@ class Recipes extends React.Component {
             <AddRecipe
               close={this.handleClose}
               channelId={this.props.match.params.channelId}
+              source="channel"
             />
           </Modal>
         </div>

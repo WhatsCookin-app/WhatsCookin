@@ -85,7 +85,7 @@ class EventsPage extends React.Component {
               <Button
                 onClick={() => this.setState({show: true})}
                 className=""
-                variant="success"
+                variant="primary"
               >
                 Schedule an Event
               </Button>
@@ -159,7 +159,7 @@ class EventsPage extends React.Component {
             <Button
               onClick={() => this.setState({show: true})}
               className=""
-              variant="success"
+              variant="primary"
             >
               Schedule an Event
             </Button>
