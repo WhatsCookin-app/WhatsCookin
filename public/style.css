@@ -140,6 +140,8 @@ form div {
 #editButton {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  /* align-items: center */
 }
 .section-headline {
   color: rgba(0, 0, 0, 0.95);
@@ -443,4 +445,29 @@ body {
 
 video {
   max-width: 100%;
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  video {
+    max-width: 800px;
+  }
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+  video {
+    max-width: 600px;
+  }
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+  video {
+    max-width: 212px;
+  }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  video {
+    max-width: 187px;
+  }
 }
