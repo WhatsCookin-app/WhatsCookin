@@ -81,7 +81,7 @@ class VideoSession extends React.Component {
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex flex-column">
             <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
-              <div>
+              <div id="localVideoDiv">
                 <video
                   id="localVideo"
                   autoPlay
@@ -90,7 +90,7 @@ class VideoSession extends React.Component {
                   ref={this.userVideo}
                 />
               </div>
-              <div>
+              <div id="remoteVideoDiv">
                 {/* remove muted */}
                 {this.props.videos.partnersVideo &&
                 this.props.videos.partnersVideo.id ? (
