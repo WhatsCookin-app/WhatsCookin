@@ -9,7 +9,7 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 view">
       <div className="area">
         <ul className="circles">
           <li>

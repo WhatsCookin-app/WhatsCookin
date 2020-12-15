@@ -125,6 +125,31 @@ class SingleRecipe extends Component {
     }
     return (
       <div className="d-flex flex-column justify-content-center align-items-center m-5">
+        <div id="editButton">
+          <img src={this.props.singleRecipe.imageUrl} id="single_recipe_img" />
+
+          {this.props.user.id &&
+          this.props.user.id === this.props.singleRecipe.ownerId ? (
+            <FontAwesomeIcon
+              icon={faEdit}
+              className="cursor mr-3"
+              style={{color: 'blue'}}
+              onClick={() => {
+                this.setState({imgEdit: true})
+              }}
+            />
+          ) : null}
+        </div>
+        <Modal show={this.state.imgEdit} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Image</Modal.Title>
+          </Modal.Header>
+          <EditRecipeImg
+            updateRecipe={this.props.updateRecipe}
+            singleRecipe={this.props.singleRecipe}
+            handleClose={this.handleClose}
+          />
+        </Modal>
         <div
           id="editButton"
           className="d-flex justify-content-center align-items-center"
@@ -177,7 +202,7 @@ class SingleRecipe extends Component {
 
           <p className="text-muted">{this.state.likes}</p>
 
-          <h3 className="authorline">
+          <h3 className="authorline ml-1">
             Recipe created by:{' '}
             <span className="text-navbar font-weight-bold">
               @{this.props.singleRecipe.owner.userName}
@@ -185,46 +210,25 @@ class SingleRecipe extends Component {
           </h3>
         </div>
 
-        <div id="editButton">
-          <img src={this.props.singleRecipe.imageUrl} id="single_recipe_img" />
-
-          {this.props.user.id &&
-          this.props.user.id === this.props.singleRecipe.ownerId ? (
-            <FontAwesomeIcon
-              icon={faEdit}
-              className="cursor mr-3"
-              style={{color: 'blue'}}
-              onClick={() => {
-                this.setState({imgEdit: true})
-              }}
-            />
-          ) : null}
-        </div>
-        <Modal show={this.state.imgEdit} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Image</Modal.Title>
-          </Modal.Header>
-          <EditRecipeImg
-            updateRecipe={this.props.updateRecipe}
-            singleRecipe={this.props.singleRecipe}
-            handleClose={this.handleClose}
-          />
-        </Modal>
-
         <div>
           <div>
-            <div id="editButton">
+            <div
+              id="editButton"
+              className="d-flex justify-content-center align-items-center"
+            >
               <h5 className="section-headline">Ingredients:&nbsp;&nbsp;</h5>
               {this.props.user.id &&
               this.props.user.id === this.props.singleRecipe.ownerId ? (
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  className="cursor mr-3"
-                  style={{color: 'blue'}}
-                  onClick={() => {
-                    this.setState({ingredientEdit: true})
-                  }}
-                />
+                <div className="d-flex d-flex justify-content-center align-items-center">
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    className="cursor mr-3"
+                    style={{color: 'blue'}}
+                    onClick={() => {
+                      this.setState({ingredientEdit: true})
+                    }}
+                  />
+                </div>
               ) : null}
             </div>
             <h5>
