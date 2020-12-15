@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {Form, Image} from 'react-bootstrap'
 
 class UploadImage extends Component {
   constructor(props) {
@@ -23,22 +24,25 @@ class UploadImage extends Component {
 
   render() {
     return (
-      <div className="process">
-        <label htmlFor="profilePicture">
-          <small>Profile Picture</small>
-        </label>
-        <input
-          type="file"
-          className="process_upload-btn"
-          onChange={e => this.uploadImage(e)}
-          name="profilePicture"
-        />
-        <img
-          src={this.state.imagePreview}
-          alt="upload-image"
-          className="process_image"
-          height={100}
-        />
+      <div className="m-0">
+        <Form.Group controlId="profilePicture">
+          <Form.Label>Profile Picture</Form.Label>
+          <br />
+          <Image
+            src={this.state.imagePreview}
+            style={{width: '180px', height: '171px'}}
+            className="mb-1"
+            rounded
+            alt="upload-image"
+          />{' '}
+          <br />
+          <Form.File
+            id="profilePicture"
+            name="profilePicture"
+            className="m-0 mb-1"
+            onChange={e => this.uploadImage(e)}
+          />
+        </Form.Group>
       </div>
     )
   }

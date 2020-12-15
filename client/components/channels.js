@@ -1,7 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchChannels} from '../store/channel.js'
-import {ChannelsCarousel, PrivateChannels, PublicChannels} from './index'
+import {
+  ChannelsCarousel,
+  PrivateChannels,
+  PublicChannels,
+  BrowseChannels
+} from './index'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons'
 import {OverlayTrigger, Tooltip, ListGroup, Modal, Image} from 'react-bootstrap'
@@ -26,19 +31,29 @@ class Channels extends React.Component {
   render() {
     const channels = this.props.channels
     const bool = this.state.showAddOptions
-
-    //if (!channels.length) return <h1>Loading</h1>
+    if (!this.props.channels.length) {
+      return <BrowseChannels />
+    }
 
     return (
       <div id="flex" className="view">
         <ChannelsCarousel />
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex flex-row align-items-center">
-            <Image
-              src={this.props.user.profilePicture}
-              className="profilepic ml-3"
-              roundedCircle
-            />
+            {this.props.user.profilePicture ? (
+              <Image
+                src={this.props.user.profilePicture}
+                className="profilepic ml-3"
+                roundedCircle
+              />
+            ) : (
+              <Image
+                src="/img/chef.png"
+                className="profilepic ml-3"
+                roundedCircle
+              />
+            )}
+
             <span>
               <h1 className="ml-3">{this.props.user.userName}'s Channels</h1>
             </span>

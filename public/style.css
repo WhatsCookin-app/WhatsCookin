@@ -140,6 +140,8 @@ form div {
 #editButton {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  /* align-items: center */
 }
 .section-headline {
   color: rgba(0, 0, 0, 0.95);
@@ -167,10 +169,13 @@ form div {
   font-family: 'Source Sans Pro', Times, serif;
   font-size: 16px;
 }
-/*
-#imageUpload {
-  ="position-relative"
-} */
+
+@media only screen and (min-device-width: 376px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  #navtop {
+    box-sizing: border-box;
+  }
+}
+
 .image {
   width: 33.25rem;
   height: 33.25rem;
@@ -182,6 +187,7 @@ form div {
 .recipe-image {
   width: 18.75rem;
   height: 16.875rem;
+  box-sizing: border-box;
 }
 
 .recipe-card {
@@ -192,6 +198,7 @@ form div {
 .event-image {
   width: 38rem;
   height: 12.625rem;
+  box-sizing: border-box;
 }
 
 .event-card {
@@ -218,15 +225,18 @@ form div {
   .image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .recipe-image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .recipe-card {
     width: 10.6875rem;
+    box-sizing: border-box;
     height: 20.875rem;
   }
 
@@ -238,17 +248,25 @@ form div {
   .channels-banner {
     max-width: 374px;
   }
+
+  #profilePicture {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 410px;
+  }
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
   .image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .recipe-image {
     width: 10.6875rem;
     height: 10.6875rem;
+    box-sizing: border-box;
   }
 
   .search-card {
@@ -262,6 +280,12 @@ form div {
   }
 
   .channels-banner {
+    max-width: 370px;
+  }
+
+  profilePicture {
+    display: flex;
+    flex-wrap: wrap;
     max-width: 370px;
   }
 }
@@ -314,7 +338,7 @@ body {
 .context {
   width: 100%;
   position: absolute;
-  top: 10vh;
+  top: 20vh;
   z-index: 900;
 }
 
@@ -331,8 +355,8 @@ body {
   left: 45%;
 }
 .area {
-  background: #fff7c0;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  /* background-color: #; */
+  /* background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8); */
   width: 100%;
   height: 85vh;
 }
@@ -421,4 +445,29 @@ body {
 
 video {
   max-width: 100%;
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  video {
+    max-width: 800px;
+  }
+}
+
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+  video {
+    max-width: 600px;
+  }
+}
+
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+  video {
+    max-width: 212px;
+  }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+  video {
+    max-width: 187px;
+  }
 }
