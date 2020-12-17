@@ -22,6 +22,9 @@ If you are a new user, create an account with us or Google if you want to see Wh
 
 Returning users can simply log in to see the channels that you follow, as well as all of our pages.
 
+##More Ways to Check Out WhatsCookin
+*
+
 ## Authors
 
 [Mikyla Yufan Zhang](https://www.linkedin.com/in/mikyla-yufan-zhang-811047139/) | [Lidia De La Cruz](https://www.linkedin.com/in/lidia-de-la-cruz/) | [Kade Cahe](https://www.linkedin.com/in/kadecahe/)
