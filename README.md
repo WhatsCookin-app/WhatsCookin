@@ -8,6 +8,10 @@ As a user, you can log in via Google or create an account.
 
 <img src="https://media.giphy.com/media/FCEINuCzmAo1zoJTvZ/giphy.gif" />
 
+User can browse public recipe channels, join channels, like recipes and search for a specific recipe using the search bar.
+
+<img src="https://media.giphy.com/media/9kXdCZSyBtDMNyWqXs/giphy.gif" />
+
 ## Technologies
 
 We developed WhatsCooking with
