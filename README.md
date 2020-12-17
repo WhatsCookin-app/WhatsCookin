@@ -10,7 +10,7 @@ View a walkthrough of WhatsCooking on YouTube here.
 
 We developed WhatsCooking with
 
-## Front-end
+*Front-end
 * JavaScript
 * React
 * Redux
