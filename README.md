@@ -16,7 +16,7 @@ We developed WhatsCooking with
 * Redux
 * Bootstrap
 
-## Back-end
+**Back-end**
 * Google OAUTH
 * Node JS
 * Express
@@ -25,7 +25,7 @@ We developed WhatsCooking with
 * Faker
 * Nodemailer
 
-## Video, Images, and Time Conversion
+**Video, Images, and Time Conversion**
 * Socket.IO
 * Multer Middleware for Image Upload
 * Web RTC
