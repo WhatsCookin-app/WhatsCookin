@@ -8,7 +8,28 @@ View a walkthrough of WhatsCooking on YouTube here.
 
 ## Technologies
 
-We developed WhatsCooking with JavaScript, React, Redux, WebRTC, Bootstrap, Google OAUTH, and Socket.io.
+We developed WhatsCooking with
+
+## Front-end
+* JavaScript
+* React
+* Redux
+* Bootstrap
+
+## Back-end
+* Google OAUTH
+* Node JS
+* Express
+* Sequelize
+* Postgres
+* Faker
+* Nodemailer
+
+## Video, Images, and Time Conversion
+* Socket.IO
+* Multer Middleware for Image Upload
+* Web RTC
+* Moment.js 
 
 Our backend was created with Node.js, Express, PostgreSQL, and Sequelize, and deployed on Heroku.
 
@@ -16,7 +37,7 @@ Our backend was created with Node.js, Express, PostgreSQL, and Sequelize, and de
 
 Note: This app is not yet fully compatible with mobile devices.
 
-Visit WhatsCooping by going to our website.
+Visit WhatsCookin by going to our website.
 
 If you are a new user, create an account with us or Google if you want to see WhatsCookin.
 
