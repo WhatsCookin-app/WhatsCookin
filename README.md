@@ -18,7 +18,8 @@ User can create a private channel, create cooking event and invite other users.
 
 ## Technologies
 
-We developed WhatsCooking with
+<img src="https://media.giphy.com/media/sM9G5KBhUKMRT9aVb1/giphy.gif" />
+
 
 **Front-end**
 * JavaScript
