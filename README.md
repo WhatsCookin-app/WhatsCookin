@@ -6,6 +6,8 @@ WhatsCooking is a web app that gives you recipes from public and private channel
 
 View a walkthrough of WhatsCooking on YouTube here.
 
+<img src="https://media.giphy.com/media/XisF1BDyobIxiWIkMG/giphy.gif" />
+
 ## Technologies
 
 We developed WhatsCooking with
