@@ -31,7 +31,7 @@ We developed WhatsCooking with
 * Web RTC
 * Moment.js 
 
-Our backend was created with Node.js, Express, PostgreSQL, and Sequelize, and deployed on Heroku.
+
 
 ## Setup
 
