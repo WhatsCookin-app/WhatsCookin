@@ -1,6 +1,6 @@
 # WhatsCookin
 
-A collaborative recipe sharing and cooking app for you and your friends!
+A collaborative virtual cookbook for you and your friends!
 
 WhatsCooking is a web app that gives you recipes from public and private channels that you follow, allows you to upload your own recipes, and gives you the option to video chat with friends to make a collaborative dish. You can follow or create channels based on dietary restrictions or by meal type. You can also create private channels and invite your friends, family, and loved ones to share special recipes between your group. With our GetCooking page, you and your friends can set collaborative cooking dates where you can video chat together an upload a recipe together, if desired, once you are done. With WhatsCookin, brings the fun back to home recipes, regardless of distance.
 
