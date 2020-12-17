@@ -12,6 +12,10 @@ User can browse public recipe channels, join channels, like recipes and search f
 
 <img src="https://media.giphy.com/media/9kXdCZSyBtDMNyWqXs/giphy.gif" />
 
+User can create a private channel, create cooking event and invite other users.
+
+<img src="https://media.giphy.com/media/72MQDly4ltGXulXqu3/giphy.gif" />
+
 ## Technologies
 
 We developed WhatsCooking with
