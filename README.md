@@ -16,6 +16,11 @@ User can create a private channel, create cooking event and invite other users.
 
 <img src="https://media.giphy.com/media/72MQDly4ltGXulXqu3/giphy.gif" />
 
+User can create recipes and upload to their channels
+
+<img src="https://media.giphy.com/media/ghBjUDBsvAzB8pcdyp/giphy.gif" />
+
+
 ## Technologies
 
 <img src="https://media.giphy.com/media/sM9G5KBhUKMRT9aVb1/giphy.gif" />
