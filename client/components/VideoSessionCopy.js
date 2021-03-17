@@ -7,7 +7,6 @@ import {Button, Card} from 'react-bootstrap'
 import {fetchVideoEvent} from '../store/videoEvent'
 import {AddRecipe, SelectChannel} from './index'
 import {fetchChannels} from '../store/channel'
-
 class VideoSession extends React.Component {
   constructor(props) {
     super(props)
@@ -21,13 +20,11 @@ class VideoSession extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.close = this.close.bind(this)
   }
-
   componentDidMount() {
     socket.emit('create or join', this.props.match.params.roomId)
     this.props.getEvent(this.props.match.params.roomId)
     this.props.getChannels()
   }
-
   componentDidUpdate() {
     if (this.userVideo.current && this.props.videos.myVideo.id) {
       this.userVideo.current.srcObject = this.props.videos.myVideo
@@ -40,18 +37,15 @@ class VideoSession extends React.Component {
       this.partnerVideo.current.srcObject = this.props.videos.partnersVideo
     }
   }
-
   handleClick() {
     socket.emit('closeSession', this.props.match.params.roomId)
   }
   handleChange(event) {
     this.setState({channelId: event.target.value})
   }
-
   close() {
     this.setState({show: false})
   }
-
   render() {
     if (!this.props.videoEvent.id) {
       return null
@@ -59,7 +53,6 @@ class VideoSession extends React.Component {
     return (
       <div className="view">
         <Room roomId={this.props.match.params.roomId} />
-
         <div className="d-flex">
           <div className="m-5">
             <Card className="sm ng-light">
@@ -81,7 +74,7 @@ class VideoSession extends React.Component {
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex flex-column">
             <div className="d-flex flex-row mb-5 align-items-center justify-content-center">
-              <div>
+              <div id="localVideoDiv">
                 <video
                   id="localVideo"
                   autoPlay
@@ -90,7 +83,7 @@ class VideoSession extends React.Component {
                   ref={this.userVideo}
                 />
               </div>
-              <div>
+              <div id="remoteVideoDiv">
                 {/* remove muted */}
                 {this.props.videos.partnersVideo &&
                 this.props.videos.partnersVideo.id ? (
@@ -134,7 +127,6 @@ class VideoSession extends React.Component {
                   handleChange={this.handleChange}
                 />
               </div>
-
               <AddRecipe
                 inVideo={true}
                 channelId={this.state.channelId}
@@ -151,7 +143,6 @@ class VideoSession extends React.Component {
     )
   }
 }
-
 const mapState = state => {
   return {
     videos: state.videos,
@@ -159,10 +150,8 @@ const mapState = state => {
     channels: state.channels
   }
 }
-
 const mapDispatch = dispatch => ({
   getEvent: roomId => dispatch(fetchVideoEvent(roomId)),
   getChannels: () => dispatch(fetchChannels())
 })
-
 export default connect(mapState, mapDispatch)(VideoSession)
