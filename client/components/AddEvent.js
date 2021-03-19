@@ -6,6 +6,7 @@ import {Form, ListGroup, OverlayTrigger, Tooltip, Button} from 'react-bootstrap'
 import {postEvent} from '../store/events.js'
 import {fetchProfiles, removeUsers} from '../store/profiles'
 import socket from '../socket'
+import moment from 'moment-timezone'
 
 class AddEvent extends React.Component {
   constructor() {
@@ -48,7 +49,8 @@ class AddEvent extends React.Component {
         eventDate: this.state.date + ' ' + this.state.time + ':00',
         organizerId: this.props.user.id,
         guestId: this.props.profiles[0].id,
-        roomId: uuidv4.v4()
+        roomId: uuidv4.v4(),
+        timezone: moment.tz.guess()
       },
       this.props.user.id
     )

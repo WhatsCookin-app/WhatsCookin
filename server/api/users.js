@@ -134,23 +134,15 @@ router.post('/:id/events', async (req, res, next) => {
       eventDate,
       organizerId,
       guestId,
-      roomId
+      roomId,
+      timezone
     } = req.body
     const current_tz = moment.tz.guess()
-    console.log('my current timezone: ', moment.tz.guess())
-    console.log(
-      'example time: 2021-01-21 13:30:00: ',
-      moment.utc(moment.tz('2021-01-21 13:30:00', 'America/New_York')).format()
-    )
-    console.log('here is event time: ', eventDate)
-    console.log(
-      'convert event time: ',
-      moment.utc(moment.tz(eventDate, 'America/New_York')).format()
-    )
+
     const events = await Event.create({
       name,
       description,
-      eventDate: moment.utc(moment.tz(eventDate, 'America/New_York')).format(),
+      eventDate: moment.utc(moment.tz(eventDate, timezone)).format(),
       organizerId,
       guestId,
       roomId
@@ -164,15 +156,8 @@ router.post('/:id/events', async (req, res, next) => {
 //id is for userId but this is for updating an event
 router.put('/events/:eventId', async (req, res, next) => {
   try {
-    console.log(req.params.eventId)
-    console.log('req body: ', req.body)
-    console.log('original time: ', req.body.eventDate)
-    console.log(
-      'converted time update: ',
-      moment.utc(moment.tz(req.body.eventDate, 'America/New_York')).format()
-    )
     req.body.eventDate = moment
-      .utc(moment.tz(req.body.eventDate, 'America/New_York'))
+      .utc(moment.tz(req.body.eventDate, req.body.timezone))
       .format()
     let updatedEvent = await Event.update(req.body, {
       where: {
