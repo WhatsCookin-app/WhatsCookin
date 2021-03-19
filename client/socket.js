@@ -151,7 +151,8 @@ socket.on('closeSession', function(room) {
   //watch out for room
   socket.emit('remove video', room)
 
-  window.location = '/home/get-cookin'
+  // window.location = '/home/get-cookin'
+  window.close()
 })
 
 socket.on('remove video', function(room) {
