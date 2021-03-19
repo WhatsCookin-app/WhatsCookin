@@ -3,7 +3,7 @@ import {Modal, Form, Button} from 'react-bootstrap'
 import axios from 'axios'
 import {deleteEvent, updateEvent} from '../store/events'
 import {connect} from 'react-redux'
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 class UpdateEvent extends React.Component {
   constructor(props) {
@@ -93,7 +93,8 @@ class UpdateEvent extends React.Component {
         //   this.state.time +':00',
         eventDate: eventDate,
         imageUrl: this.state.imageUrl,
-        organizerId: this.props.event.organizerId
+        organizerId: this.props.event.organizerId,
+        timezone: moment.tz.guess()
       },
 
       this.props.user.id
