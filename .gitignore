@@ -6,3 +6,6 @@ secrets.js
 npm-debug.log
 yarn-error.log
 secrets.js
+rootCA.key
+server 2.key
+server.key
